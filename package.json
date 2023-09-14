@@ -4,7 +4,8 @@
   "description": "Simple app for managing company workers info.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "author": "Sholastix",
   "license": "ISC",
