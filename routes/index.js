@@ -1,9 +1,9 @@
 const authRoute = require('./auth');
-const employeeRoute = require('./employee');
-const userRoute = require('./user');
+const employeesRoute = require('./employees');
+const usersRoute = require('./users');
 
 module.exports = {
     authRoute,
-    employeeRoute,
-    userRoute,
+    employeesRoute,
+    usersRoute,
 };

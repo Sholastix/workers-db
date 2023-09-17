@@ -10,8 +10,8 @@ const routes = require('./routes/index');
 
 // Set the routes.
 app.use('/api/', routes.authRoute);
-app.use('/api/', routes.employeeRoute);
-app.use('/api/', routes.userRoute);
+app.use('/api/', routes.employeesRoute);
+app.use('/api/', routes.usersRoute);
 
 const APP_PORT = process.env.APP_PORT || 3000;
 
