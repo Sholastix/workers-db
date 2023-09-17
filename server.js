@@ -16,7 +16,7 @@ app.use('/api/', routes.usersRoute);
 const APP_PORT = process.env.APP_PORT || 3000;
 
 // Server start.
-app.listen(process.env.APP_PORT || 3000, () => {
+app.listen(APP_PORT, () => {
   console.log(`Server started at port ${APP_PORT}.`);
 });
 
