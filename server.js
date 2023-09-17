@@ -8,6 +8,9 @@ const connectDB = require('./config/connectDB');
 // Handle all routes in one file 'index.js' for import convinience.
 const routes = require('./routes/index');
 
+// Initialize the middleware (basically 'body-parser' functionality in express).
+app.use(express.json());
+
 // Set the routes.
 app.use('/api/', routes.authRoute);
 app.use('/api/', routes.employeesRoute);

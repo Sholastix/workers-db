@@ -27,6 +27,12 @@ const EmployeeSchema = new mongoose.Schema(
       trim: true,
     },
 
+    birthday: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
     contacts: {
       type: String,
       required: true,
