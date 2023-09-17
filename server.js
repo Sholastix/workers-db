@@ -2,26 +2,23 @@ const dotenv = require('dotenv');
 dotenv.config();
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 
-// // Handle all routes in one file 'index.js' for import convinience.
-// const routes = require('./routes/index');
+const connectDB = require('./config/connectDB');
+
+// Handle all routes in one file 'index.js' for import convinience.
+const routes = require('./routes/index');
+
+// Set the routes.
+app.use('/api/', routes.authRoute);
+app.use('/api/', routes.employeeRoute);
+app.use('/api/', routes.userRoute);
 
 const APP_PORT = process.env.APP_PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI;
 
 // Server start.
-app.listen(APP_PORT, () => {
+app.listen(process.env.APP_PORT || 3000, () => {
   console.log(`Server started at port ${APP_PORT}.`);
 });
 
 // Database connection.
-(async () => {
-  try {
-    await mongoose.connect(MONGODB_URI);
-    console.log('Database connected.')
-  } catch (err) {
-    console.error(`Connection failed: ${MONGODB_URI}`, err);
-    process.exit(1);
-  };
-})();
+connectDB();
