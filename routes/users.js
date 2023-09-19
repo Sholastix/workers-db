@@ -42,8 +42,9 @@ router.post('/users', [
 
     // Create jsonwebtoken for user.
     const jwtPayload = {
-      sub: user._id,
-      iat: Date.now(),
+      user: {
+        id: user._id,
+      }
     };
 
     const jwtSecret = process.env.JWT_SECRET;
