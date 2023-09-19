@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 const { User } = require('../models/User');
@@ -27,6 +28,8 @@ router.post('/users', [
       return res.status(400).json({ errors: [{ msg: 'User with this email already exists.' }] });
     };
 
+    // OPTIONAL: get user's image from his mail service with help of npm 'gravatar' or maybe just use 'multer' or something similar for users and employees photo.
+
     // Encrypt user's password with npm 'bcrypt'.
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -37,13 +40,23 @@ router.post('/users', [
       password: hashedPassword,
     });
 
-    if (user) {
-      console.log(user);
-      res.status(201).json({ msg: 'Registration completed successfully!', user });
+    // Create jsonwebtoken for user.
+    const jwtPayload = {
+      sub: user._id,
+      iat: Date.now(),
     };
 
-    // Step 2 (optional): get user's image from his mail service with help of npm 'gravatar'.
-    // Step 4: return jsonwebtoken.
+    const jwtSecret = process.env.JWT_SECRET;
+    const jwtLifespan = '10h';
+
+    jwt.sign(jwtPayload, jwtSecret, { expiresIn: jwtLifespan, algorithm: 'HS256' }, (err, token) => {
+      if (err) {
+        throw err;
+      } else {
+        console.log({ newUser: user, signedToken: token, expiresIn: jwtLifespan });
+        res.status(201).json({ msg: 'Registration completed successfully!', user, signedToken: token, expiresIn: jwtLifespan });
+      };
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);
