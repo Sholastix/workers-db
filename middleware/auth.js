@@ -16,6 +16,7 @@ module.exports.authMdw = async (req, res, next) => {
   // Verify token.
   try {
     const decoded = jwt.verify(token, jwtSecret);
+    // With this we can access to our user's ID in all protected routes.
     req.user = decoded.user;
     next();
   } catch (err) {
