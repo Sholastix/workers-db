@@ -1,7 +1,63 @@
 const express = require('express');
 const router = express.Router();
-const { authMdw } = require('../middleware/auth');
+const { check, validationResult } = require('express-validator');
 
-router.get('/employees', authMdw, (req, res) => res.send('Employees route!'));
+const { Employee } = require('../models/Employee');
+// const { authMdw } = require('../middleware/auth');
+
+// GET ALL EMPLOYEES.
+router.get('/employees/', async (req, res) => {
+  try {
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Server error: ${err.message}`);
+  };
+});
+
+// GET ONE SPECIFIC EMPLOYEE.
+router.get('/employees/:id', async (req, res) => res.send('GET ONE.'));
+
+// CREATE NEW EMPLOYEE.
+router.post('/employees/', [
+  check('name', 'Name is required!').notEmpty(),
+  check('surname', 'Surname is required!').notEmpty(),
+  check('gender', 'Gender is required!').notEmpty(),
+  check('birthday', 'Birthday date is required!').notEmpty(),
+  check('contacts', 'Contact info is required!').notEmpty(),
+  check('position', 'Position is required!').notEmpty(),
+  check('salary', 'Salary is required!').notEmpty(),
+  check('hired', 'Date of hire is required!').notEmpty(),
+], async (req, res) => {
+  const result = validationResult(req);
+
+  if (!result.isEmpty()) {
+    return res.status(400).json({ errors: result.array() });
+  };
+
+  const { name, surname, birthday } = req.body;
+
+  try {
+    let newEmployee = await Employee.findOne({ name, surname, birthday });
+
+    if (newEmployee) {
+      return res.status(400).json({ errors: [{ msg: 'Profile already in DB.' }] });
+    };
+
+    newEmployee = await Employee.create(req.body);
+
+    res.status(201).json({ msg: 'Profile created successfully!', newEmployee });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Server error: ${err.message}`);
+  };
+});
+
+// UPDATE INFO ABOUT SPECIFIC EMPLOYEE.
+router.put('/employees/:id', async (req, res) => res.send('UPDATE EMPLOYEE\'S INFO.'));
+
+// DELETE SPECIFIC EMPLOYEE'S PROFILE.
+router.delete('/employees/:id', async (req, res) => res.send('DELETE EMPLOYEE.'));
+
 
 module.exports = router;

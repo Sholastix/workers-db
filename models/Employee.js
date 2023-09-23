@@ -1,23 +1,16 @@
 const mongoose = require('mongoose');
 
-// A function for rounding the employee's salary value entered by the user to the nearest hundredth.
-function salarySet(value) {
-  return (Number((value * 1).toFixed(2)));
-};
-
 const EmployeeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
 
     surname: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
 
@@ -47,13 +40,13 @@ const EmployeeSchema = new mongoose.Schema(
 
     salary: {
       type: Number,
-      set: salarySet,
       required: true,
     },
 
     hired: {
       type: Date,
       default: Date.now(),
+      required: true,
     },
   },
 
