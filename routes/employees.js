@@ -3,12 +3,13 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
 const { Employee } = require('../models/Employee');
-// const { authMdw } = require('../middleware/auth');
+const { authMdw } = require('../middleware/auth');
 
 // GET ALL EMPLOYEES.
-router.get('/employees/', async (req, res) => {
+router.get('/employees/', authMdw, async (req, res) => {
   try {
-
+    const result = await Employee.find();
+    res.json(result);
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);
@@ -28,7 +29,7 @@ router.post('/employees/', [
   check('position', 'Position is required!').notEmpty(),
   check('salary', 'Salary is required!').notEmpty(),
   check('hired', 'Date of hire is required!').notEmpty(),
-], async (req, res) => {
+], authMdw, async (req, res) => {
   const result = validationResult(req);
 
   if (!result.isEmpty()) {
