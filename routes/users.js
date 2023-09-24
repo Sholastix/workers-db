@@ -5,6 +5,19 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 const { User } = require('../models/User');
+const { authMdw } = require('../middleware/auth');
+
+// GET THE LIST OF EXISTED USERS.
+router.get('/users', authMdw, async (req, res) => {
+  try {
+    // '-password' means that we return all user's info except password.
+    const getAllUsers = await User.find().select('-password');
+    res.json(getAllUsers);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error.');
+  };
+});
 
 // REGISTRATION OF THE NEW USER.
 router.post('/users', [
