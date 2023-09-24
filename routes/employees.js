@@ -63,7 +63,15 @@ router.post('/employees/', [
 });
 
 // UPDATE INFO ABOUT SPECIFIC EMPLOYEE.
-router.put('/employees/:id', async (req, res) => res.send('UPDATE EMPLOYEE\'S INFO.'));
+router.put('/employees/:id', authMdw, async (req, res) => {
+  try {
+    const updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+    res.json({ msg: 'Profile updated successfully.', updateEmployee });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Server error: ${err.message}`);
+  };
+});
 
 // DELETE SPECIFIC EMPLOYEE'S PROFILE.
 router.delete('/employees/:id', authMdw, async (req, res) => {
@@ -75,6 +83,5 @@ router.delete('/employees/:id', authMdw, async (req, res) => {
     res.status(500).send(`Server error: ${err.message}`);
   };
 });
-
 
 module.exports = router;
