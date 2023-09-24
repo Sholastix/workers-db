@@ -8,8 +8,8 @@ const { authMdw } = require('../middleware/auth');
 // GET ALL EMPLOYEES.
 router.get('/employees/', authMdw, async (req, res) => {
   try {
-    const employeesAll = await Employee.find();
-    res.json(employeesAll);
+    const getAllEmployees = await Employee.find();
+    res.json(getAllEmployees);
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);
@@ -19,8 +19,8 @@ router.get('/employees/', authMdw, async (req, res) => {
 // GET ONE SPECIFIC EMPLOYEE.
 router.get('/employees/:id', authMdw, async (req, res) => {
   try {
-    const employeeOne = await Employee.find({ _id: req.body.id });
-    res.json(employeeOne);
+    const getOneEmployee = await Employee.find({ _id: req.params.id });
+    res.json(getOneEmployee);
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);
