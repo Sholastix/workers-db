@@ -66,10 +66,10 @@ router.post('/employees/', [
 router.put('/employees/:id', async (req, res) => res.send('UPDATE EMPLOYEE\'S INFO.'));
 
 // DELETE SPECIFIC EMPLOYEE'S PROFILE.
-router.delete('/employees/:id', async (req, res) => {
+router.delete('/employees/:id', authMdw, async (req, res) => {
   try {
     const deleteOneEmployee = await Employee.deleteOne({ _id: req.params.id });
-    res.json({ msg: 'Profile successfully deleted.', deleteOneEmployee });
+    res.json({ msg: 'Profile deleted successfully.', deleteOneEmployee });
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);
