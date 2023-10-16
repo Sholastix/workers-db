@@ -5,7 +5,8 @@ const { check, validationResult } = require('express-validator');
 const { Employee } = require('../models/Employee');
 const { authMdw } = require('../middleware/auth');
 
-// GET ALL EMPLOYEES.
+// @route: GET /api/employees
+// @desc: Get profiles of all employees.
 router.get('/employees/', authMdw, async (req, res) => {
   try {
     const getAllEmployees = await Employee.find();
@@ -16,7 +17,8 @@ router.get('/employees/', authMdw, async (req, res) => {
   };
 });
 
-// GET ONE SPECIFIC EMPLOYEE.
+// @route: GET /api/employees/:id
+// @desc: Get profile of one specific employee.
 router.get('/employees/:id', authMdw, async (req, res) => {
   try {
     const getOneEmployee = await Employee.find({ _id: req.params.id });
@@ -27,7 +29,8 @@ router.get('/employees/:id', authMdw, async (req, res) => {
   };
 });
 
-// CREATE NEW EMPLOYEE.
+// @route: POST /api/employees
+// @desc: Create new employee's profile.
 router.post('/employees/', [
   check('name', 'Name is required!').notEmpty(),
   check('surname', 'Surname is required!').notEmpty(),
@@ -62,7 +65,8 @@ router.post('/employees/', [
   };
 });
 
-// UPDATE INFO ABOUT SPECIFIC EMPLOYEE.
+// @route: PUT /api/employees/:id
+// @desc: Update profile of one specific employee.
 router.put('/employees/:id', authMdw, async (req, res) => {
   try {
     const updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
@@ -73,7 +77,8 @@ router.put('/employees/:id', authMdw, async (req, res) => {
   };
 });
 
-// DELETE SPECIFIC EMPLOYEE'S PROFILE.
+// @route: DELETE /api/employees/:id
+// @desc: Delete profile of one specific employee.
 router.delete('/employees/:id', authMdw, async (req, res) => {
   try {
     const deleteOneEmployee = await Employee.deleteOne({ _id: req.params.id });
