@@ -1,5 +1,4 @@
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 const express = require('express');
 const app = express();
 
@@ -8,8 +7,10 @@ const connectDB = require('./config/connectDB');
 // Handle all routes in one file 'index.js' for import convinience.
 const routes = require('./routes/index');
 
-// Initialize the middleware (basically 'body-parser' functionality in express).
+// Initialize the middleware.
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 // Set the routes.
 app.use('/api/', routes.authRoute);

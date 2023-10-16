@@ -2,16 +2,14 @@ const mongoose = require('mongoose');
 
 const EmployeeSchema = new mongoose.Schema(
   {
-    name: {
+    fullname: {
       type: String,
       required: true,
       trim: true,
     },
 
-    surname: {
+    photo: {
       type: String,
-      required: true,
-      trim: true,
     },
 
     gender: {
