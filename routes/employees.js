@@ -32,8 +32,7 @@ router.get('/employees/:id', authMdw, async (req, res) => {
 // @route: POST /api/employees
 // @desc: Create new employee's profile.
 router.post('/employees/', [
-  check('name', 'Name is required!').notEmpty(),
-  check('surname', 'Surname is required!').notEmpty(),
+  check('fullname', 'Fullname is required!').notEmpty(),
   check('gender', 'Gender is required!').notEmpty(),
   check('birthday', 'Birthday date is required!').notEmpty(),
   check('contacts', 'Contact info is required!').notEmpty(),
@@ -47,10 +46,10 @@ router.post('/employees/', [
     return res.status(400).json({ errors: result.array() });
   };
 
-  const { name, surname, birthday } = req.body;
+  const { fullname, birthday } = req.body;
 
   try {
-    let newEmployee = await Employee.findOne({ name, surname, birthday });
+    let newEmployee = await Employee.findOne({ fullname, birthday });
 
     if (newEmployee) {
       return res.status(400).json({ errors: [{ msg: 'Profile already in DB.' }] });
