@@ -6,8 +6,7 @@ const { check, validationResult } = require('express-validator');
 
 const { User } = require('../models/User');
 
-// @route: POST /api/auth
-// @desc: User authentication.
+// USERS AUTHENTICATION AND TOKENS DISTRIBUTION.
 router.post('/auth', [
   check('email', 'Please set the valid email!').isEmail(),
   check('password', 'Password is required!').exists(),
