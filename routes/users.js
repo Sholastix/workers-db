@@ -7,7 +7,8 @@ const { check, validationResult } = require('express-validator');
 const { User } = require('../models/User');
 const { authMdw } = require('../middleware/auth');
 
-// GET THE LIST OF EXISTED USERS.
+// @route: GET /api/users
+// @desc: Get profiles of all users.
 router.get('/users', authMdw, async (req, res) => {
   try {
     // '-password' means that we return all user's info except password.
@@ -19,7 +20,8 @@ router.get('/users', authMdw, async (req, res) => {
   };
 });
 
-// REGISTRATION OF THE NEW USER.
+// @route: POST /api/users
+// @desc: Register new user.
 router.post('/users', [
   check('username', 'Username is required and must be 3 or more characters!').notEmpty().isLength({ min: 3 }),
   check('email', 'Please set the valid email!').isEmail(),
