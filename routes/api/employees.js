@@ -10,7 +10,9 @@ const { authMdw } = require('../../middleware/auth');
 router.get('/employees/', authMdw, async (req, res) => {
   try {
     const getAllEmployees = await Employee.find();
-    res.json(getAllEmployees);
+
+    console.log('MESSAGE: Profiles of all employees: ', getAllEmployees);
+    res.json({ msg: 'Profiles of all employees: ', getAllEmployees });
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);
@@ -22,7 +24,9 @@ router.get('/employees/', authMdw, async (req, res) => {
 router.get('/employees/:id', authMdw, async (req, res) => {
   try {
     const getOneEmployee = await Employee.find({ _id: req.params.id });
-    res.json(getOneEmployee);
+
+    console.log('MESSAGE: Profile of specific employee: ', getOneEmployee);
+    res.json({ msg: 'Profile of specific employee: ', getOneEmployee });
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);
@@ -57,6 +61,7 @@ router.post('/employees/', [
 
     newEmployee = await Employee.create(req.body);
 
+    console.log(`MESSAGE: Profile '${newEmployee.fullname}' created successfully!`, newEmployee);
     res.status(201).json({ msg: 'Profile created successfully!', newEmployee });
   } catch (err) {
     console.error(err);
@@ -69,7 +74,9 @@ router.post('/employees/', [
 router.put('/employees/:id', authMdw, async (req, res) => {
   try {
     const updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
-    res.json({ msg: 'Profile updated successfully.', updateEmployee });
+
+    console.log({ msg: `Profile with ID: '${req.params.id}' updated successfully.`, updateEmployee });
+    res.json({ msg: `Profile with ID: '${req.params.id}' updated successfully.`, updateEmployee });
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);
@@ -80,8 +87,17 @@ router.put('/employees/:id', authMdw, async (req, res) => {
 // @desc: Delete profile of one specific employee.
 router.delete('/employees/:id', authMdw, async (req, res) => {
   try {
+    // const deleteOneEmployee = await Employee.deleteOne({ _id: req.params.id });
     const deleteOneEmployee = await Employee.deleteOne({ _id: req.params.id });
-    res.json({ msg: 'Profile deleted successfully.', deleteOneEmployee });
+
+    // Confirming 'delete from DB' operation's success. Alternatively, we can send "GET" request to the DB again to check if this file still exists.
+    if (deleteOneEmployee.deletedCount !== 1) {
+      console.log('MESSAGE: Something went wrong! File still is in DB.');
+      return res.status(400).json({ errors: [{ msg: 'Something went wrong! File still is in DB.' }] });
+    };
+
+    console.log('MESSAGE: Profile successfully deleted from DB.');
+    res.json({ msg: 'Profile successfully deleted from DB.' });
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);

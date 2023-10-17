@@ -44,6 +44,8 @@ router.post('/auth', [
     const jwtSecret = process.env.JWT_SECRET;
     const jwtLifespan = '10h';
     const token = jwt.sign(jwtPayload, jwtSecret, { expiresIn: jwtLifespan, algorithm: 'HS256' });
+
+    console.log({ signedToken: token, expiresIn: jwtLifespan });
     res.json({ signedToken: token, expiresIn: jwtLifespan });
   } catch (err) {
     console.error(err);

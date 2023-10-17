@@ -13,7 +13,9 @@ router.get('/users', authMdw, async (req, res) => {
   try {
     // '-password' means that we return all user's info except password.
     const getAllUsers = await User.find().select('-password');
-    res.json(getAllUsers);
+
+    console.log('MESSAGE: Profiles of all users: ', getAllUsers);
+    res.json({ msg: 'Profiles of all users: ', getAllUsers });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error.');
