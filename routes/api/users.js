@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
-const { User } = require('../models/User');
-const { authMdw } = require('../middleware/auth');
+const { User } = require('../../models/User');
+const { authMdw } = require('../../middleware/auth');
 
 // @route: GET /api/users
 // @desc: Get profiles of all users.

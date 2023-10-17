@@ -7,7 +7,7 @@ const path = require('path');
 const connectDB = require('./config/connectDB');
 
 // Handle all routes in one file 'index.js' for import convinience.
-const routes = require('./routes/index');
+const routes = require('./routes/api/index');
 
 // Initialize the middleware.
 app.use(express.json());

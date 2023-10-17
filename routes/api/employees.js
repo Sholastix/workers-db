@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
-const { Employee } = require('../models/Employee');
-const { authMdw } = require('../middleware/auth');
+const { Employee } = require('../../models/Employee');
+const { authMdw } = require('../../middleware/auth');
 
 // @route: GET /api/employees
 // @desc: Get profiles of all employees.
