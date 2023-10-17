@@ -51,11 +51,12 @@ const upload = multer({
   }
 });
 
-// @route: POST /api/upload
+// @route: POST /upload
 // @desc: Files uploading.
 app.post('/upload', upload.single('image'), (req, res, next) => {
   if (req.file !== undefined) {
     console.log(`File uploaded successfully: "${req.file.destination}/${req.file.filename}".`, req.file);
+    res.send(`File uploaded successfully: "${req.file.destination}/${req.file.filename}".`); // response for "POSTMAN".
     next();
   } else {
     console.error('ERROR: There is nothing to upload!');
