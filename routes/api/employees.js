@@ -66,7 +66,8 @@ router.post('/employees/', [
     let newEmployee = await Employee.findOne({ fullname, birthday });
 
     if (newEmployee) {
-      return res.status(400).json({ errors: [{ msg: 'Profile already in DB.' }] });
+      console.log('MESSAGE: Profile for this employee already in DB.');
+      return res.status(400).json({ errors: [{ msg: 'Profile for this employee already in DB.' }] });
     };
 
     newEmployee = await Employee.create(req.body);
