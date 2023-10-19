@@ -14,6 +14,11 @@ router.get('/users', authMdw, async (req, res) => {
     // '-password' means that we return all user's info except password.
     const getAllUsers = await User.find().select('-password');
 
+    if (getAllUsers.length === 0) {
+      console.log('MESSAGE: There are no files to display.');
+      return res.status(404).json({ errors: [{ msg: 'There are no files to display.' }] });
+    };
+
     console.log('MESSAGE: Profiles of all users: ', getAllUsers);
     res.json({ msg: 'Profiles of all users: ', getAllUsers });
   } catch (err) {

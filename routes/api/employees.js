@@ -11,6 +11,11 @@ router.get('/employees/', authMdw, async (req, res) => {
   try {
     const getAllEmployees = await Employee.find();
 
+    if (getAllEmployees.length === 0) {
+      console.log('MESSAGE: There are no files to display.');
+      return res.status(404).json({ errors: [{ msg: 'There are no files to display.' }] });
+    };
+
     console.log('MESSAGE: Profiles of all employees: ', getAllEmployees);
     res.json({ msg: 'Profiles of all employees: ', getAllEmployees });
   } catch (err) {
@@ -24,6 +29,11 @@ router.get('/employees/', authMdw, async (req, res) => {
 router.get('/employees/:id', authMdw, async (req, res) => {
   try {
     const getOneEmployee = await Employee.find({ _id: req.params.id });
+
+    if (getOneEmployee.length === 0) {
+      console.log('MESSAGE: File not found.');
+      return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
+    };
 
     console.log('MESSAGE: Profile of specific employee: ', getOneEmployee);
     res.json({ msg: 'Profile of specific employee: ', getOneEmployee });
@@ -74,6 +84,11 @@ router.post('/employees/', [
 router.put('/employees/:id', authMdw, async (req, res) => {
   try {
     const updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+
+    if (!updateEmployee) {
+      console.log('FIle not found.');
+      return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
+    };
 
     console.log({ msg: `Profile with ID: '${req.params.id}' updated successfully.`, updateEmployee });
     res.json({ msg: `Profile with ID: '${req.params.id}' updated successfully.`, updateEmployee });
