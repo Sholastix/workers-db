@@ -12,7 +12,7 @@ const Navbar = () => {
           <Link className={cssStyles.navRefs} to='/'>
             <li>Homepage</li>
           </Link>
-          <Link className={cssStyles.navRefs} to='/employees/'>
+          <Link className={cssStyles.navRefs} to='/employees-list'>
             <li>Employees</li>
           </Link>
           <Link className={cssStyles.navRefs} to='/signin'>

@@ -1,18 +1,27 @@
-import { useState, Fragment } from 'react';
-import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './App.css';
 
+import EmployeesCreateForm from './components/Employees/EmployeesCreateForm';
+import EmployeesEditForm from './components/Employees/EmployeesEditForm';
+import EmployeesList from './components/Employees/EmployeesList';
 import Homepage from './components/Homepage/Homepage';
 import Navbar from './components/Navbar/Navbar';
+import Signin from './components/Signin/Signin';
+import Signup from './components/Signup/Signup';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Navbar />}>
+        <Route exact path='/' element={<Navbar />}>
           <Route index element={<Homepage />} />
+          <Route path='/employees-list' element={<EmployeesList />} />
+          <Route path='/signin' element={<Signin />} />
+          <Route path='/signup' element={<Signup />} />
         </Route>
+        <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
+        <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
       </Routes>
     </Router>
   );
