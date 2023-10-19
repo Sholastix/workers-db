@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
+import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom';
+
 import './App.css';
 
-const App = () => {
+import Homepage from './components/Homepage/Homepage';
+import Navbar from './components/Navbar/Navbar';
 
+const App = () => {
   return (
-    <h1>HELLO, WORLD!</h1>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Navbar />}>
+          <Route index element={<Homepage />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 };
 

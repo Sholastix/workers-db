@@ -1,0 +1,13 @@
+#container {
+  margin: 10rem 50rem;
+  font-size: 2rem;
+  width: 50vw;
+}
+
+.header {
+  text-align: center;
+}
+
+.section {
+  text-align: left;
+}
