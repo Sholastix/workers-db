@@ -7,7 +7,7 @@ const { authMdw } = require('../../middleware/auth');
 
 // @route: GET /api/employees
 // @desc: Get profiles of all employees.
-router.get('/employees/', authMdw, async (req, res) => {
+router.get('/employees/', async (req, res) => {
   try {
     const getAllEmployees = await Employee.find();
 
