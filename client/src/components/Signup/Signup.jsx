@@ -18,14 +18,15 @@ const Signup = () => {
         return;
       };
 
-      const user = await axios.post('http://localhost:5000/api/users', {
+      // Later, this part will be relocated in Redux.
+      const newUser = await axios.post('http://localhost:5000/api/users', {
         username,
         email,
         password
       });
 
-      console.log({ user });
-      // console.log({ 'TOKEN: ': user.data.signedToken }); // get the token.
+      console.log({ newUser });
+      // console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
     } catch (err) {
       console.error(err);
     };
