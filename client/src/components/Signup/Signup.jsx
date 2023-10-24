@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import cssStyles from './Signup.module.css';
@@ -18,7 +19,7 @@ const Signup = () => {
         return;
       };
 
-      // Later, this part will be relocated in Redux.
+      /////////////// Later, this part will be relocated in Redux. START. ///////////////
       const newUser = await axios.post('http://localhost:5000/api/users', {
         username,
         email,
@@ -26,7 +27,9 @@ const Signup = () => {
       });
 
       console.log({ newUser });
-      // console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
+      console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
+      /////////////// Later, this part will be relocated in Redux. END. ///////////////
+
     } catch (err) {
       console.error(err);
     };
@@ -93,6 +96,8 @@ const Signup = () => {
           <button type='reset' onClick={onReset}>Reset</button>
         </div>
       </form>
+      <br />
+      <p className={cssStyles.text}>Already have an account? Click here: <Link to='/signin'>SignIn</Link></p>
     </div>
   );
 };

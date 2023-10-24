@@ -1,5 +1,8 @@
-.header {
-  font-size: 5rem;
-  margin-top: 10rem;
+#container {
+  margin-top: 5rem;
   text-align: center;
+}
+
+.text {
+  font-size: 1.4rem;
 }
