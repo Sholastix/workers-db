@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import cssStyles from './Signup.module.css';
@@ -24,14 +24,26 @@ const Signup = () => {
   //   setFormData({ ...formData, [event.target.name]: event.target.value });
   // };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    if (password !== confirmPassword) {
-      alert('ERROR: Passwords don\'t match!');
-      return;
-    };
+  const onSubmit = async (event) => {
+    try {
+      event.preventDefault();
 
-    console.log({ username, email, password });
+      if (password !== confirmPassword) {
+        alert('ERROR: Passwords don\'t match!');
+        return;
+      };
+
+      const user = await axios.post('http://localhost:5000/api/users', {
+        username,
+        email,
+        password
+      });
+
+      console.log({ user });
+      // console.log({ 'TOKEN: ': user.data.signedToken }); // get the token.
+    } catch (err) {
+      console.error(err);
+    };
   };
 
   const onReset = () => {
