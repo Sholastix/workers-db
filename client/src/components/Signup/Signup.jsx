@@ -9,21 +9,6 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // // VARIANT 2.
-  // const [formData, setFormData] = useState({
-  //   username: '',
-  //   email: '',
-  //   password: '',
-  //   confirmPassword: ''
-  // });
-
-  // const { username, email, password, confirmPassword } = formData;
-
-  // const onChange = (event) => {
-  //   // Here we use event's target as a key.
-  //   setFormData({ ...formData, [event.target.name]: event.target.value });
-  // };
-
   const onSubmit = async (event) => {
     try {
       event.preventDefault();
@@ -64,7 +49,6 @@ const Signup = () => {
             name='username'
             value={username}
             onChange={(event) => { setUsername(event.target.value) }}
-            // onChange={(event) => { onChange(event) }} // For VARIANT 2.
             placeholder='Username'
             required
           />
@@ -76,7 +60,6 @@ const Signup = () => {
             name='email'
             value={email}
             onChange={(event) => { setEmail(event.target.value) }}
-            // onChange={(event) => { onChange(event) }} // For VARIANT 2.
             placeholder='Email'
             required
           />
@@ -88,7 +71,6 @@ const Signup = () => {
             name='password'
             value={password}
             onChange={(event) => { setPassword(event.target.value) }}
-            // onChange={(event) => { onChange(event) }} // For VARIANT 2.
             placeholder='Password'
             required
           />
@@ -100,7 +82,6 @@ const Signup = () => {
             name='confirmPassword'
             value={confirmPassword}
             onChange={(event) => { setConfirmPassword(event.target.value) }}
-            // onChange={(event) => { onChange(event) }} // For VARIANT 2.
             placeholder='Confirm your password'
             required
           />
