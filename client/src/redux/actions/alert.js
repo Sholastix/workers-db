@@ -1,9 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
 
 import { SET_ALERT, REMOVE_ALERT } from './actionTypes';
 
-export const setAlert = (alertType, msg) => {
+export const setAlert = (msg, alertType) => {
   return async (dispatch) => {
     try {
       const id = uuidv4();

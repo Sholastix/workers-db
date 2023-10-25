@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './App.css';
 
+import Alert from './components/Alert/Alert';
 import EmployeesCreateForm from './components/Employees/EmployeesCreateForm';
 import EmployeesEditForm from './components/Employees/EmployeesEditForm';
 import EmployeesList from './components/Employees/EmployeesList';
@@ -28,6 +29,7 @@ const App = () => {
           <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
           <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
         </Routes>
+        <Alert />
       </Router>
     </Provider>
   );

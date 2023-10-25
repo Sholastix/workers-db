@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import cssStyles from './Signup.module.css';
 
-const Signup = () => {
+import { setAlert } from '../../redux/actions/alert';
+
+const Signup = (props) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +19,8 @@ const Signup = () => {
       event.preventDefault();
 
       if (password !== confirmPassword) {
-        alert('ERROR: Passwords don\'t match!');
+        // From here we pass 'ERROR: Passwords don\'t match!' part as 'msg' argument and 'danger' part as 'alertType' argument in 'alert' action.
+        props.setAlert('ERROR: Passwords don\'t match!', 'danger');
         return;
       };
 
@@ -102,4 +107,10 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+Signup.propTypes = {
+  setAlert: PropTypes.func.isRequired
+};
+
+// 'connect()' function connects a React component to a Redux store.
+// { setAlert } as argument in 'connect()' allowes us to access props.setAlert which comes in 'Signup()' function.
+export default connect(null, { setAlert })(Signup);
