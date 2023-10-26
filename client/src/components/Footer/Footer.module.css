@@ -1,9 +1,10 @@
 .container {
   align-items: center;
   background-color: rgb(93, 109, 126);
+  border-top: 0.2rem solid gold;
   color: white;
   display: flex;
-  height: 10vh;
+  height: 5vh;
   justify-content: center;
   width: 100vw;
 }

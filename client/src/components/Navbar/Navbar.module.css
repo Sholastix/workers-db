@@ -1,18 +1,19 @@
 .container {
   align-items: center;
   background-color: rgb(93, 109, 126);
+  border-bottom: 0.2rem solid gold;
   color: white;
   display: flex;
-  height: 15vh;
+  height: 12vh;
   justify-content: space-between;
   padding: 1rem;
   width: 100vw;
 }
 
 .logo {
-  border: 0.5rem solid gold;
+  border: 0.2rem solid gold;
   border-radius: 50%;
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-left: 5rem;
   padding: 2rem;
 }

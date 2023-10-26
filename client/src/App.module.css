@@ -9,17 +9,22 @@ html {
 }
 
 #container {
+  background-image: url('../public/background.jpg');
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
 }
 
 .section {
-  background-color: aquamarine;
-  height: auto;
-  margin: 0rem 15rem;
+  background-color: rgb(228, 226, 226);
+  border: 0.2rem solid gold;
+  border-radius: 1rem;
+  margin: 5rem 5rem;
   /* overflow: hidden; */
   padding: 2rem;
+  width: fit-content;
+  /* width: 50vw; */
 }
 
 .footer {
