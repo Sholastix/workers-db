@@ -21,7 +21,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <section className={cssStyles.section}>
+        <div className={cssStyles.section}>
           <Routes>
             <Route exact path='/' element={<Homepage />} />
             <Route path='/employees-list' element={<EmployeesList />} />
@@ -30,8 +30,8 @@ const App = () => {
             <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
             <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
           </Routes>
-        </section>
-        <Alert />
+          <Alert />
+        </div>
         <Footer />
       </Router>
     </Provider>

@@ -1,9 +1,25 @@
-.container {
+#container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
   font-size: 5rem;
-  margin: 5rem 5rem;
+  margin: 0rem 5rem 5rem;
   text-align: center;
 }
 
-.table {
-  text-align: center;
+.tableHead {
+  font-size: 2rem;
+}
+
+.tableBody {
+  font-size: 1.6rem;
+  text-align: left;
+}
+
+table, th, td {
+  border: 0.1rem solid black;
+  border-collapse: collapse;
+  padding: 1rem;
 }

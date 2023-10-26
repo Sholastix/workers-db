@@ -10,6 +10,8 @@ html {
 
 .section {
   background-color: aquamarine;
+  height: 64.6vh;
   margin: 0rem 15rem;
-  padding: 1rem;
+  overflow: hidden;
+  padding: 2rem;
 }

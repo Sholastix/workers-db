@@ -23,40 +23,38 @@ const EmployeesList = () => {
   };
 
   return (
-    <div>
-      <header className={cssStyles.container}>
-        <div>EMPLOYEES LIST</div>
+    <div id={cssStyles.container}>
+      <header className={cssStyles.header}>
+        <p>EMPLOYEES LIST</p>
       </header>
 
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Fullname</th>
-              <th>Gender</th>
-              <th>Birthday</th>
-              <th>Position</th>
-              <th>Contacts</th>
-              <th>Salary</th>
-              <th>Hired</th>
-            </tr>
-          </thead>
+      <table>
+        <thead className={cssStyles.tableHead}>
+          <tr>
+            <th>Fullname</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Position</th>
+            <th>Contacts</th>
+            <th>Salary</th>
+            <th>Hired</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            {employeesList.map((employee) => (
-              <tr key={employee._id}>
-                <td>{employee.fullname}</td>
-                <td>{employee.gender}</td>
-                <td>{employee.birthday}</td>
-                <td>{employee.position}</td>
-                <td>{employee.contacts}</td>
-                <td>{employee.salary}</td>
-                <td>{employee.hired}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+        <tbody className={cssStyles.tableBody}>
+          {employeesList.map((employee) => (
+            <tr key={employee._id}>
+              <td>{employee.fullname}</td>
+              <td>{employee.gender}</td>
+              <td>{employee.birthday}</td>
+              <td>{employee.position}</td>
+              <td>{employee.contacts}</td>
+              <td>{employee.salary}</td>
+              <td>{employee.hired}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
