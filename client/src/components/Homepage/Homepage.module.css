@@ -1,13 +1,14 @@
 #container {
-  margin: 10rem 50rem;
   font-size: 2rem;
-  width: 50vw;
+  margin: 5rem 0rem;
 }
 
 .header {
+  padding: 0rem 5rem;
   text-align: center;
 }
 
 .section {
+  padding: 0rem 5rem;
   text-align: left;
 }

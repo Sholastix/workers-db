@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import './App.module.css';
+import cssStyles from './App.module.css';
 
 import Alert from './components/Alert/Alert';
 import EmployeesCreateForm from './components/Employees/EmployeesCreateForm';
@@ -19,17 +19,18 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Routes>
-          <Route exact path='/' element={<Navbar />}>
-            <Route index element={<Homepage />} />
+        <Navbar />
+        <div id={cssStyles.container}>
+          <Routes>
+            <Route exact path='/' element={<Homepage />} />
             <Route path='/employees-list' element={<EmployeesList />} />
             <Route path='/signin' element={<Signin />} />
             <Route path='/signup' element={<Signup />} />
-          </Route>
-          <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
-          <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
-        </Routes>
-        <Alert />
+            <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
+            <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
+          </Routes>
+          <Alert />
+        </div>
       </Router>
     </Provider>
   );
