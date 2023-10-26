@@ -20,19 +20,25 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Navbar />
-        <div className={cssStyles.section}>
-          <Routes>
-            <Route exact path='/' element={<Homepage />} />
-            <Route path='/employees-list' element={<EmployeesList />} />
-            <Route path='/signin' element={<Signin />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
-            <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
-          </Routes>
+        <div id={cssStyles.container}>
+          <div>
+            <Navbar />
+          </div>
+          <div className={cssStyles.section}>
+            <Routes>
+              <Route exact path='/' element={<Homepage />} />
+              <Route path='/employees-list' element={<EmployeesList />} />
+              <Route path='/signin' element={<Signin />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
+              <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
+            </Routes>
+          </div>
           <Alert />
+          <div className={cssStyles.footer}>
+            <Footer />
+          </div>
         </div>
-        <Footer />
       </Router>
     </Provider>
   );

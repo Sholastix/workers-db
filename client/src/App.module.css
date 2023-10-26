@@ -8,10 +8,20 @@ html {
   font-size: 62.5%;
 }
 
+#container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .section {
   background-color: aquamarine;
-  height: 64.6vh;
+  height: auto;
   margin: 0rem 15rem;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 2rem;
+}
+
+.footer {
+  margin-top: auto;
 }
