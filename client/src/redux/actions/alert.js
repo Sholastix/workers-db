@@ -11,16 +11,8 @@ export const setAlert = (msg, alertType) => {
         type: SET_ALERT,
         payload: { id, alertType, msg }
       });
-    } catch (err) {
-      console.error(err);
-    };
-  };
-};
 
-export const removeAlert = (alertType, msg) => {
-  return async (dispatch) => {
-    try {
-
+      setTimeout(() => dispatch({ type: REMOVE_ALERT , payload: id }), 10000);
     } catch (err) {
       console.error(err);
     };
