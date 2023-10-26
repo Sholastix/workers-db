@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import './App.css';
+import './App.module.css';
 
 import Alert from './components/Alert/Alert';
 import EmployeesCreateForm from './components/Employees/EmployeesCreateForm';
