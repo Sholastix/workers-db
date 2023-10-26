@@ -28,7 +28,7 @@ const EmployeesList = () => {
         <p>EMPLOYEES LIST</p>
       </header>
 
-      <table>
+      <table className={cssStyles.table}>
         <thead className={cssStyles.tableHead}>
           <tr>
             <th>Fullname</th>

@@ -1,17 +1,19 @@
 .danger {
   background-color: rgb(243, 107, 107);
+  border-radius: 1rem;
   font-size: 1.6rem;
   font-weight: bold;
   margin: 1.5rem 15rem 0rem;
-  padding: 1rem 0rem;
+  padding: 1rem;
   text-align: center;
 }
 
 .success {
   background-color: rgb(131, 243, 109);
+  border-radius: 1rem;
   font-size: 1.6rem;
   font-weight: bold;
   margin: 1.5rem 15rem 0rem;
-  padding: 1rem 0rem;
+  padding: 1rem;
   text-align: center;
 }

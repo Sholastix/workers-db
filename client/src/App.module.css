@@ -17,14 +17,13 @@ html {
 }
 
 .section {
-  background-color: rgb(228, 226, 226);
+  background-color: rgb(219, 219, 219);
   border: 0.2rem solid gold;
   border-radius: 1rem;
-  margin: 5rem 5rem;
+  margin: 5rem 5rem 1rem;
   /* overflow: hidden; */
   padding: 2rem;
-  width: fit-content;
-  /* width: 50vw; */
+  width: 50vw;
 }
 
 .footer {
