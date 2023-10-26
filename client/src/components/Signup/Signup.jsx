@@ -33,8 +33,8 @@ const Signup = (props) => {
 
       console.log({ newUser });
       console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
+      props.setAlert(`Profile '${newUser.data.user.username}' created successfully!`, 'success');
       /////////////// Later, this part will be relocated in Redux. END. ///////////////
-
     } catch (err) {
       console.error(err);
     };
