@@ -1,0 +1,17 @@
+.danger {
+  background-color: rgb(243, 107, 107);
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 3rem;
+  padding: 2rem 0rem;
+  text-align: center;
+}
+
+.success {
+  background-color: rgb(131, 243, 109);
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 3rem;
+  padding: 2rem 0rem;
+  text-align: center;
+}
