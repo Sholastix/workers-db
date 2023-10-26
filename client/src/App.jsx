@@ -6,6 +6,7 @@ import Alert from './components/Alert/Alert';
 import EmployeesCreateForm from './components/Employees/EmployeesCreateForm';
 import EmployeesEditForm from './components/Employees/EmployeesEditForm';
 import EmployeesList from './components/Employees/EmployeesList';
+import Footer from './components/Footer/Footer';
 import Homepage from './components/Homepage/Homepage';
 import Navbar from './components/Navbar/Navbar';
 import Signin from './components/Signin/Signin';
@@ -20,7 +21,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <div id={cssStyles.container}>
+        <section className={cssStyles.section}>
           <Routes>
             <Route exact path='/' element={<Homepage />} />
             <Route path='/employees-list' element={<EmployeesList />} />
@@ -29,8 +30,9 @@ const App = () => {
             <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
             <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
           </Routes>
-          <Alert />
-        </div>
+        </section>
+        <Alert />
+        <Footer />
       </Router>
     </Provider>
   );

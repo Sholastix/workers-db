@@ -1,0 +1,14 @@
+.container {
+  align-items: center;
+  background-color: rgb(93, 109, 126);
+  color: white;
+  display: flex;
+  height: 10vh;
+  justify-content: center;
+  margin-top: 5rem;
+  width: 100vw;
+}
+
+.text {
+  font-size: 1.7rem;
+}

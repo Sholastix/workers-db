@@ -6,8 +6,8 @@ import cssStyles from './Navbar.module.css';
 const Navbar = () => {
   return (
     <Fragment>
-      <nav id={cssStyles.container}>
-        <h1 className={cssStyles.logo}>WORKERS-DB</h1>
+      <nav className={cssStyles.container}>
+        <p className={cssStyles.logo}>Workers-DB</p>
         <ul className={cssStyles.navLinks}>
           <Link className={cssStyles.navRefs} to='/'>
             <li>Homepage</li>
