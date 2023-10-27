@@ -49,8 +49,7 @@ const Signup = (props) => {
 
   return (
     <div id={cssStyles.container}>
-      <h1>REGISTRATION PAGE</h1>
-      <br /><br />
+      <p className={cssStyles.title}>REGISTRATION PAGE</p>
       <form>
         <div>
           <input
@@ -97,8 +96,8 @@ const Signup = (props) => {
         </div>
         <br />
         <div>
-          <button type='submit' onClick={onSubmit}>Submit</button>
-          <button type='reset' onClick={onReset}>Reset</button>
+          <button type='submit' onClick={onSubmit} className={cssStyles.button}>Submit</button>
+          <button type='reset' onClick={onReset} className={cssStyles.button}>Reset</button>
         </div>
       </form>
       <br />

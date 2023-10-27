@@ -3,10 +3,7 @@ import cssStyles from './Homepage.module.css';
 const Homepage = () => {
   return (
     <div id={cssStyles.container}>
-      <header className={cssStyles.header}>
-        <h1>СИСТЕМА ОБЛІКУ ПРАЦІВНИКІВ</h1>
-      </header>
-      <br /><br />
+      <p className={cssStyles.title}>СИСТЕМА ОБЛІКУ ПРАЦІВНИКІВ</p>
       <section className={cssStyles.section}>
         <b>1. Homepage</b> - сторінка загальної інформації. Зараз Ви дивитесь прямо на неї :)
         <br /><br />

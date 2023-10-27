@@ -24,7 +24,7 @@ const EmployeesList = () => {
 
   return (
     <div id={cssStyles.container}>
-      <header className={cssStyles.header}>
+      <header className={cssStyles.title}>
         <p>EMPLOYEES LIST</p>
       </header>
 

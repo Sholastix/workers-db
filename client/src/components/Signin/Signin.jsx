@@ -26,8 +26,7 @@ const Signin = () => {
 
   return (
     <div id={cssStyles.container}>
-      <h1>AUTH PAGE</h1>
-      <br /><br />
+      <p className={cssStyles.title}>AUTH PAGE</p>
       <form>
         <div>
           <input
@@ -52,7 +51,7 @@ const Signin = () => {
         </div>
         <br />
         <div>
-          <button type='submit' onClick={onSubmit}>Submit</button>
+          <button type='submit' onClick={onSubmit} className={cssStyles.button}>Submit</button>
         </div>
       </form>
       <br />
