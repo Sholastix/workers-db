@@ -43,7 +43,6 @@ const EmployeeSchema = new mongoose.Schema(
 
     hired: {
       type: Date,
-      default: Date.now(),
       required: true,
     },
   },
