@@ -55,7 +55,7 @@ const Signin = () => {
         </div>
       </form>
       <br />
-      <p className={cssStyles.text}>Don't have an account? Click here: <Link to='/signup'>SignUp</Link></p>
+      <p className={cssStyles.text}>Don't have an account? Click here: <Link to='/signup' className={cssStyles.link}>SignUp</Link></p>
     </div>
   );
 };

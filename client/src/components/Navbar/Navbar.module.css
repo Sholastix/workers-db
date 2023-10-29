@@ -31,3 +31,7 @@
   font-size: 2rem;
   text-decoration: none;
 }
+
+.navRefs:hover {
+  border-bottom: 0.2rem solid gold;
+}
