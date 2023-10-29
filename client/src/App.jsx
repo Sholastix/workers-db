@@ -33,8 +33,8 @@ const App = () => {
               <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
               <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
             </Routes>
+            <Alert />
           </div>
-          <Alert />
           <div className={cssStyles.footer}>
             <Footer />
           </div>

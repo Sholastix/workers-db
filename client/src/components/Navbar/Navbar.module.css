@@ -4,7 +4,7 @@
   border-bottom: 0.2rem solid gold;
   color: white;
   display: flex;
-  height: 12vh;
+  height: 10vh;
   justify-content: space-between;
   padding: 1rem;
   width: 100vw;
@@ -15,7 +15,7 @@
   border-radius: 50%;
   font-size: 2.5rem;
   margin-left: 5rem;
-  padding: 2rem;
+  padding: 1.2rem;
 }
 
 .navLinks {
