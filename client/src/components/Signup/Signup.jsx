@@ -101,7 +101,7 @@ const Signup = (props) => {
         </div>
       </form>
       <br />
-      <p className={cssStyles.text}>Already have an account? Click here: <Link to='/signin' className={cssStyles.link}>SignIn</Link></p>
+      <p className={cssStyles.text}>Already have an account? <Link to='/signin' className={cssStyles.link}>SignIn</Link></p>
     </div>
   );
 };

@@ -31,3 +31,7 @@
 .link {
   text-decoration: none;
 }
+
+.link:hover {
+  border-bottom: 0.1rem solid black;
+}
