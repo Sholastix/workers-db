@@ -8,8 +8,8 @@ const Alert = ({ alerts }) => {
   if (alerts !== null && alerts.length > 0) {
     return (
       alerts.map((alert) => (
-        alert.alertType === 'danger' ?
-          <div key={alert.id} className={cssStyles.danger}>
+        alert.alertType === 'failure' ?
+          <div key={alert.id} className={cssStyles.failure}>
             {alert.msg}
           </div>
           :

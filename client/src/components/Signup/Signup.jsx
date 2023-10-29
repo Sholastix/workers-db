@@ -19,8 +19,8 @@ const Signup = (props) => {
       event.preventDefault();
 
       if (password !== confirmPassword) {
-        // From here we pass 'ERROR: Passwords don\'t match!' part as 'msg' argument and 'danger' part as 'alertType' argument in 'alert' action.
-        props.setAlert('ERROR: Passwords don\'t match!', 'danger');
+        // From here we pass 'ERROR: Passwords don\'t match!' part as 'msg' argument and 'failure' part as 'alertType' argument in 'alert' action.
+        props.setAlert('ERROR: Passwords don\'t match!', 'failure');
         return;
       };
 
