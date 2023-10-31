@@ -131,6 +131,9 @@ Signup.propTypes = {
   setAlert: PropTypes.func.isRequired
 };
 
+const mapDispatchToProps = {
+  setAlert
+};
+
 // 'connect()' function connects a React component to a Redux store.
-// { setAlert } as argument in 'connect()' allowes us to access props.setAlert which comes in 'Signup()' function.
-export default connect(null, { setAlert })(Signup);
+export default connect(null, mapDispatchToProps)(Signup);
