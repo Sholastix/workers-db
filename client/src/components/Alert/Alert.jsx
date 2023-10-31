@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 import cssStyles from './Alert.module.css';
 
-const Alert = ({ alerts }) => {
-  if (alerts !== null && alerts.length > 0) {
+const Alert = (props) => {
+  if (props.alerts !== null && props.alerts.length > 0) {
     return (
-      alerts.map((alert) => (
+      props.alerts.map((alert) => (
         alert.alertType === 'failure' ?
           <div key={alert.id} className={cssStyles.failure}>
             {alert.msg}
@@ -29,4 +29,4 @@ const mapStateToProps = (state) => ({
   alerts: state.alert
 });
 
-export default connect(mapStateToProps)(Alert);
+export default connect(mapStateToProps, null)(Alert);
