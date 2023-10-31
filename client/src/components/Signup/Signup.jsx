@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import cssStyles from './Signup.module.css';
 
@@ -21,20 +21,41 @@ const Signup = (props) => {
       if (password !== confirmPassword) {
         // From here we pass 'ERROR: Passwords don\'t match!' part as 'msg' argument and 'failure' part as 'alertType' argument in 'alert' action.
         props.setAlert('ERROR: Passwords don\'t match!', 'failure');
-        return;
+      } else {
+        /////////////// Later, this part will be relocated in Redux. START. ///////////////
+        // VARIANT 1.
+        const newUser = {
+          username,
+          email,
+          password
+        };
+
+        const config = {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+
+        const body = JSON.stringify(newUser);
+
+        const res = await axios.post('http://localhost:5000/api/users', body, config);
+
+        console.log('RESPONSE:', res.data.signedToken); // get the token.
+        props.setAlert(`Profile '${res.data.user.username}' created successfully!`, 'success');
+
+
+        // // VARIANT 2.
+        // const newUser = await axios.post('http://localhost:5000/api/users', {
+        //   username,
+        //   email,
+        //   password
+        // });
+
+        // console.log({ newUser });
+        // console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
+        // props.setAlert(`Profile '${newUser.data.user.username}' created successfully!`, 'success');
+        /////////////// Later, this part will be relocated in Redux. END. ///////////////
       };
-
-      /////////////// Later, this part will be relocated in Redux. START. ///////////////
-      const newUser = await axios.post('http://localhost:5000/api/users', {
-        username,
-        email,
-        password
-      });
-
-      console.log({ newUser });
-      console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
-      props.setAlert(`Profile '${newUser.data.user.username}' created successfully!`, 'success');
-      /////////////// Later, this part will be relocated in Redux. END. ///////////////
     } catch (err) {
       console.error(err);
     };
@@ -58,7 +79,7 @@ const Signup = (props) => {
             value={username}
             onChange={(event) => { setUsername(event.target.value) }}
             placeholder='Username'
-            required
+          // required
           />
         </div>
         <br />
@@ -69,7 +90,7 @@ const Signup = (props) => {
             value={email}
             onChange={(event) => { setEmail(event.target.value) }}
             placeholder='Email'
-            required
+          // required
           />
         </div>
         <br />
@@ -80,7 +101,7 @@ const Signup = (props) => {
             value={password}
             onChange={(event) => { setPassword(event.target.value) }}
             placeholder='Password'
-            required
+          // required
           />
         </div>
         <br />
@@ -91,7 +112,7 @@ const Signup = (props) => {
             value={confirmPassword}
             onChange={(event) => { setConfirmPassword(event.target.value) }}
             placeholder='Confirm your password'
-            required
+          // required
           />
         </div>
         <br />
