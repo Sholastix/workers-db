@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 import cssStyles from './Signup.module.css';
 
 import { setAlert } from '../../redux/actions/alert';
+import { signup } from '../../redux/actions/auth';
 
 const Signup = (props) => {
   const [username, setUsername] = useState('');
@@ -20,42 +20,11 @@ const Signup = (props) => {
 
       if (password !== confirmPassword) {
         // From here we pass 'ERROR: Passwords don\'t match!' part as 'msg' argument and 'failure' part as 'alertType' argument in 'alert' action.
-        props.setAlert('ERROR: Passwords don\'t match!', 'failure');
-      } else {
-        /////////////// Later, this part will be relocated in Redux. START. ///////////////
-        // VARIANT 1.
-        const newUser = {
-          username,
-          email,
-          password
-        };
-
-        const config = {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        };
-
-        const body = JSON.stringify(newUser);
-
-        const res = await axios.post('http://localhost:5000/api/users', body, config);
-
-        console.log('RESPONSE:', res.data.signedToken); // get the token.
-        props.setAlert(`Profile '${res.data.user.username}' created successfully!`, 'success');
-
-
-        // // VARIANT 2.
-        // const newUser = await axios.post('http://localhost:5000/api/users', {
-        //   username,
-        //   email,
-        //   password
-        // });
-
-        // console.log({ newUser });
-        // console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
-        // props.setAlert(`Profile '${newUser.data.user.username}' created successfully!`, 'success');
-        /////////////// Later, this part will be relocated in Redux. END. ///////////////
+        return props.setAlert('ERROR: Passwords don\'t match!', 'failure');
       };
+
+      props.signup({ username, email, password });
+      // props.setAlert(`Profile '${username}' created successfully!`, 'success');
     } catch (err) {
       console.error(err);
     };
@@ -128,11 +97,13 @@ const Signup = (props) => {
 };
 
 Signup.propTypes = {
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  signup: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = {
-  setAlert
+  setAlert,
+  signup
 };
 
 // 'connect()' function connects a React component to a Redux store.

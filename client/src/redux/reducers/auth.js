@@ -2,9 +2,9 @@ import { SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../actions/actionTypes';
 
 // Initial state for reducer.
 const initialState = {
-  token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
+  token: localStorage.getItem('token'),
   user: null
 };
 
@@ -13,7 +13,7 @@ const initialState = {
 const signup = (state = initialState, action) => {
   switch (action.type) {
     case SIGNUP_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('token', action.payload.signedToken);
       return {
         ...state,
         ...action.payload,
