@@ -1,21 +1,21 @@
 .failure {
-  background-color: rgb(243, 107, 107);
-  border: 0.2rem solid black;
-  border-radius: 1rem;
+  background-color: rgb(238, 129, 129);
+  border: 0.1rem solid black;
+  border-radius: 0.5rem;
   font-size: 1.6rem;
   font-weight: bold;
-  margin: 1.5rem 15rem 0rem;
+  margin: 1.5rem 10rem 0rem;
   padding: 1rem;
   text-align: center;
 }
 
 .success {
   background-color: rgb(131, 243, 109);
-  border: 0.2rem solid black;
-  border-radius: 1rem;
+  border: 0.1rem solid black;
+  border-radius: 0.5rem;
   font-size: 1.6rem;
   font-weight: bold;
-  margin: 1.5rem 15rem 0rem;
+  margin: 1.5rem 10rem 0rem;
   padding: 1rem;
   text-align: center;
 }

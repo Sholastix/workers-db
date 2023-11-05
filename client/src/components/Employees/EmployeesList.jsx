@@ -18,7 +18,6 @@ const EmployeesList = () => {
       console.log('getAllEmployees():', employees.data.getAllEmployees)
     } catch (err) {
       console.error('getAllEmployees(): ', err);
-      res.status(500).send(`Server error: ${err.message}`);
     };
   };
 

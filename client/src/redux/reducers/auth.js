@@ -1,4 +1,4 @@
-import { SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../actions/actionTypes';
+import { SIGNUP_SUCCESS, SIGNUP_FAILURE, USER_SIGNED_IN, AUTH_ERROR } from '../actions/actionTypes';
 
 // Initial state for reducer.
 const initialState = {
@@ -12,6 +12,13 @@ const initialState = {
 // Object 'action' contains two properties: 'type' (mandatory), 'payload' (basically its a data).
 const signup = (state = initialState, action) => {
   switch (action.type) {
+    case USER_SIGNED_IN:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload
+      };
     case SIGNUP_SUCCESS:
       localStorage.setItem('token', action.payload.signedToken);
       return {
@@ -21,7 +28,7 @@ const signup = (state = initialState, action) => {
         loading: false,
       };
     case SIGNUP_FAILURE:
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
       return {
         ...state,
         token: null,

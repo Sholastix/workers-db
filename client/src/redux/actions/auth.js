@@ -1,8 +1,28 @@
 import axios from 'axios';
 
-import { SIGNUP_SUCCESS, SIGNUP_FAILURE } from './actionTypes';
+import { SIGNUP_SUCCESS, SIGNUP_FAILURE, USER_SIGNED_IN, AUTH_ERROR } from './actionTypes';
 import { setAlert } from './alert';
+import setAuthToken from '../../utils/setAuthToken';
 
+// Check if user already signed in (basically we check if there is a token in Local Storage).
+export const isUserSigned = () => async dispatch => {
+  try {
+    // If there is token in LS, then we put it in global header.
+    setAuthToken();
+
+    const user = await axios.get('http://localhost:5000/api/auth');
+    // console.log('isUserSigned(): ', user.data);
+
+    dispatch({
+      type: USER_SIGNED_IN,
+      payload: user.data
+    });
+  } catch (err) {
+    console.error(err);
+  };
+};
+
+// Registration of the new user.
 export const signup = (props) => async dispatch => {
   try {
     const newUser = await axios.post('http://localhost:5000/api/users', {

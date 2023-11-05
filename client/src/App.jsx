@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import cssStyles from './App.module.css';
@@ -15,8 +16,17 @@ import Signup from './components/Signup/Signup';
 // Redux Setup
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
+import setAuthToken from './utils/setAuthToken';
+import { isUserSigned } from './redux/actions/auth';
+
+// If there is token in LocalStorage, then we put it in global header.
+setAuthToken();
 
 const App = () => {
+  useEffect(() => {
+    store.dispatch(isUserSigned());
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
