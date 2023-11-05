@@ -5,6 +5,22 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 const { User } = require('../../models/User');
+const { authMdw } = require('../../middleware/auth');
+
+// @route: GET /api/auth
+// @desc: Route to check user's auth.
+router.get('/auth/', authMdw, async (req, res) => {
+  try {
+    // Here we get user's ID not from params, but from this user's webtoken (which comes from authMdw middleware).
+    const user = await User.findById(req.user.id).select('-password');
+
+    console.log('USER DATA FROM \'GET api/auth\' route:', user)
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Server error: ${err.message}`);
+  };
+});
 
 // @route: POST /api/auth
 // @desc: User's authentication & tokens distribution.
