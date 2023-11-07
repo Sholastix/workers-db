@@ -28,6 +28,7 @@ const signup = (state = initialState, action) => {
         loading: false,
       };
     case SIGNUP_FAILURE:
+    case AUTH_ERROR:
       // localStorage.removeItem('token');
       return {
         ...state,

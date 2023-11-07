@@ -8,16 +8,23 @@ import setAuthToken from '../../utils/setAuthToken';
 export const isUserSigned = () => async dispatch => {
   try {
     // If there is token in LS, then we put it in global header.
-    setAuthToken();
+    if (localStorage.token) {
+      setAuthToken();
+    };
 
     const user = await axios.get('http://localhost:5000/api/auth');
-    // console.log('isUserSigned(): ', user.data);
-
+    
     dispatch({
       type: USER_SIGNED_IN,
       payload: user.data
     });
+
+    // console.log('isUserSigned(): ', user.data);
   } catch (err) {
+    dispatch({
+      type: AUTH_ERROR
+    });
+
     console.error(err);
   };
 };
@@ -31,13 +38,13 @@ export const signup = (props) => async dispatch => {
       password: props.password
     });
 
-    // console.log({ 'NEW_USER\'S_DATA: ': newUser.data }); // get user's data.
-    // console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
-
     dispatch({
       type: SIGNUP_SUCCESS,
       payload: newUser.data
     });
+
+    // console.log({ 'NEW_USER_DATA: ': newUser.data }); // get user's data.
+    // console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
   } catch (err) {
     const errors = err.response.data.errors;
     // console.log('ARRAY_OF_ERRORS: ', errors);
@@ -52,4 +59,4 @@ export const signup = (props) => async dispatch => {
 
     console.error(err);
   };
-}; 
+};
