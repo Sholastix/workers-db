@@ -25,6 +25,7 @@ const Signup = (props) => {
 
       props.signup({ username, email, password });
 
+      // This alert message is TEMPORARY, for test use. Later we set auto-redirect to 'employees' page.
       if (username !== '' && email !== '' && password !== '') {
         props.setAlert(`Profile '${username}' created successfully!`, 'success');
       };

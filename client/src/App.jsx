@@ -20,7 +20,9 @@ import setAuthToken from './utils/setAuthToken';
 import { isUserSigned } from './redux/actions/auth';
 
 // If there is token in LocalStorage, then we put it in global header.
-setAuthToken();
+if (localStorage.token) {
+  setAuthToken();
+};
 
 const App = () => {
   useEffect(() => {
