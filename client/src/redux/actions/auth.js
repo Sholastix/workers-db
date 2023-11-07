@@ -25,7 +25,7 @@ export const isUserSigned = () => async dispatch => {
       type: AUTH_ERROR
     });
 
-    console.error(err);
+    console.error('isUserSigned(): ', err);
   };
 };
 

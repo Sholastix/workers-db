@@ -24,7 +24,10 @@ const Signup = (props) => {
       };
 
       props.signup({ username, email, password });
-      // props.setAlert(`Profile '${username}' created successfully!`, 'success');
+
+      if (username !== '' && email !== '' && password !== '') {
+        props.setAlert(`Profile '${username}' created successfully!`, 'success');
+      };
     } catch (err) {
       console.error(err);
     };
