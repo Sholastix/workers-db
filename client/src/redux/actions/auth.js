@@ -7,14 +7,16 @@ import setAuthToken from '../../utils/setAuthToken';
 // Check if user already signed in (basically we check if there is a token in Local Storage).
 export const isUserSigned = () => async dispatch => {
   try {
-    // // If there is token in LocalStorage, then we put it in global header.
-    // // For this function we need our token in global headers cause in 'server -> routes -> auth.js' we get the user's ID exactly from this token which contains user's data.
-    // // But we already pushing tokens from LS to global headers in 'App.jsx' component, so here we don't need to repeat it for now. We Leave it here inactive for better understanding of auth process. 
-    // if (localStorage.token) {
-    //   setAuthToken();
-    // };
+    // If there is token in LocalStorage, then we put it in global header.
+    if (localStorage.token) {
+      setAuthToken();
+    };
 
     const user = await axios.get('http://localhost:5000/api/auth');
+
+    // if(!user.data) {
+    //   throw new Error;
+    // };
 
     dispatch({
       type: USER_SIGNED_IN,
@@ -46,13 +48,8 @@ export const signup = (props) => async dispatch => {
     });
 
     // We set our general app in way that when new user finished his registration - he immediately received web-token.
-    // We need to insert this token into the global header right now so that the user can get the data from the protected routes without additional manipulations (page reload, signin etc.). 
-    if (localStorage.token) {
-      setAuthToken();
-      dispatch({
-        type: USER_SIGNED_IN
-      });
-    };
+    // We need to insert this token into the global header right now so that the user can get the data from the protected routes without additional manipulations (page reload, signin form etc.). 
+    dispatch(isUserSigned());
 
     // console.log({ 'NEW_USER_DATA: ': newUser.data }); // get user's data.
     // console.log({ 'SIGNUP_TOKEN: ': newUser.data.signedToken }); // get the token.
@@ -85,12 +82,7 @@ export const signin = (props) => async dispatch => {
       payload: user.data
     });
 
-    if (localStorage.token) {
-      setAuthToken();
-      dispatch({
-        type: USER_SIGNED_IN
-      });
-    };
+    dispatch(isUserSigned());
 
     // console.log({ 'USER_DATA: ': user.data }); // get user's data.
     // console.log({ 'SIGNIN_TOKEN: ': user.data.signedToken }); // get the token.

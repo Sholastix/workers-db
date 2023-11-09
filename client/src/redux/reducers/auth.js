@@ -29,9 +29,15 @@ const auth = (state = initialState, action) => {
         loading: false,
       };
     case SIGNUP_FAILURE:
-    case SIGNIN_FAILURE:
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+      };
     case AUTH_ERROR:
-      // localStorage.removeItem('token');
+    case SIGNIN_FAILURE:
+      localStorage.removeItem('token');
       return {
         ...state,
         token: null,
