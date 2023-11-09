@@ -13,9 +13,10 @@ const EmployeesList = () => {
   const getAllEmployees = async () => {
     try {
       const employees = await axios.get('http://localhost:5000/api/employees/');
+      
       setEmployeesList(employees.data.getAllEmployees);
 
-      console.log('getAllEmployees():', employees.data.getAllEmployees)
+      // console.log('getAllEmployees():', employees.data.getAllEmployees)
     } catch (err) {
       console.error('getAllEmployees(): ', err);
     };

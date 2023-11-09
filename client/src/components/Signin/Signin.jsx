@@ -38,7 +38,7 @@ const Signin = (props) => {
             value={email}
             onChange={(event) => { setEmail(event.target.value) }}
             placeholder='Email'
-            required
+            // required
           />
         </div>
         <br />
@@ -49,7 +49,7 @@ const Signin = (props) => {
             value={password}
             onChange={(event) => { setPassword(event.target.value) }}
             placeholder='Password'
-            required
+            // required
           />
         </div>
         <br />

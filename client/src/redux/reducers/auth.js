@@ -20,13 +20,6 @@ const signup = (state = initialState, action) => {
         user: action.payload
       };
     case SIGNUP_SUCCESS:
-      localStorage.setItem('token', action.payload.signedToken);
-      return {
-        ...state,
-        ...action.payload,
-        isAuthenticated: true,
-        loading: false,
-      };
     case SIGNIN_SUCCESS:
       localStorage.setItem('token', action.payload.signedToken);
       return {
@@ -35,9 +28,9 @@ const signup = (state = initialState, action) => {
         isAuthenticated: true,
         loading: false,
       };
-    case AUTH_ERROR:
     case SIGNUP_FAILURE:
     case SIGNIN_FAILURE:
+    case AUTH_ERROR:
       // localStorage.removeItem('token');
       return {
         ...state,
