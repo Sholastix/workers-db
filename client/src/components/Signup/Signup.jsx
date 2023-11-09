@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -24,11 +24,6 @@ const Signup = (props) => {
       };
 
       props.signup({ username, email, password });
-
-      // This alert message is TEMPORARY, for test use. Later we set auto-redirect to 'employees' page.
-      if (username !== '' && email !== '' && password !== '') {
-        props.setAlert(`Profile '${username}' created successfully!`, 'success');
-      };
     } catch (err) {
       console.error(err);
     };
@@ -39,6 +34,11 @@ const Signup = (props) => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+  };
+
+  // Redirect if user signed up.
+  if (props.isAuthenticated) {
+    return <Navigate to='/employees-list' replace={true} />
   };
 
   return (
@@ -102,8 +102,13 @@ const Signup = (props) => {
 
 Signup.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  signup: PropTypes.func.isRequired
+  signup: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
 
 const mapDispatchToProps = {
   setAlert,
@@ -111,4 +116,4 @@ const mapDispatchToProps = {
 };
 
 // 'connect()' function connects a React component to a Redux store.
-export default connect(null, mapDispatchToProps)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import cssStyles from './Signin.module.css';
 
-import { setAlert } from '../../redux/actions/alert';
 import { signin } from '../../redux/actions/auth';
 
 const Signin = (props) => {
@@ -17,14 +16,14 @@ const Signin = (props) => {
       event.preventDefault();
 
       props.signin({ email, password });
-
-      // This alert message is TEMPORARY, for test use. Later we set auto-redirect to 'employees' page.
-      if (email !== '' && password !== '') {
-        props.setAlert('Token created successfully!', 'success');
-      };
     } catch (err) {
       console.error(err);
     };
+  };
+  
+  // Redirect if user signed in.
+  if (props.isAuthenticated) {
+    return <Navigate to='/employees-list' replace={true} />
   };
 
   return (
@@ -64,14 +63,17 @@ const Signin = (props) => {
 };
 
 Signin.propTypes = {
-  setAlert: PropTypes.func.isRequired,
-  signin: PropTypes.func.isRequired
+  signin: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
 const mapDispatchToProps = {
-  setAlert,
   signin
 };
 
 // 'connect()' function connects a React component to a Redux store.
-export default connect(null, mapDispatchToProps)(Signin);
+export default connect(mapStateToProps, mapDispatchToProps)(Signin);
