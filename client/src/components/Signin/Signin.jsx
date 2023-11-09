@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import cssStyles from './Signin.module.css';
 
-const Signin = () => {
+import { setAlert } from '../../redux/actions/alert';
+import { signin } from '../../redux/actions/auth';
+
+const Signin = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,13 +16,12 @@ const Signin = () => {
     try {
       event.preventDefault();
 
-      const newUser = await axios.post('http://localhost:5000/api/auth', {
-        email,
-        password
-      });
+      props.signin({ email, password });
 
-      console.log({ newUser });
-      // console.log({ 'TOKEN: ': newUser.data.signedToken }); // get the token.
+      // This alert message is TEMPORARY, for test use. Later we set auto-redirect to 'employees' page.
+      if (email !== '' && password !== '') {
+        props.setAlert('Token created successfully!', 'success');
+      };
     } catch (err) {
       console.error(err);
     };
@@ -60,4 +63,15 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+Signin.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  signin: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = {
+  setAlert,
+  signin
+};
+
+// 'connect()' function connects a React component to a Redux store.
+export default connect(null, mapDispatchToProps)(Signin);

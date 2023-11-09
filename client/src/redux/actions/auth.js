@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-import { SIGNUP_SUCCESS, SIGNUP_FAILURE, USER_SIGNED_IN, AUTH_ERROR } from './actionTypes';
+import { SIGNUP_SUCCESS, SIGNUP_FAILURE, USER_SIGNED_IN, AUTH_ERROR, SIGNIN_SUCCESS, SIGNIN_FAILURE } from './actionTypes';
 import { setAlert } from './alert';
 import setAuthToken from '../../utils/setAuthToken';
 
 // Check if user already signed in (basically we check if there is a token in Local Storage).
 export const isUserSigned = () => async dispatch => {
   try {
-    // If there is token in LocalStorage, then we put it in global header.
-    // For this function we need our token in global headers cause in 'server -> routes -> auth.js' we get the user's ID exactly from this token which contains user's data.
-    // But we already pushing tokens from LS to global headers in 'App.jsx' component, so here we don't need to repeat it for now. So we leave it here inactive just for better understanding of all auth process. 
+    // // If there is token in LocalStorage, then we put it in global header.
+    // // For this function we need our token in global headers cause in 'server -> routes -> auth.js' we get the user's ID exactly from this token which contains user's data.
+    // // But we already pushing tokens from LS to global headers in 'App.jsx' component, so here we don't need to repeat it for now. So we leave it here inactive just for better understanding of all auth process. 
     // if (localStorage.token) {
     //   setAuthToken();
     // };
@@ -31,7 +31,7 @@ export const isUserSigned = () => async dispatch => {
   };
 };
 
-// Registration of the new user.
+// Signup of the new user.
 export const signup = (props) => async dispatch => {
   try {
     const newUser = await axios.post('http://localhost:5000/api/users', {
@@ -68,6 +68,43 @@ export const signup = (props) => async dispatch => {
 
     dispatch({
       type: SIGNUP_FAILURE,
+    });
+
+    console.error(err);
+  };
+};
+
+// Signin of the existed user.
+export const signin = (props) => async dispatch => {
+  try {
+    const user = await axios.post('http://localhost:5000/api/auth', {
+      email: props.email,
+      password: props.password
+    });
+
+    dispatch({
+      type: SIGNIN_SUCCESS,
+      payload: user.data
+    });
+
+    if (localStorage.token) {
+      setAuthToken();
+      dispatch({
+        type: USER_SIGNED_IN
+      });
+    };
+
+    // console.log({ 'USER_DATA: ': user.data }); // get user's data.
+    // console.log({ 'TOKEN: ': user.data.signedToken }); // get the token.
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors.length > 0) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'failure')));
+    };
+
+    dispatch({
+      type: SIGNIN_FAILURE,
     });
 
     console.error(err);
