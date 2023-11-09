@@ -10,7 +10,7 @@ const initialState = {
 
 // Reducer. 
 // Object 'action' contains two properties: 'type' (mandatory), 'payload' (basically its a data).
-const signup = (state = initialState, action) => {
+const auth = (state = initialState, action) => {
   switch (action.type) {
     case USER_SIGNED_IN:
       return {
@@ -43,4 +43,4 @@ const signup = (state = initialState, action) => {
   };
 };
 
-export default signup;
+export default auth;
