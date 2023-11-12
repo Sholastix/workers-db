@@ -13,15 +13,31 @@ const EmployeesList = (props) => {
     getAllEmployees();
   }, []);
 
+  // Get all profiles of employees.
   const getAllEmployees = async () => {
     try {
       const employees = await axios.get('http://localhost:5000/api/employees/');
 
       setEmployeesList(employees.data.getAllEmployees);
-
       // console.log('getAllEmployees():', employees.data.getAllEmployees)
     } catch (err) {
       console.error('getAllEmployees(): ', err);
+    };
+  };
+
+  // Delete specific employee.
+  const deleteEmployee = async (id) => {
+    try {
+      const deletedEmployee = await axios.delete(`http://localhost:5000/api/employees/${id}`);
+
+      const updatedEmployeesList = employeesList.filter((employee) => {
+          return employee._id !== id;
+      });
+
+      setEmployeesList(updatedEmployeesList);
+      console.log(deletedEmployee.data.msg);
+    } catch (err) {
+      console.error('deleteEmployee(): ', err);
     };
   };
 
@@ -46,6 +62,7 @@ const EmployeesList = (props) => {
             <th>Contacts</th>
             <th>Salary</th>
             <th>Hired</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -59,6 +76,10 @@ const EmployeesList = (props) => {
               <td>{employee.contacts}</td>
               <td>{employee.salary}</td>
               <td>{employee.hired}</td>
+              <td>
+                <button className={cssStyles.button}>Edit</button>
+                <button onClick={() => { deleteEmployee(employee._id) }} className={cssStyles.button}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
