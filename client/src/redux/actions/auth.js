@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { SIGNUP_SUCCESS, SIGNUP_FAILURE, USER_SIGNED_IN, AUTH_ERROR, SIGNIN_SUCCESS, SIGNIN_FAILURE } from './actionTypes';
+import { SIGNUP_SUCCESS, SIGNUP_FAILURE, USER_SIGNED_IN, AUTH_ERROR, SIGNIN_SUCCESS, SIGNIN_FAILURE, SIGNOUT } from './actionTypes';
 import { setAlert } from './alert';
 import setAuthToken from '../../utils/setAuthToken';
 
@@ -97,6 +97,17 @@ export const signin = (props) => async dispatch => {
       type: SIGNIN_FAILURE,
     });
 
+    console.error(err);
+  };
+};
+
+// Signout.
+export const signout = () => dispatch => {
+  try {
+    dispatch ({
+      type: SIGNOUT
+    });
+  } catch (err) {
     console.error(err);
   };
 };

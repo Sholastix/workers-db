@@ -10,3 +10,5 @@ export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
 export const USER_SIGNED_IN = 'USER_SIGNED_IN';
 export const AUTH_ERROR = 'AUTH_ERROR';
 
+export const SIGNOUT = 'SIGNOUT';
+
