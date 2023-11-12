@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import cssStyles from './EmployeesList.module.css';
 
-const EmployeesList = () => {
+const EmployeesList = (props) => {
   const [employeesList, setEmployeesList] = useState([]);
 
   useEffect(() => {
@@ -13,13 +16,18 @@ const EmployeesList = () => {
   const getAllEmployees = async () => {
     try {
       const employees = await axios.get('http://localhost:5000/api/employees/');
-      
+
       setEmployeesList(employees.data.getAllEmployees);
 
       // console.log('getAllEmployees():', employees.data.getAllEmployees)
     } catch (err) {
       console.error('getAllEmployees(): ', err);
     };
+  };
+
+  // Redirect to signin page if user signed out.
+  if (props.isAuthenticated === false) {
+    return <Navigate to='/signin' replace={true} />
   };
 
   return (
@@ -59,4 +67,15 @@ const EmployeesList = () => {
   );
 };
 
-export default EmployeesList;
+EmployeesList.propTypes = {
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+const mapDispatchToProps = null;
+
+// 'connect()' function connects a React component to a Redux store.
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeesList);
