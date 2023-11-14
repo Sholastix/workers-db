@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
@@ -17,7 +18,7 @@ router.get('/employees/', authMdw, async (req, res) => {
       return res.status(404).json({ errors: [{ msg: 'There are no files to display.' }] });
     };
 
-    console.log('MESSAGE: Profiles of all employees: ', getAllEmployees);
+    // console.log('MESSAGE: Profiles of all employees: ', getAllEmployees);
     res.json({ msg: 'Profiles of all employees: ', getAllEmployees });
   } catch (err) {
     console.error(err);
@@ -29,9 +30,9 @@ router.get('/employees/', authMdw, async (req, res) => {
 // @desc: Get profile of one specific employee.
 router.get('/employees/:id', authMdw, async (req, res) => {
   try {
-    const getOneEmployee = await Employee.find({ _id: req.params.id });
+    const getOneEmployee = await Employee.findOne({ _id: req.params.id });
 
-    if (getOneEmployee.length === 0) {
+    if (!getOneEmployee) {
       console.log('MESSAGE: File not found.');
       return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
     };
@@ -127,17 +128,27 @@ router.put('/employees/:id', authMdw, async (req, res) => {
 // @desc: Delete profile of one specific employee.
 router.delete('/employees/:id', authMdw, async (req, res) => {
   try {
-    // const deleteOneEmployee = await Employee.deleteOne({ _id: req.params.id });
-    const deleteOneEmployee = await Employee.deleteOne({ _id: req.params.id });
+    const getOneEmployee = await Employee.findOne({ _id: req.params.id });
+
+    if (!getOneEmployee) {
+      console.log('MESSAGE: File not found.');
+      return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
+    };
+
+    // Here we deleting employee's profile from DB and employee's corresponfing photo from FS.
+    const deleteOneEmployee = await Employee.deleteOne(
+      { _id: req.params.id },
+      fs.unlinkSync(`client/public/photos/${getOneEmployee.photo}`)
+    );
 
     // Confirming 'delete from DB' operation's success. Alternatively, we can send "GET" request to the DB again to check if this file still exists.
     if (deleteOneEmployee.deletedCount !== 1) {
-      console.log('MESSAGE: Something went wrong! File still is in DB.');
-      return res.status(400).json({ errors: [{ msg: 'Something went wrong! File still is in DB.' }] });
+      console.log(`MESSAGE: Something went wrong! Profile '${getOneEmployee.fullname}' still is in DB.`);
+      return res.status(400).json({ errors: [{ msg: `Something went wrong! Profile '${getOneEmployee.fullname}' still is in DB.` }] });
     };
 
-    console.log('MESSAGE: Profile successfully deleted from DB.');
-    res.json({ msg: 'Profile successfully deleted from DB.' });
+    console.log(`MESSAGE: Profile '${getOneEmployee.fullname}' successfully deleted from DB.`);
+    res.json({ msg: `Profile '${getOneEmployee.fullname}' successfully deleted from DB.` });
   } catch (err) {
     console.error(err);
     res.status(500).send(`Server error: ${err.message}`);

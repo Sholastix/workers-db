@@ -14,7 +14,7 @@ router.get('/auth/', authMdw, async (req, res) => {
     // Here we get user's ID not from params, but from this user's webtoken (which comes from authMdw middleware).
     const user = await User.findById(req.user.id).select('-password');
 
-    console.log('USER DATA FROM \'GET api/auth\' route:', user)
+    console.log('\'GET api/auth\' DATA: ', user);
     res.json(user);
   } catch (err) {
     console.error(err);
