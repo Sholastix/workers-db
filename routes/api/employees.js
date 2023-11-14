@@ -1,11 +1,10 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
 const { Employee } = require('../../models/Employee');
 const { authMdw } = require('../../middleware/auth');
+const { upload } = require('../../middleware/multer');
 
 // @route: GET /api/employees
 // @desc: Get profiles of all employees.
@@ -44,59 +43,6 @@ router.get('/employees/:id', authMdw, async (req, res) => {
     res.status(500).send(`Server error: ${err.message}`);
   };
 });
-
-////////////////// MULTER MIDDLEWARE START //////////////////
-
-// Path to employee photos.
-// const dir = './public/photos'; // on server
-const dir = '../workers-db-server/client/public/photos'; // on client
-
-// Here we configuring the storage and naming settings.
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Set the storage path.
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    // Name of each uploaded file must be unique in our fs/db, but we also want to preserve intact file's original name and extension. 
-    const parts = file.originalname.split('.');
-    cb(null, parts[0] + '_' + Date.now() + '.' + parts[1]);
-  }
-});
-
-const upload = multer({
-  storage: storage,
-  // File filter's config.
-  fileFilter: (req, file, cb) => {
-    // Create RegExp for allowed filetypes.
-    const allowedFiletypes = /jpg|jpeg|png/i;
-    // Checking extension of file which we want to upload.
-    const checkExtension = allowedFiletypes.test(path.extname(file.originalname));
-    // Checking mimetype of file which we want to upload (actually, this step is important, because file extension alone very easy to change).
-    const checkMimetype = allowedFiletypes.test(file.mimetype);
-    if (checkExtension && checkMimetype) {
-      return cb(null, true);
-    } else {
-      return cb('ERROR: This filetype not allowed. Use static images only!');
-    };
-  }
-});
-
-// // @route: POST /upload
-// // @desc: Files uploading.
-// router.post('/upload', upload.single('photo'), (req, res, next) => {
-//   if (req.file !== undefined) {
-//     console.log(`File uploaded successfully: "${req.file.destination}/${req.file.filename}".`, req.file);
-//     res.send(`File uploaded successfully: "${req.file.destination}/${req.file.filename}".`); // response for "POSTMAN".
-//     next();
-//   } else {
-//     console.error('ERROR: There is nothing to upload!');
-//     res.send('ERROR: There is nothing to upload!');
-//     next();
-//   };
-// });
-
-////////////////// MULTER MIDDLEWARE END //////////////////
 
 // @route: POST /api/employees
 // @desc: Create new employee's profile ('Multer' middleware already integrated).
@@ -149,7 +95,7 @@ router.post('/employees/', [
     // };
 
     // newEmployee = await Employee.create({ ...req.body, photo: employeePhoto });
-    
+
     console.log(`MESSAGE: Profile '${newEmployee.fullname}' created successfully!`, newEmployee);
     res.status(201).json({ msg: `Profile '${newEmployee.fullname}' created successfully!`, newEmployee });
   } catch (err) {
