@@ -55,6 +55,7 @@ const EmployeesList = (props) => {
       <table className={cssStyles.table}>
         <thead className={cssStyles.tableHead}>
           <tr>
+            <th>Photo</th>
             <th>Fullname</th>
             <th>Gender</th>
             <th>Birthday</th>
@@ -69,6 +70,7 @@ const EmployeesList = (props) => {
         <tbody className={cssStyles.tableBody}>
           {employeesList.map((employee) => (
             <tr key={employee._id}>
+              <td><img src={`/photos/${employee.photo}`} className={cssStyles.photo}/></td>
               <td>{employee.fullname}</td>
               <td>{employee.gender}</td>
               <td>{employee.birthday}</td>
