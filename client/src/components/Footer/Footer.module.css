@@ -1,7 +1,7 @@
 .container {
   align-items: center;
   background-color: rgb(93, 109, 126);
-  border-top: 0.2rem solid gold;
+  box-shadow: 0 -0.5rem 1rem 0rem rgba(0, 0, 0, 0.3);
   color: white;
   display: flex;
   height: 5vh;
@@ -10,5 +10,5 @@
 }
 
 .text {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
 }

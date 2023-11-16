@@ -3,6 +3,7 @@
 }
 
 .button {
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
   margin: 1rem 0.5rem;
   padding: 0.2rem 0.5rem;
 }
@@ -11,11 +12,14 @@
   background-color: gold;
   border: 0.1rem solid black;
   border-radius: 0.3rem;
+  cursor: pointer;
   margin: 1rem 0.6rem;
+  padding: 0.3rem 0.5rem;
 }
 
 .button:active {
   background-color: rgb(153, 233, 153);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
 }
 
 .text {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -41,6 +41,10 @@ const EmployeesList = (props) => {
     };
   };
 
+  // Redirect to targeted page. 
+  // Here we using hook 'useNavigate with <button>, but as alternative we can just use without any hooks this: <Link to='/our-targeted-route'>Edit</Link> as we do with 'employee create form'.
+  const navigate = useNavigate();
+
   // Redirect to signin page if user signed out.
   if (props.isAuthenticated === false) {
     return <Navigate to='/signin' replace={true} />
@@ -48,8 +52,11 @@ const EmployeesList = (props) => {
 
   return (
     <div id={cssStyles.container}>
+      <div className={cssStyles.link}>
+        <Link to='/employees-create-form' className={cssStyles.linkCreate}>Create New Profile</Link>
+      </div>
       <header className={cssStyles.title}>
-        <p>EMPLOYEES LIST</p>
+        <p>LIST OF EMPLOYEES</p>
       </header>
       {
         employeesList.length > 0
@@ -81,7 +88,8 @@ const EmployeesList = (props) => {
                   <td>{employee.salary}</td>
                   <td>{employee.hired}</td>
                   <td>
-                    <button className={cssStyles.button}>Edit</button>
+                    {/* <Link to='/employees-edit-form'>Edit</Link> */}
+                    <button onClick={() => { navigate('/employees-edit-form') }} className={cssStyles.button}>Edit</button>
                     <button onClick={() => { deleteEmployee(employee._id) }} className={cssStyles.button}>Delete</button>
                   </td>
                 </tr>
