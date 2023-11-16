@@ -3,6 +3,37 @@
   flex-direction: column;
 }
 
+.button {
+  margin: 1rem 0.5rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.button:hover {
+  background-color: gold;
+  border: 0.1rem solid black;
+  border-radius: 0.3rem;
+  margin: 1rem 0.5rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.button:active {
+  background-color: rgb(153, 233, 153);
+}
+
+.message {
+  text-align: center;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+  font-size: 2rem;
+  padding: 2rem;
+}
+
+.photo {
+  height: 10rem;
+  width: 10rem;
+}
+
 .title {
   font-size: 3rem;
   margin: 0rem 5rem 3rem;
@@ -26,26 +57,4 @@ table, th, td {
   border: 0.1rem solid black;
   border-collapse: collapse;
   padding: 1rem;
-}
-
-.button {
-  margin: 1rem 0.5rem;
-  padding: 0.2rem 0.5rem;
-}
-
-.button:hover {
-  background-color: gold;
-  border: 0.1rem solid black;
-  border-radius: 0.3rem;
-  margin: 1rem 0.5rem;
-  padding: 0.3rem 0.6rem;
-}
-
-.button:active {
-  background-color: rgb(153, 233, 153);
-}
-
-.photo {
-  height: 10rem;
-  width: 10rem;
 }

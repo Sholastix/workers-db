@@ -19,7 +19,7 @@ const EmployeesList = (props) => {
       const employees = await axios.get('http://localhost:5000/api/employees/');
 
       setEmployeesList(employees.data.getAllEmployees);
-      // console.log('getAllEmployees():', employees.data.getAllEmployees)
+      // console.log('getAllEmployees():', employees.data.getAllEmployees);
     } catch (err) {
       console.error('getAllEmployees(): ', err);
     };
@@ -31,7 +31,7 @@ const EmployeesList = (props) => {
       const deletedEmployee = await axios.delete(`http://localhost:5000/api/employees/${id}`);
 
       const updatedEmployeesList = employeesList.filter((employee) => {
-          return employee._id !== id;
+        return employee._id !== id;
       });
 
       setEmployeesList(updatedEmployeesList);
@@ -51,41 +51,48 @@ const EmployeesList = (props) => {
       <header className={cssStyles.title}>
         <p>EMPLOYEES LIST</p>
       </header>
+      {
+        employeesList.length > 0
+          ?
+          <table className={cssStyles.table}>
+            <thead className={cssStyles.tableHead}>
+              <tr>
+                <th>Photo</th>
+                <th>Fullname</th>
+                <th>Gender</th>
+                <th>Birthday</th>
+                <th>Position</th>
+                <th>Contacts</th>
+                <th>Salary</th>
+                <th>Hired</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
 
-      <table className={cssStyles.table}>
-        <thead className={cssStyles.tableHead}>
-          <tr>
-            <th>Photo</th>
-            <th>Fullname</th>
-            <th>Gender</th>
-            <th>Birthday</th>
-            <th>Position</th>
-            <th>Contacts</th>
-            <th>Salary</th>
-            <th>Hired</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody className={cssStyles.tableBody}>
-          {employeesList.map((employee) => (
-            <tr key={employee._id}>
-              <td><img src={`/photos/${employee.photo}`} className={cssStyles.photo}/></td>
-              <td>{employee.fullname}</td>
-              <td>{employee.gender}</td>
-              <td>{employee.birthday}</td>
-              <td>{employee.position}</td>
-              <td>{employee.contacts}</td>
-              <td>{employee.salary}</td>
-              <td>{employee.hired}</td>
-              <td>
-                <button className={cssStyles.button}>Edit</button>
-                <button onClick={() => { deleteEmployee(employee._id) }} className={cssStyles.button}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            <tbody className={cssStyles.tableBody}>
+              {employeesList.map((employee) => (
+                <tr key={employee._id}>
+                  <td><img src={`/photos/${employee.photo}`} className={cssStyles.photo} /></td>
+                  <td>{employee.fullname}</td>
+                  <td>{employee.gender}</td>
+                  <td>{employee.birthday}</td>
+                  <td>{employee.position}</td>
+                  <td>{employee.contacts}</td>
+                  <td>{employee.salary}</td>
+                  <td>{employee.hired}</td>
+                  <td>
+                    <button className={cssStyles.button}>Edit</button>
+                    <button onClick={() => { deleteEmployee(employee._id) }} className={cssStyles.button}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          :
+          <div className={cssStyles.message}>
+            <p>NO PROFILES TO DISPLAY</p>
+          </div>
+      }
     </div>
   );
 };
