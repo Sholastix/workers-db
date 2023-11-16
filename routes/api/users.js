@@ -15,11 +15,11 @@ router.get('/users', authMdw, async (req, res) => {
     const getAllUsers = await User.find().select('-password');
 
     if (getAllUsers.length === 0) {
-      console.log('MESSAGE: There are no files to display.');
+      console.log('\nMESSAGE: There are no files to display.');
       return res.status(404).json({ errors: [{ msg: 'There are no files to display.' }] });
     };
 
-    console.log('MESSAGE: Profiles of all users: ', getAllUsers);
+    console.log('\nMESSAGE: Profiles of all users: ', getAllUsers);
     res.json({ msg: 'Profiles of all users: ', getAllUsers });
   } catch (err) {
     console.error(err.message);
@@ -47,7 +47,7 @@ router.post('/users', [
     let user = await User.findOne({ email });
 
     if (user) {
-      console.log('MESSAGE: User with this email already exists.');
+      console.log('\nMESSAGE: User with this email already exists.');
       return res.status(400).json({ errors: [{ msg: 'User with this email already exists.' }] });
     };
 

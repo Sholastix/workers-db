@@ -19,9 +19,9 @@ const EmployeesList = (props) => {
       const employees = await axios.get('http://localhost:5000/api/employees/');
 
       setEmployeesList(employees.data.getAllEmployees);
-      // console.log('getAllEmployees():', employees.data.getAllEmployees);
+      console.log('getAllEmployees():', employees.data.getAllEmployees);
     } catch (err) {
-      console.error('getAllEmployees(): ', err);
+      console.error('getAllEmployees(): ', err.response.data);
     };
   };
 
@@ -35,7 +35,7 @@ const EmployeesList = (props) => {
       });
 
       setEmployeesList(updatedEmployeesList);
-      console.log(deletedEmployee.data.msg);
+      console.log('deleteEmployee(): ', deletedEmployee.data.msg);
     } catch (err) {
       console.error('deleteEmployee(): ', err);
     };

@@ -14,11 +14,11 @@ router.get('/employees/', authMdw, async (req, res) => {
     const getAllEmployees = await Employee.find();
 
     if (getAllEmployees.length === 0) {
-      console.log('MESSAGE: There are no files to display.');
-      return res.status(404).json({ errors: [{ msg: 'There are no files to display.' }] });
+      console.log('\nMESSAGE: There are no files to display.');
+      return res.status(404).json({ msg: 'There are no files to display.' });
     };
 
-    // console.log('MESSAGE: Profiles of all employees: ', getAllEmployees);
+    // console.log('\nMESSAGE: Profiles of all employees: ', getAllEmployees);
     res.json({ msg: 'Profiles of all employees: ', getAllEmployees });
   } catch (err) {
     console.error(err);
@@ -33,11 +33,11 @@ router.get('/employees/:id', authMdw, async (req, res) => {
     const getOneEmployee = await Employee.findOne({ _id: req.params.id });
 
     if (!getOneEmployee) {
-      console.log('MESSAGE: File not found.');
+      console.log('\nMESSAGE: File not found.');
       return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
     };
 
-    console.log('MESSAGE: Profile of specific employee: ', getOneEmployee);
+    console.log('\nMESSAGE: Profile of specific employee: ', getOneEmployee);
     res.json({ msg: 'Profile of specific employee: ', getOneEmployee });
   } catch (err) {
     console.error(err);
@@ -68,7 +68,7 @@ router.post('/employees/', [
     let newEmployee = await Employee.findOne({ fullname, birthday });
 
     if (newEmployee) {
-      console.log('MESSAGE: Profile for this employee already in DB.');
+      console.log('\nMESSAGE: Profile for this employee already in DB.');
       return res.status(400).json({ errors: [{ msg: 'Profile for this employee already in DB.' }] });
     };
 
@@ -97,7 +97,7 @@ router.post('/employees/', [
 
     // newEmployee = await Employee.create({ ...req.body, photo: employeePhoto });
 
-    console.log(`MESSAGE: Profile '${newEmployee.fullname}' created successfully!`, newEmployee);
+    console.log(`\nMESSAGE: Profile '${newEmployee.fullname}' created successfully!`, newEmployee);
     res.status(201).json({ msg: `Profile '${newEmployee.fullname}' created successfully!`, newEmployee });
   } catch (err) {
     console.error(err);
@@ -112,7 +112,7 @@ router.put('/employees/:id', authMdw, async (req, res) => {
     const updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
 
     if (!updateEmployee) {
-      console.log('File not found.');
+      console.log('\nMESSAGE: File not found.');
       return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
     };
 
@@ -131,7 +131,7 @@ router.delete('/employees/:id', authMdw, async (req, res) => {
     const getOneEmployee = await Employee.findOne({ _id: req.params.id });
 
     if (!getOneEmployee) {
-      console.log('MESSAGE: File not found.');
+      console.log('\nMESSAGE: File not found.');
       return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
     };
 
@@ -143,11 +143,11 @@ router.delete('/employees/:id', authMdw, async (req, res) => {
 
     // Confirming 'delete from DB' operation's success. Alternatively, we can send "GET" request to the DB again to check if this file still exists.
     if (deleteOneEmployee.deletedCount !== 1) {
-      console.log(`MESSAGE: Something went wrong! Profile '${getOneEmployee.fullname}' still is in DB.`);
+      console.log(`\nMESSAGE: Something went wrong! Profile '${getOneEmployee.fullname}' still is in DB.`);
       return res.status(400).json({ errors: [{ msg: `Something went wrong! Profile '${getOneEmployee.fullname}' still is in DB.` }] });
     };
 
-    console.log(`MESSAGE: Profile '${getOneEmployee.fullname}' successfully deleted from DB.`);
+    console.log(`\nMESSAGE: Profile '${getOneEmployee.fullname}' successfully deleted from DB.`);
     res.json({ msg: `Profile '${getOneEmployee.fullname}' successfully deleted from DB.` });
   } catch (err) {
     console.error(err);
