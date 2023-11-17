@@ -10,6 +10,7 @@ import EmployeesList from './components/Employees/EmployeesList';
 import Footer from './components/Footer/Footer';
 import Homepage from './components/Homepage/Homepage';
 import Navbar from './components/Navbar/Navbar';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Signin from './components/Signin/Signin';
 import Signup from './components/Signup/Signup';
 
@@ -39,9 +40,9 @@ const App = () => {
           <div className={cssStyles.section}>
             <Routes>
               <Route exact path='/' element={<Homepage />} />
-              <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
-              <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
-              <Route path='/employees-list' element={<EmployeesList />} />
+              <Route path='/employees-create-form' element={<ProtectedRoute><EmployeesCreateForm /></ProtectedRoute>} />
+              <Route path='/employees-edit-form' element={<ProtectedRoute><EmployeesEditForm /></ProtectedRoute>} />
+              <Route path='/employees-list' element={<ProtectedRoute><EmployeesList /></ProtectedRoute>} />
               <Route path='/signin' element={<Signin />} />
               <Route path='/signup' element={<Signup />} />
             </Routes>

@@ -8,10 +8,10 @@ import cssStyles from './EmployeesEditForm.module.css';
 
 const EmployeesEditForm = (props) => {
 
-  // Redirect to signin page if user signed out.
-  if (props.isAuthenticated === false) {
-    return <Navigate to='/signin' replace={true} />
-  };
+  // // Redirect to signin page if user signed out.
+  // if (props.isAuthenticated === false) {
+  //   return <Navigate to='/signin' replace={true} />
+  // };
 
   return (
     <header className={cssStyles.header}>

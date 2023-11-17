@@ -45,10 +45,10 @@ const EmployeesList = (props) => {
   // Here we using hook 'useNavigate with <button>, but as alternative we can just use without any hooks this: <Link to='/our-targeted-route'>Edit</Link> as we do with 'employee create form'.
   const navigate = useNavigate();
 
-  // Redirect to signin page if user signed out.
-  if (props.isAuthenticated === false) {
-    return <Navigate to='/signin' replace={true} />
-  };
+  // // Redirect to signin page if user signed out.
+  // if (props.isAuthenticated === false) {
+  //   return <Navigate to='/signin' replace={true} />
+  // };
 
   return (
     <div id={cssStyles.container}>
