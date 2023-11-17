@@ -14,15 +14,26 @@ import PropTypes from 'prop-types';
 //   return props.children;
 // };
 
-// VARIANT 2.
-// All the routes we want to protect have the same authorization level, so VARIANT 1 is not the most convenient choice in this case.
-// A better way would be using a Layout Route wich renders the 'ProtectedRoute' component for all nested routes together.
+// // VARIANT 2.
+// // All the routes we want to protect have the same authorization level, so VARIANT 1 is not the most convenient choice in this case.
+// // A better way would be using a Layout Route wich renders the 'ProtectedRoute' component for all nested routes together.
+// const ProtectedRoute = (props) => {
+//   if (!props.isAuthenticated && !props.loading) {
+//     return <Navigate to='/signin' replace={true} />;
+//   };
+//   // 'Outlet' is the component that renders child route elements, if there is any.
+//   return <Outlet />;
+// };
+
+// VARIANT 3.
+// There is a problem with VARIANT 2. We can use it only as layout. If we'll try to wrap with it individual component like in VARIANT 1 - our app will crash.
+// So, what we need to do? That simple - combination of VARIANT 1 and VARIANT 2 give us all we need.
 const ProtectedRoute = (props) => {
   if (!props.isAuthenticated && !props.loading) {
     return <Navigate to='/signin' replace={true} />;
   };
-  // 'Outlet' is the component that renders child route elements, if there is any.
-  return <Outlet />;
+  // Right here we set condition that gives us functionality of both variants.
+  return props.children ? props.children : <Outlet />;
 };
 
 ProtectedRoute.propTypes = {
