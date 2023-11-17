@@ -40,8 +40,8 @@ const App = () => {
           <div className={cssStyles.section}>
             <Routes>
               <Route exact path='/' element={<Homepage />} />
-              <Route path='/employees-create-form' element={<ProtectedRoute><EmployeesCreateForm /></ProtectedRoute>} />
               <Route element={<ProtectedRoute />}>
+                <Route path='/employees-create-form' element={<EmployeesCreateForm />} />
                 <Route path='/employees-edit-form' element={<EmployeesEditForm />} />
                 <Route path='/employees-list' element={<EmployeesList />} />
               </Route>
