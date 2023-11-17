@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -44,11 +44,6 @@ const EmployeesList = (props) => {
   // Redirect to targeted page. 
   // Here we using hook 'useNavigate with <button>, but as alternative we can just use without any hooks this: <Link to='/our-targeted-route'>Edit</Link> as we do with 'employee create form'.
   const navigate = useNavigate();
-
-  // // Redirect to signin page if user signed out.
-  // if (props.isAuthenticated === false) {
-  //   return <Navigate to='/signin' replace={true} />
-  // };
 
   return (
     <div id={cssStyles.container}>
@@ -115,5 +110,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = null;
 
-// 'connect()' function connects a React component to a Redux store.
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeesList);
