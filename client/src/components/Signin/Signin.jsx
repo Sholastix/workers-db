@@ -20,7 +20,12 @@ const Signin = (props) => {
       console.error(err);
     };
   };
-  
+
+  const onReset = () => {
+    setEmail('');
+    setPassword('');
+  };
+
   // Redirect if user signed in.
   if (props.isAuthenticated) {
     return <Navigate to='/employees-list' replace={true} />
@@ -28,35 +33,37 @@ const Signin = (props) => {
 
   return (
     <div id={cssStyles.container}>
-      <p className={cssStyles.title}>AUTH PAGE</p>
-      <form>
-        <div>
+      <p className={cssStyles.title}>AUTHENTICATION</p>
+      <form className={cssStyles.form}>
+        <div className={cssStyles.inputOuter}>
           <input
+            className={cssStyles.inputInner}
             type='email'
             name='email'
             value={email}
             onChange={(event) => { setEmail(event.target.value) }}
             placeholder='Email'
-            // required
+          // required
           />
         </div>
-        <br />
-        <div>
+
+        <div className={cssStyles.inputOuter}>
           <input
+            className={cssStyles.inputInner}
             type='password'
             name='password'
             value={password}
             onChange={(event) => { setPassword(event.target.value) }}
             placeholder='Password'
-            // required
+          // required
           />
         </div>
-        <br />
+
         <div>
-          <button type='submit' onClick={onSubmit} className={cssStyles.button}>Submit</button>
+          <button type='submit' onClick={onSubmit} className={cssStyles.button}>OK</button>
+          <button type='reset' onClick={onReset} className={cssStyles.button}>RESET</button>
         </div>
       </form>
-      <br />
       <p className={cssStyles.text}>Don't have an account? <Link to='/signup' className={cssStyles.link}>SignUp</Link></p>
     </div>
   );

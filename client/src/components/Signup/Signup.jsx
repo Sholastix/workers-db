@@ -43,10 +43,11 @@ const Signup = (props) => {
 
   return (
     <div id={cssStyles.container}>
-      <p className={cssStyles.title}>REGISTRATION PAGE</p>
-      <form>
-        <div>
+      <p className={cssStyles.title}>REGISTRATION</p>
+      <form className={cssStyles.form}>
+        <div className={cssStyles.inputOuter}>
           <input
+            className={cssStyles.inputInner}
             type='text'
             name='username'
             value={username}
@@ -55,9 +56,10 @@ const Signup = (props) => {
           // required
           />
         </div>
-        <br />
-        <div>
+
+        <div className={cssStyles.inputOuter}>
           <input
+            className={cssStyles.inputInner}
             type='email'
             name='email'
             value={email}
@@ -66,9 +68,10 @@ const Signup = (props) => {
           // required
           />
         </div>
-        <br />
-        <div>
+
+        <div className={cssStyles.inputOuter}>
           <input
+            className={cssStyles.inputInner}
             type='password'
             name='password'
             value={password}
@@ -77,9 +80,10 @@ const Signup = (props) => {
           // required
           />
         </div>
-        <br />
-        <div>
+
+        <div className={cssStyles.inputOuter}>
           <input
+            className={cssStyles.inputInner}
             type='password'
             name='confirmPassword'
             value={confirmPassword}
@@ -88,13 +92,12 @@ const Signup = (props) => {
           // required
           />
         </div>
-        <br />
+
         <div>
-          <button type='submit' onClick={onSubmit} className={cssStyles.button}>Submit</button>
-          <button type='reset' onClick={onReset} className={cssStyles.button}>Reset</button>
+          <button type='submit' onClick={onSubmit} className={cssStyles.button}>OK</button>
+          <button type='reset' onClick={onReset} className={cssStyles.button}>RESET</button>
         </div>
       </form>
-      <br />
       <p className={cssStyles.text}>Already have an account? <Link to='/signin' className={cssStyles.link}>SignIn</Link></p>
     </div>
   );

@@ -33,7 +33,6 @@
 
 .linkText {
   background-color: white;
-  border: 0.1rem solid black;
   border-radius: 0.3rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
   font-size: 1.8rem;
@@ -43,6 +42,9 @@
 
 .linkText:hover {
   background-color: gold;
+  border: 0.1rem solid black;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 0.4rem;
 }
 
 .linkText:active {

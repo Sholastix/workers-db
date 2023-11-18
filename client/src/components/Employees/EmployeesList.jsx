@@ -48,7 +48,7 @@ const EmployeesList = (props) => {
   return (
     <div id={cssStyles.container}>
       <div className={cssStyles.link}>
-        <Link to='/employees-create-form' className={cssStyles.linkCreate}>Create New Profile</Link>
+        <Link to='/employees-create-form' className={cssStyles.linkCreate}>+ New Profile</Link>
       </div>
       <header className={cssStyles.title}>
         <p>LIST OF EMPLOYEES</p>

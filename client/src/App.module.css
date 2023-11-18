@@ -27,6 +27,7 @@ html {
   overflow: auto;
   padding: 2rem 1rem 1rem;
   width: 50vw;
+  /* min-width: 33rem; */
 }
 
 .footer {
