@@ -23,9 +23,6 @@ const Navbar = (props) => {
   // Here we gather together links which guests will see.
   const guestLinks = (
     <Fragment>
-      <Link className={cssStyles.navRefs} to='/'>
-        <li>Homepage</li>
-      </Link>
       <Link className={cssStyles.navRefs} to='/signin'>
         <li>SignIn</li>
       </Link>
@@ -40,6 +37,9 @@ const Navbar = (props) => {
       <nav className={cssStyles.container}>
         <p className={cssStyles.logo}>Workers-DB</p>
         <ul className={cssStyles.navLinks}>
+          <Link className={cssStyles.navRefs} to='/'>
+            <li>Homepage</li>
+          </Link>
           {!props.loading && (<Fragment>{props.isAuthenticated ? userLinks : guestLinks}</Fragment>)}
         </ul>
       </nav>

@@ -10,6 +10,7 @@ import EmployeesList from './components/Employees/EmployeesList';
 import Footer from './components/Footer/Footer';
 import Homepage from './components/Homepage/Homepage';
 import Navbar from './components/Navbar/Navbar';
+import Page_404 from './components/Page_404/Page_404';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Signin from './components/Signin/Signin';
 import Signup from './components/Signup/Signup';
@@ -47,6 +48,7 @@ const App = () => {
               </Route>
               <Route path='/signin' element={<Signin />} />
               <Route path='/signup' element={<Signup />} />
+              <Route path='*' element={<Page_404 />} />
             </Routes>
             <Alert />
           </div>
