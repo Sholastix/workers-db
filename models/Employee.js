@@ -21,7 +21,7 @@ const EmployeeSchema = new mongoose.Schema(
     },
 
     birthday: {
-      type: String,
+      type: Date,
       required: true,
       trim: true,
     },

@@ -44,15 +44,6 @@
   width: 30rem;
 }
 
-.text {
-  font-size: 1.6rem;
-}
-
-.title {
-  font-size: 3rem;
-  margin: 5rem 5rem 0rem;
-}
-
 .link {
   text-decoration: none;
 }
@@ -63,4 +54,13 @@
 
 .link:visited {
   color: blue;
+}
+
+.text {
+  font-size: 1.6rem;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 4rem 5rem 0rem;
 }
