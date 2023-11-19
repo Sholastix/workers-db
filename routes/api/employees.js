@@ -135,10 +135,29 @@ router.delete('/employees/:id', authMdw, async (req, res) => {
       return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
     };
 
-    // Here we deleting employee's profile from DB and employee's corresponfing photo from FS.
+    // Deleting employee's photo from FS.
+    if (getOneEmployee.photo) {
+      fs.readdir('client/public/photos', (err, files) => {
+        files.forEach((file) => {
+          if (file === getOneEmployee.photo) {
+            fs.unlink(`client/public/photos/${getOneEmployee.photo}`, (err) => {
+              if (err) {
+                console.error(err);
+              };
+
+              console.log(`MESSAGE: File '${file}' successfully deleted from FS.`);
+              // res.json(`File '${file}' deleted successfully deleted from FS.`); // response for "POSTMAN". 
+            });
+          };
+        });
+      });
+    } else {
+      console.log('Photo not found!');
+    };
+
+    // Deleting employee's profile from DB.
     const deleteOneEmployee = await Employee.deleteOne(
       { _id: req.params.id },
-      fs.unlinkSync(`client/public/photos/${getOneEmployee.photo}`)
     );
 
     // Confirming 'delete from DB' operation's success. Alternatively, we can send "GET" request to the DB again to check if this file still exists.

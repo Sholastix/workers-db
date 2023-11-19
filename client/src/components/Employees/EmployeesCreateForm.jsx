@@ -6,7 +6,7 @@ import axios from 'axios';
 import cssStyles from './EmployeesCreateForm.module.css';
 
 const EmployeesCreateForm = (props) => {
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState();
   const [fullname, setFullname] = useState('');
   const [gender, setGender] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -23,6 +23,32 @@ const EmployeesCreateForm = (props) => {
     try {
       event.preventDefault();
 
+      // // VARIANT 1.
+      // const formData = new FormData();
+      // formData.append('photo', photo);
+      // formData.append('fullname', fullname);
+      // formData.append('gender', gender);
+      // formData.append('birthday', birthday);
+      // formData.append('contacts', contacts);
+      // formData.append('position', position);
+      // formData.append('salary', salary);
+      // formData.append('hired', hired);
+
+      // const newEmployee = await axios.post('http://localhost:5000/api/employees', formData);
+
+      // VARIANT 2.
+      const newEmployee = await axios.postForm('http://localhost:5000/api/employees', {
+        photo: photo,
+        fullname: fullname,
+        gender: gender,
+        birthday: birthday,
+        contacts: contacts,
+        position: position,
+        salary: salary,
+        hired: hired
+      });
+
+      console.log('NEW EMPLOYEE: ', newEmployee);
     } catch (err) {
       console.error(err);
     };
@@ -42,14 +68,13 @@ const EmployeesCreateForm = (props) => {
   return (
     <div id={cssStyles.container}>
       <p className={cssStyles.title}>NEW PROFILE</p>
-      <form className={cssStyles.form} encType="multipart/form-data">
+      <form className={cssStyles.form}>
         <div className={cssStyles.inputOuter}>
           <input
             className={cssStyles.inputInnerPhoto}
             type='file'
             name='photo'
-            value={photo}
-            onChange={(event) => { setPhoto(event.target.value) }}
+            onChange={(event) => { setPhoto(event.target.files[0]) }}
           // required
           />
         </div>
