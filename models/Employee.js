@@ -4,48 +4,48 @@ const EmployeeSchema = new mongoose.Schema(
   {
     photo: {
       type: String,
-      required: true,
+      // required: true,
       default: 'default.jpg'
     },
 
     fullname: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
 
     gender: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
 
     birthday: {
       type: Date,
-      required: true,
+      // required: true,
       trim: true,
     },
 
     contacts: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
 
     position: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
 
     salary: {
       type: Number,
-      required: true,
+      // required: true,
     },
 
     hired: {
       type: Date,
-      required: true,
+      // required: true,
     },
   },
 

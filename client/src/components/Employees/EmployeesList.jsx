@@ -83,8 +83,8 @@ const EmployeesList = (props) => {
                   <td>{employee.salary}</td>
                   <td>{employee.hired}</td>
                   <td>
-                    {/* <Link to='/employees-edit-form'>Edit</Link> */}
-                    <button onClick={() => { navigate('/employees-edit-form') }} className={cssStyles.button}>Edit</button>
+                    {/* <Link to=`/employees-edit-form/${employee._id}`>Edit</Link> */}
+                    <button onClick={() => { navigate(`/employees-edit-form/${employee._id}`) }} className={cssStyles.button}>Edit</button>
                     <button onClick={() => { deleteEmployee(employee._id) }} className={cssStyles.button}>Delete</button>
                   </td>
                 </tr>
