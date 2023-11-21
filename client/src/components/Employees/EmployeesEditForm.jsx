@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -45,6 +45,9 @@ const EmployeesEditForm = (props) => {
     getOneEmployee();
   }, []);
 
+  // Hook for redirect after form submitted.
+  const navigate = useNavigate();
+
   const onSubmit = async (event) => {
     try {
       event.preventDefault();
@@ -74,6 +77,9 @@ const EmployeesEditForm = (props) => {
       //   hired: hired
       // });
 
+      // Redirect to 'EmployeesList' page.
+      navigate('/employees-list');
+
       console.log('UPDATED EMPLOYEE: ', updatedEmployee);
     } catch (err) {
       console.error(err);
@@ -84,6 +90,7 @@ const EmployeesEditForm = (props) => {
   const onReset = async () => {
     try {
       const oneEmployee = await axios.get(`http://localhost:5000/api/employees/${id}`);
+      
       const data = oneEmployee.data.getOneEmployee;
 
       setPhoto(data.photo);

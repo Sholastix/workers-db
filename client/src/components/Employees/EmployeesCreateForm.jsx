@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -6,7 +7,7 @@ import axios from 'axios';
 import cssStyles from './EmployeesCreateForm.module.css';
 
 const EmployeesCreateForm = (props) => {
-  const [photo, setPhoto] = useState();
+  const [photo, setPhoto] = useState('');
   const [fullname, setFullname] = useState('');
   const [gender, setGender] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -18,6 +19,9 @@ const EmployeesCreateForm = (props) => {
   // We need this for dynamic change of 'type' value for some inputs.
   const [birthdayInputType, setBirthdayInputType] = useState('text');
   const [hiredInputType, setHiredInputType] = useState('text');
+
+  // Hook for redirect after form submitted.
+  const navigate = useNavigate();
 
   const onSubmit = async (event) => {
     try {
@@ -47,6 +51,9 @@ const EmployeesCreateForm = (props) => {
         salary: salary,
         hired: hired
       });
+
+      // Redirect to 'EmployeesList' page.
+      navigate('/employees-list');
 
       console.log('NEW EMPLOYEE: ', newEmployee);
     } catch (err) {
