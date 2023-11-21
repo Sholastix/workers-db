@@ -107,9 +107,9 @@ router.post('/employees/', [
 
 // @route: PUT /api/employees/:id
 // @desc: Update profile of one specific employee.
-router.put('/employees/:id', authMdw, async (req, res) => {
+router.put('/employees/:id', authMdw, upload.single('photo'), async (req, res) => {
   try {
-    const updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+    const updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, { ...req.body, photo: req.file.filename }, { new: true });
 
     if (!updateEmployee) {
       console.log('\nMESSAGE: File not found.');
