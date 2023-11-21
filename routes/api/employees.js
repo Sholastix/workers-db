@@ -14,6 +14,20 @@ router.get('/employees/', authMdw, async (req, res) => {
     const getAllEmployees = await Employee.find();
 
     if (getAllEmployees.length === 0) {
+      // This part is intended to clean the 'photos' directory of unnecessary photos.
+      fs.readdir('client/public/photos', (err, files) => {
+        files.forEach((file) => {
+          if (file !== 'default.jpg') {
+            fs.unlink(`client/public/photos/${file}`, (err) => {
+              if (err) {
+                console.error(err);
+              };
+            });
+          };
+        });
+      });
+
+      // And this message is shown to us when the "employees" collection in the DB is empty.
       console.log('\nMESSAGE: There are no files to display.');
       return res.status(404).json({ msg: 'There are no files to display.' });
     };
@@ -145,7 +159,7 @@ router.delete('/employees/:id', authMdw, async (req, res) => {
                 console.error(err);
               };
 
-              console.log(`MESSAGE: File '${file}' successfully deleted from FS.`);
+              console.log(`\nMESSAGE: File '${file}' successfully deleted from FS.`);
               // res.json(`File '${file}' deleted successfully deleted from FS.`); // response for "POSTMAN". 
             });
           };
