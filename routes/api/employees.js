@@ -98,7 +98,7 @@ router.post('/employees/', [
     };
 
     // // VARIANT 2.
-    // // Here we setting default value for 'photo' in case we don't have employees photo yet but profile must be created right now.
+    // // Here we setting default value for 'photo' manually in case we don't have employees photo (and in 'Employee' model we don't set any defaults), but profile must be created right now.
     // const defaultPhoto = 'default.jpg';
     // // Here we declare variable for actual employee's photo.
     // let employeePhoto;
@@ -149,24 +149,25 @@ router.delete('/employees/:id', authMdw, async (req, res) => {
       return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
     };
 
-    // Deleting employee's photo from FS.
+    // Remove employee photo from FS (except 'default.jpg' as it may be needed for other profiles).
     if (getOneEmployee.photo) {
       fs.readdir('client/public/photos', (err, files) => {
         files.forEach((file) => {
-          if (file === getOneEmployee.photo) {
+          if (file === getOneEmployee.photo && file !== 'default.jpg') {
             fs.unlink(`client/public/photos/${getOneEmployee.photo}`, (err) => {
               if (err) {
                 console.error(err);
               };
 
-              console.log(`\nMESSAGE: File '${file}' successfully deleted from FS.`);
-              // res.json(`File '${file}' deleted successfully deleted from FS.`); // response for "POSTMAN". 
+              // console.log(`\nMESSAGE: Photo '${file}' successfully deleted from FS.`);
+              // res.json(`File '${file}' successfully deleted from FS.`); // response for "POSTMAN". 
             });
           };
         });
       });
     } else {
       console.log('Photo not found!');
+      // res.json('Photo not found!'); // response for "POSTMAN". 
     };
 
     // Deleting employee's profile from DB.

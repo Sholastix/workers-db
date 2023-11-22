@@ -4,7 +4,7 @@ const EmployeeSchema = new mongoose.Schema(
   {
     photo: {
       type: String,
-      required: true,
+      // required: true,
       default: 'default.jpg'
     },
 

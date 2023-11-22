@@ -7,7 +7,8 @@ import axios from 'axios';
 import cssStyles from './EmployeesCreateForm.module.css';
 
 const EmployeesCreateForm = (props) => {
-  const [photo, setPhoto] = useState('');
+  // Here we leave initial state for 'photo' 'undefined' cause we want to use default value for 'photo' from our 'Employee' model (and it will work only with 'undefined').
+  const [photo, setPhoto] = useState();
   const [fullname, setFullname] = useState('');
   const [gender, setGender] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -62,7 +63,7 @@ const EmployeesCreateForm = (props) => {
   };
 
   const onReset = () => {
-    setPhoto('');
+    setPhoto();
     setFullname('');
     setGender('');
     setBirthday('');
