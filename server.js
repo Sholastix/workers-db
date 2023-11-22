@@ -5,6 +5,7 @@ const app = express();
 const path = require('path');
 
 const connectDB = require('./config/connectDB');
+const checkDirectory = require('./utils/checkDirectory');
 
 // Handle all routes in one file 'index.js' for import convinience.
 const routes = require('./routes/api/index');
@@ -15,6 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 // Сross-origin resource sharing permission middleware.
 app.use(cors());
+
+// Check if folder for uploading photos already exists and if not - create it.
+checkDirectory();
 
 // Set the routes.
 app.use('/api/', routes.authRoute);
