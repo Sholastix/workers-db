@@ -77,11 +77,11 @@ const EmployeesList = (props) => {
                   <td><img src={`/photos/${employee.photo}`} className={cssStyles.photo} /></td>
                   <td>{employee.fullname}</td>
                   <td>{employee.gender}</td>
-                  <td>{employee.birthday}</td>
+                  <td>{employee.birthday.split('T')[0].split('-').reverse().join('-')}</td>
                   <td>{employee.position}</td>
                   <td>{employee.contacts}</td>
                   <td>{employee.salary}</td>
-                  <td>{employee.hired}</td>
+                  <td>{employee.hired.split('T')[0].split('-').reverse().join('-')}</td>
                   <td>
                     {/* <Link to=`/employees-edit-form/${employee._id}`>Edit</Link> */}
                     <button onClick={() => { navigate(`/employees-edit-form/${employee._id}`) }} className={cssStyles.button}>Edit</button>
