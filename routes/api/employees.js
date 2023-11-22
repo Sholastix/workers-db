@@ -61,15 +61,15 @@ router.get('/employees/:id', authMdw, async (req, res) => {
 
 // @route: POST /api/employees
 // @desc: Create new employee's profile ('Multer' middleware already integrated).
-router.post('/employees/', [
-  // check('fullname', 'Fullname is required!').notEmpty(),
-  // check('gender', 'Gender is required!').notEmpty(),
-  // check('birthday', 'Birthday date is required!').notEmpty(),
-  // check('contacts', 'Contact info is required!').notEmpty(),
-  // check('position', 'Position is required!').notEmpty(),
-  // check('salary', 'Salary is required!').notEmpty(),
-  // check('hired', 'Date of hire is required!').notEmpty(),
-], authMdw, upload.single('photo'), async (req, res, next) => {
+router.post('/employees/', authMdw, upload.single('photo'), [
+  check('fullname', 'Fullname is required!').notEmpty(),
+  check('gender', 'Gender is required!').notEmpty(),
+  check('birthday', 'Birthday date is required!').notEmpty(),
+  check('contacts', 'Contact info is required!').notEmpty(),
+  check('position', 'Position is required!').notEmpty(),
+  check('salary', 'Salary is required!').notEmpty(),
+  check('hired', 'Date of hire is required!').notEmpty(),
+], async (req, res) => {
   const result = validationResult(req);
 
   if (!result.isEmpty()) {
@@ -120,17 +120,37 @@ router.post('/employees/', [
 });
 
 // @route: PUT /api/employees/:id
-// @desc: Update profile of one specific employee.
-router.put('/employees/:id', authMdw, upload.single('photo'), async (req, res) => {
+// @desc: Update profile of one specific employee ('Multer' middleware already integrated).
+router.put('/employees/:id', authMdw, upload.single('photo'), [
+  check('fullname', 'Fullname is required!').notEmpty(),
+  check('gender', 'Gender is required!').notEmpty(),
+  check('birthday', 'Birthday date is required!').notEmpty(),
+  check('contacts', 'Contact info is required!').notEmpty(),
+  check('position', 'Position is required!').notEmpty(),
+  check('salary', 'Salary is required!').notEmpty(),
+  check('hired', 'Date of hire is required!').notEmpty(),
+], async (req, res) => {
+  const result = validationResult(req);
+
+  if (!result.isEmpty()) {
+    return res.status(400).json({ errors: result.array() });
+  };
+
   try {
-    const updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, { ...req.body, photo: req.file.filename }, { new: true });
+    let updateEmployee;
+
+    if (req.file === undefined) {
+      updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+    } else {
+      updateEmployee = await Employee.findOneAndUpdate({ _id: req.params.id }, { ...req.body, photo: req.file.filename }, { new: true });
+    };
 
     if (!updateEmployee) {
       console.log('\nMESSAGE: File not found.');
       return res.status(404).json({ errors: [{ msg: 'File not found.' }] });
     };
 
-    console.log({ msg: `Profile with ID: '${req.params.id}' updated successfully.`, updateEmployee });
+    console.log(`\nProfile with ID: '${req.params.id}' updated successfully.`, updateEmployee);
     res.json({ msg: `Profile with ID: '${req.params.id}' updated successfully.`, updateEmployee });
   } catch (err) {
     console.error(err);
