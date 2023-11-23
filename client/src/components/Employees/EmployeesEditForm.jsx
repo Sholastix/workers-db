@@ -6,6 +6,8 @@ import axios from 'axios';
 
 import cssStyles from './EmployeesEditForm.module.css';
 
+import { employeeGender } from '../../constants/employeeGender';
+
 const EmployeesEditForm = (props) => {
   const [photo, setPhoto] = useState('');
   const [fullname, setFullname] = useState('');
@@ -90,7 +92,7 @@ const EmployeesEditForm = (props) => {
   const onReset = async () => {
     try {
       const oneEmployee = await axios.get(`http://localhost:5000/api/employees/${id}`);
-      
+
       const data = oneEmployee.data.getOneEmployee;
 
       setPhoto(data.photo);
@@ -134,7 +136,7 @@ const EmployeesEditForm = (props) => {
           />
         </div>
 
-        <div className={cssStyles.inputOuter}>
+        {/* <div className={cssStyles.inputOuter}>
           <input
             className={cssStyles.inputInner}
             type='text'
@@ -144,6 +146,24 @@ const EmployeesEditForm = (props) => {
             placeholder='Gender'
           // required
           />
+        </div> */}
+
+        <div className={cssStyles.selectOuter}>
+          <select
+            className={cssStyles.selectInner}
+            name='gender'
+            value={gender}
+            onChange={(event) => { setGender(event.target.value) }}
+            placeholder='Gender'
+          // required
+          >
+            <option>{gender}</option>
+            {
+              employeeGender.map((gender, index) => {
+                return <option key={index}>{gender}</option>
+              })
+            }
+          </select>
         </div>
 
         <div className={cssStyles.inputOuter}>

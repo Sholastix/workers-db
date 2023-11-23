@@ -1,0 +1,1 @@
+export const employeeGender = ['Female', 'Male', 'Other'];

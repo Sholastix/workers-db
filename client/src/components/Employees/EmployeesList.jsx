@@ -17,9 +17,13 @@ const EmployeesList = (props) => {
   const getAllEmployees = async () => {
     try {
       const employees = await axios.get('http://localhost:5000/api/employees/');
-
       setEmployeesList(employees.data.getAllEmployees);
-      console.log('getAllEmployees():', employees.data.getAllEmployees);
+
+      if (employees.data.getAllEmployees.length > 0) {
+        console.log('getAllEmployees():', employees.data.getAllEmployees);
+      } else {
+        console.log('getAllEmployees(): NO PROFILES FOUND.');
+      };
     } catch (err) {
       console.error('getAllEmployees(): ', err.response.data);
     };
@@ -35,6 +39,7 @@ const EmployeesList = (props) => {
       });
 
       setEmployeesList(updatedEmployeesList);
+      
       console.log('deleteEmployee(): ', deletedEmployee.data.msg);
     } catch (err) {
       console.error('deleteEmployee(): ', err);
@@ -54,7 +59,7 @@ const EmployeesList = (props) => {
         <p>LIST OF EMPLOYEES</p>
       </header>
       {
-        employeesList.length > 0
+        employeesList !== undefined && employeesList.length > 0
           ?
           <table className={cssStyles.table}>
             <thead className={cssStyles.tableHead}>

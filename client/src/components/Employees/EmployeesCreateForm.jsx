@@ -6,6 +6,8 @@ import axios from 'axios';
 
 import cssStyles from './EmployeesCreateForm.module.css';
 
+import { employeeGender } from '../../constants/employeeGender';
+
 const EmployeesCreateForm = (props) => {
   // Here we leave initial state for 'photo' 'undefined' cause we want to use default value for 'photo' from our 'Employee' model (and it will work only with 'undefined').
   const [photo, setPhoto] = useState();
@@ -99,7 +101,7 @@ const EmployeesCreateForm = (props) => {
           />
         </div>
 
-        <div className={cssStyles.inputOuter}>
+        {/* <div className={cssStyles.inputOuter}>
           <input
             className={cssStyles.inputInner}
             type='text'
@@ -109,6 +111,24 @@ const EmployeesCreateForm = (props) => {
             placeholder='Gender'
           // required
           />
+        </div> */}
+
+        <div className={cssStyles.selectOuter}>
+          <select
+            className={cssStyles.selectInner}
+            name='gender'
+            value={gender}
+            onChange={(event) => { setGender(event.target.value) }}
+            placeholder='Gender'
+          // required
+          >
+            <option>Gender</option>
+            {
+              employeeGender.map((gender, index) => {
+                return <option key={index}>{gender}</option>
+              })
+            }
+          </select>
         </div>
 
         <div className={cssStyles.inputOuter}>

@@ -29,7 +29,7 @@ router.get('/employees/', authMdw, async (req, res) => {
 
       // And this message is shown to us when the "employees" collection in the DB is empty.
       console.log('\nMESSAGE: There are no files to display.');
-      return res.status(404).json({ msg: 'There are no files to display.' });
+      // return res.json({ msg: 'There are no files to display.' }); // response for "POSTMAN".
     };
 
     // console.log('\nMESSAGE: Profiles of all employees: ', getAllEmployees);
