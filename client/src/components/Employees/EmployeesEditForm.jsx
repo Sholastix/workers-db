@@ -111,7 +111,7 @@ const EmployeesEditForm = (props) => {
       <p className={cssStyles.title}>UPDATE PROFILE</p>
       <form className={cssStyles.form}>
         <div className={cssStyles.inputOuter}>
-          <img className={cssStyles.photo} src={`/photos/${photo}`} alt='NEW PHOTO WILL APPEAR HERE AFTER YOU SUBMIT THE CHANGES!'></img>
+          <img className={cssStyles.photo} src={`http://localhost:5000/static/photos/${photo}`} alt='NEW PHOTO WILL APPEAR HERE AFTER YOU SUBMIT THE CHANGES!'></img>
           <br />
           <input
             className={cssStyles.inputInnerPhoto}

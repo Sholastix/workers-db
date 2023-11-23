@@ -15,10 +15,10 @@ router.get('/employees/', authMdw, async (req, res) => {
 
     if (getAllEmployees.length === 0) {
       // This part is intended to clean the 'photos' directory of unnecessary photos.
-      fs.readdir('client/public/photos', (err, files) => {
+      fs.readdir('public/photos', (err, files) => {
         files.forEach((file) => {
           if (file !== 'default.jpg') {
-            fs.unlink(`client/public/photos/${file}`, (err) => {
+            fs.unlink(`public/photos/${file}`, (err) => {
               if (err) {
                 console.error(err);
               };
@@ -171,10 +171,10 @@ router.delete('/employees/:id', authMdw, async (req, res) => {
 
     // Remove employee photo from FS (except 'default.jpg' as it may be needed for other profiles).
     if (getOneEmployee.photo) {
-      fs.readdir('client/public/photos', (err, files) => {
+      fs.readdir('public/photos', (err, files) => {
         files.forEach((file) => {
           if (file === getOneEmployee.photo && file !== 'default.jpg') {
-            fs.unlink(`client/public/photos/${getOneEmployee.photo}`, (err) => {
+            fs.unlink(`public/photos/${getOneEmployee.photo}`, (err) => {
               if (err) {
                 console.error(err);
               };

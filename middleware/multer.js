@@ -2,7 +2,7 @@ const multer = require('multer');
 const path = require('path');
 
 // Directory where we storing employees photos.
-const dir = '../workers-db/client/public/photos';
+const dir = 'public/photos';
 
 // Here we configuring the storage and naming settings.
 const storage = multer.diskStorage({

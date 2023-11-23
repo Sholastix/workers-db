@@ -13,7 +13,10 @@ const routes = require('./routes/api/index');
 // Initialize the middleware.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+// Here we creating a virtual path prefix (path with part '/static/' does not really exist in FS) for files that are served by 'express.static' function.
+// Also we don't want relative path like 'app.use(express.static('public'))' because it depends on directory from where we launching our node process.
+// So we creating safe absolute path (mainly because I like this approach more :)).
+app.use('/static', express.static(path.join(__dirname, 'public')));
 // Сross-origin resource sharing permission middleware.
 app.use(cors());
 
