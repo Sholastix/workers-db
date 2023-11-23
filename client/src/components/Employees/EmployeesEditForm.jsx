@@ -164,18 +164,6 @@ const EmployeesEditForm = (props) => {
           <input
             className={cssStyles.inputInner}
             type='text'
-            name='contacts'
-            value={contacts}
-            onChange={(event) => { setContacts(event.target.value) }}
-            placeholder='Contacts'
-          // required
-          />
-        </div>
-
-        <div className={cssStyles.inputOuter}>
-          <input
-            className={cssStyles.inputInner}
-            type='text'
             name='position'
             value={position}
             onChange={(event) => { setPosition(event.target.value) }}
@@ -210,6 +198,17 @@ const EmployeesEditForm = (props) => {
           />
         </div>
 
+        <div className={cssStyles.textareaOuter}>
+          <textarea
+            className={cssStyles.textareaInner}
+            type='text'
+            name='contacts'
+            value={contacts}
+            onChange={(event) => { setContacts(event.target.value) }}
+            placeholder='Contacts'
+          // required
+          />
+        </div>
         <div>
           <button type='submit' onClick={onSubmit} className={cssStyles.button}>OK</button>
           <button type='reset' onClick={onReset} className={cssStyles.button}>RESET</button>
