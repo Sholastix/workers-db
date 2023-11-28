@@ -191,9 +191,7 @@ router.delete('/employees/:id', authMdw, async (req, res) => {
     };
 
     // Deleting employee's profile from DB.
-    const deleteOneEmployee = await Employee.deleteOne(
-      { _id: req.params.id },
-    );
+    const deleteOneEmployee = await Employee.deleteOne({ _id: req.params.id });
 
     // Confirming 'delete from DB' operation's success. Alternatively, we can send "GET" request to the DB again to check if this file still exists.
     if (deleteOneEmployee.deletedCount !== 1) {

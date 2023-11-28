@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -6,45 +6,13 @@ import axios from 'axios';
 
 import cssStyles from './EmployeesList.module.css';
 
+import { getAllEmployees, deleteEmployee } from '../../redux/actions/employees';
+
 const EmployeesList = (props) => {
-  const [employeesList, setEmployeesList] = useState([]);
-
-  useEffect(() => {
-    getAllEmployees();
-  }, []);
-
   // Get all profiles of employees.
-  const getAllEmployees = async () => {
-    try {
-      const employees = await axios.get('http://localhost:5000/api/employees/');
-      setEmployeesList(employees.data.getAllEmployees);
-
-      if (employees.data.getAllEmployees.length > 0) {
-        console.log('getAllEmployees():', employees.data.getAllEmployees);
-      } else {
-        console.log('getAllEmployees(): NO PROFILES FOUND.');
-      };
-    } catch (err) {
-      console.error('getAllEmployees(): ', err.response.data);
-    };
-  };
-
-  // Delete specific employee.
-  const deleteEmployee = async (id) => {
-    try {
-      const deletedEmployee = await axios.delete(`http://localhost:5000/api/employees/${id}`);
-
-      const updatedEmployeesList = employeesList.filter((employee) => {
-        return employee._id !== id;
-      });
-
-      setEmployeesList(updatedEmployeesList);
-      
-      console.log('deleteEmployee(): ', deletedEmployee.data.msg);
-    } catch (err) {
-      console.error('deleteEmployee(): ', err);
-    };
-  };
+  useEffect(() => {
+    props.getAllEmployees();
+  }, []);
 
   // Redirect to targeted page. 
   // Here we using hook 'useNavigate with <button>, but as alternative we can just use without any hooks this: <Link to='/our-targeted-route'>Edit</Link> as we do with 'employee create form'.
@@ -59,7 +27,7 @@ const EmployeesList = (props) => {
         <p>LIST OF EMPLOYEES</p>
       </header>
       {
-        employeesList !== undefined && employeesList.length > 0
+        props.employeesList !== undefined && props.employeesList.length > 0
           ?
           <table className={cssStyles.table}>
             <thead className={cssStyles.tableHead}>
@@ -77,7 +45,7 @@ const EmployeesList = (props) => {
             </thead>
 
             <tbody className={cssStyles.tableBody}>
-              {employeesList.map((employee) => (
+              {props.employeesList.map((employee) => (
                 <tr key={employee._id}>
                   <td><img src={`http://localhost:5000/static/photos/${employee.photo}`} className={cssStyles.photo} /></td>
                   <td>{employee.fullname}</td>
@@ -90,7 +58,7 @@ const EmployeesList = (props) => {
                   <td>
                     {/* <Link to=`/employees-edit-form/${employee._id}`>Edit</Link> */}
                     <button onClick={() => { navigate(`/employees-edit-form/${employee._id}`) }} className={cssStyles.button}>Edit</button>
-                    <button onClick={() => { deleteEmployee(employee._id) }} className={cssStyles.button}>Delete</button>
+                    <button onClick={() => { props.deleteEmployee(employee._id) }} className={cssStyles.button}>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -106,13 +74,18 @@ const EmployeesList = (props) => {
 };
 
 EmployeesList.propTypes = {
-  isAuthenticated: PropTypes.bool
+  employeesList: PropTypes.array,
+  loading: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  employeesList: state.getAllEmployees.employeesList,
+  loading: state.getAllEmployees.loading
 });
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = {
+  getAllEmployees,
+  deleteEmployee
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeesList);
