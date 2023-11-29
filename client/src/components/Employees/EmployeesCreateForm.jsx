@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 import cssStyles from './EmployeesCreateForm.module.css';
 
@@ -30,31 +29,6 @@ const EmployeesCreateForm = (props) => {
   const onSubmit = async (event) => {
     try {
       event.preventDefault();
-
-      // // VARIANT 1.
-      // const formData = new FormData();
-      // formData.append('photo', photo);
-      // formData.append('fullname', fullname);
-      // formData.append('gender', gender);
-      // formData.append('birthday', birthday);
-      // formData.append('contacts', contacts);
-      // formData.append('position', position);
-      // formData.append('salary', salary);
-      // formData.append('hired', hired);
-
-      // const newEmployee = await axios.post('http://localhost:5000/api/employees', formData);
-
-      // // VARIANT 2.
-      // const newEmployee = await axios.postForm('http://localhost:5000/api/employees', {
-      //   photo: photo,
-      //   fullname: fullname,
-      //   gender: gender,
-      //   birthday: birthday,
-      //   contacts: contacts,
-      //   position: position,
-      //   salary: salary,
-      //   hired: hired
-      // });
 
       props.createEmployee({ photo, fullname, gender, birthday, contacts, position, salary, hired });
 
@@ -101,18 +75,6 @@ const EmployeesCreateForm = (props) => {
           // required
           />
         </div>
-
-        {/* <div className={cssStyles.inputOuter}>
-          <input
-            className={cssStyles.inputInner}
-            type='text'
-            name='gender'
-            value={gender}
-            onChange={(event) => { setGender(event.target.value) }}
-            placeholder='Gender'
-          // required
-          />
-        </div> */}
 
         <div className={cssStyles.selectOuter}>
           <select
@@ -205,12 +167,10 @@ const EmployeesCreateForm = (props) => {
 };
 
 EmployeesCreateForm.propTypes = {
-  isAuthenticated: PropTypes.bool
+  createEmployee: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
+const mapStateToProps = null;
 
 const mapDispatchToProps = {
   createEmployee

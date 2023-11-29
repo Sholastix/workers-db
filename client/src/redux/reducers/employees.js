@@ -1,4 +1,9 @@
-import { GET_EMPLOYEE_PROFILES, GET_EMPLOYEE_PROFILES_ERROR, DELETE_EMPLOYEE_PROFILE, DELETE_EMPLOYEE_PROFILE_ERROR } from '../actions/actionTypes';
+import { 
+  GET_EMPLOYEE_PROFILES, 
+  GET_EMPLOYEE_PROFILES_ERROR, 
+  DELETE_EMPLOYEE_PROFILE, 
+  DELETE_EMPLOYEE_PROFILE_ERROR 
+} from '../actions/actionTypes';
 
 // Initial state for reducer.
 const initialState = {

@@ -1,5 +1,5 @@
 {
-  "name": "worker-db-server",
+  "name": "worker-db",
   "version": "1.0.0",
   "description": "Simple app for managing company workers info.",
   "main": "server.js",

@@ -1,6 +1,15 @@
 import axios from 'axios';
 
-import { SIGNUP_SUCCESS, SIGNUP_FAILURE, USER_SIGNED_IN, AUTH_ERROR, SIGNIN_SUCCESS, SIGNIN_FAILURE, SIGNOUT } from './actionTypes';
+import { 
+  SIGNUP_SUCCESS, 
+  SIGNUP_FAILURE, 
+  USER_SIGNED_IN, 
+  AUTH_ERROR, 
+  SIGNIN_SUCCESS, 
+  SIGNIN_FAILURE, 
+  SIGNOUT 
+} from './actionTypes';
+
 import { setAlert } from './alert';
 import setAuthToken from '../../utils/setAuthToken';
 

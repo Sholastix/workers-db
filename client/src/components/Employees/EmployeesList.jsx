@@ -1,8 +1,7 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 import cssStyles from './EmployeesList.module.css';
 
@@ -80,7 +79,9 @@ const EmployeesList = (props) => {
 
 EmployeesList.propTypes = {
   employeesList: PropTypes.array,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  getAllEmployees: PropTypes.func.isRequired,
+  deleteEmployee: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

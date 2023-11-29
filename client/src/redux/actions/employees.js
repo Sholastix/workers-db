@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import { GET_EMPLOYEE_PROFILES, GET_EMPLOYEE_PROFILES_ERROR, DELETE_EMPLOYEE_PROFILE, DELETE_EMPLOYEE_PROFILE_ERROR } from './actionTypes';
+import { 
+  GET_EMPLOYEE_PROFILES, 
+  GET_EMPLOYEE_PROFILES_ERROR, 
+  DELETE_EMPLOYEE_PROFILE, 
+  DELETE_EMPLOYEE_PROFILE_ERROR 
+} from './actionTypes';
 
 // Get all employee profiles.
 export const getAllEmployees = () => async dispatch => {

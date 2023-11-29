@@ -1,4 +1,12 @@
-import { SIGNUP_SUCCESS, SIGNUP_FAILURE, USER_SIGNED_IN, AUTH_ERROR, SIGNIN_SUCCESS, SIGNIN_FAILURE, SIGNOUT } from '../actions/actionTypes';
+import { 
+  SIGNUP_SUCCESS, 
+  SIGNUP_FAILURE, 
+  USER_SIGNED_IN, 
+  AUTH_ERROR, 
+  SIGNIN_SUCCESS, 
+  SIGNIN_FAILURE, 
+  SIGNOUT 
+} from '../actions/actionTypes';
 
 // Initial state for reducer.
 const initialState = {
