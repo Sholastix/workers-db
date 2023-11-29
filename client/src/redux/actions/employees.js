@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-import { 
-  GET_EMPLOYEE_PROFILES, 
-  GET_EMPLOYEE_PROFILES_ERROR, 
-  DELETE_EMPLOYEE_PROFILE, 
-  DELETE_EMPLOYEE_PROFILE_ERROR 
+import {
+  GET_EMPLOYEE_PROFILES,
+  GET_EMPLOYEE_PROFILES_ERROR,
+  DELETE_EMPLOYEE_PROFILE,
+  DELETE_EMPLOYEE_PROFILE_ERROR
 } from './actionTypes';
+
+import { setAlert } from './alert';
 
 // Get all employee profiles.
 export const getAllEmployees = () => async dispatch => {
@@ -101,6 +103,13 @@ export const createEmployee = (props) => async dispatch => {
     });
 
   } catch (err) {
+    const errors = err.response.data.errors;
+    // console.log('ARRAY_OF_ERRORS: ', errors);
+
+    if (errors.length > 0) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'failure')));
+    };
+
     dispatch({
       type: GET_EMPLOYEE_PROFILES_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },

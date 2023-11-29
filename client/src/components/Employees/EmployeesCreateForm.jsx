@@ -33,7 +33,11 @@ const EmployeesCreateForm = (props) => {
       props.createEmployee({ photo, fullname, gender, birthday, contacts, position, salary, hired });
 
       // Redirect to 'EmployeesList' page.
-      navigate('/employees-list');
+      if (fullname === '' || gender === '' || birthday === '' || contacts === '' || position === '' || salary === '' || hired === '') {
+        return;
+      } else {
+        navigate('/employees-list');
+      };
     } catch (err) {
       console.error(err);
     };
@@ -60,7 +64,6 @@ const EmployeesCreateForm = (props) => {
             type='file'
             name='photo'
             onChange={(event) => { setPhoto(event.target.files[0]) }}
-          // required
           />
         </div>
 

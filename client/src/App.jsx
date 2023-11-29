@@ -39,6 +39,7 @@ const App = () => {
             <Navbar />
           </div>
           <div className={cssStyles.section}>
+            <Alert />
             <Routes>
               <Route exact path='/' element={<Homepage />} />
               <Route element={<ProtectedRoute />}>
@@ -50,7 +51,6 @@ const App = () => {
               <Route path='/signup' element={<Signup />} />
               <Route path='*' element={<Page_404 />} />
             </Routes>
-            <Alert />
           </div>
           <div className={cssStyles.footer}>
             <Footer />

@@ -28,7 +28,7 @@
 }
 
 .form {
-  padding: 5rem 0rem 10rem;
+  padding: 5rem 0rem 1rem;
 }
 
 .inputInner {
@@ -41,7 +41,7 @@
 }
 
 .inputOuter {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .inputInnerPhoto {
@@ -53,6 +53,7 @@
 }
 
 input[type='file']::file-selector-button {
+  font-size: 1.8rem;
   background-color: white;
   border: none;
   border-radius: 0.3rem;
@@ -84,7 +85,7 @@ input[type='file']::file-selector-button:active {
 }
 
 .selectOuter {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .text {
@@ -98,7 +99,7 @@ input[type='file']::file-selector-button:active {
   font-size: 1.8rem;
   font-family: Arial, Helvetica, sans-serif;
   max-height: 30rem;
-  min-height: 11.5rem;
+  min-height: 9.7rem;
   max-width: 30rem;
   min-width: 30rem;
   padding: 0.5rem;
