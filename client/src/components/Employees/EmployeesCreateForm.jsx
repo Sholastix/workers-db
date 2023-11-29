@@ -7,6 +7,7 @@ import axios from 'axios';
 import cssStyles from './EmployeesCreateForm.module.css';
 
 import { employeeGender } from '../../constants/employeeGender';
+import { createEmployee } from '../../redux/actions/employees';
 
 const EmployeesCreateForm = (props) => {
   // Here we leave initial state for 'photo' 'undefined' cause we want to use default value for 'photo' from our 'Employee' model (and it will work only with 'undefined').
@@ -43,22 +44,22 @@ const EmployeesCreateForm = (props) => {
 
       // const newEmployee = await axios.post('http://localhost:5000/api/employees', formData);
 
-      // VARIANT 2.
-      const newEmployee = await axios.postForm('http://localhost:5000/api/employees', {
-        photo: photo,
-        fullname: fullname,
-        gender: gender,
-        birthday: birthday,
-        contacts: contacts,
-        position: position,
-        salary: salary,
-        hired: hired
-      });
+      // // VARIANT 2.
+      // const newEmployee = await axios.postForm('http://localhost:5000/api/employees', {
+      //   photo: photo,
+      //   fullname: fullname,
+      //   gender: gender,
+      //   birthday: birthday,
+      //   contacts: contacts,
+      //   position: position,
+      //   salary: salary,
+      //   hired: hired
+      // });
+
+      props.createEmployee({ photo, fullname, gender, birthday, contacts, position, salary, hired });
 
       // Redirect to 'EmployeesList' page.
       navigate('/employees-list');
-
-      console.log('NEW EMPLOYEE: ', newEmployee);
     } catch (err) {
       console.error(err);
     };
@@ -211,6 +212,8 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = {
+  createEmployee
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeesCreateForm);

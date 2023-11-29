@@ -47,7 +47,12 @@ const EmployeesList = (props) => {
             <tbody className={cssStyles.tableBody}>
               {props.employeesList.map((employee) => (
                 <tr key={employee._id}>
-                  <td><img src={`http://localhost:5000/static/photos/${employee.photo}`} className={cssStyles.photo} /></td>
+                  {employee.photo === 'undefined'
+                    ?
+                    <td><img src={`http://localhost:5000/static/photos/default.jpg`} className={cssStyles.photo} /></td>
+                    :
+                    <td><img src={`http://localhost:5000/static/photos/${employee.photo}`} className={cssStyles.photo} /></td>
+                  }
                   <td>{employee.fullname}</td>
                   <td>{employee.gender}</td>
                   <td>{employee.birthday.split('T')[0].split('-').reverse().join('-')}</td>
