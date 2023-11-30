@@ -4,7 +4,9 @@ import {
   GET_EMPLOYEE_PROFILES,
   GET_EMPLOYEE_PROFILES_ERROR,
   DELETE_EMPLOYEE_PROFILE,
-  DELETE_EMPLOYEE_PROFILE_ERROR
+  DELETE_EMPLOYEE_PROFILE_ERROR,
+  CREATE_EMPLOYEE_PROFILE,
+  CREATE_EMPLOYEE_PROFILE_ERROR
 } from './actionTypes';
 
 import { setAlert } from './alert';
@@ -31,35 +33,6 @@ export const getAllEmployees = () => async dispatch => {
     });
 
     console.error('getAllEmployees(): ', err.response.data);
-  };
-};
-
-// Delete selected employee's profile.
-export const deleteEmployee = (id) => async dispatch => {
-  try {
-    // Here we deleting employee's profile.
-    const deletedEmployee = await axios.delete(`http://localhost:5000/api/employees/${id}`);
-
-    dispatch({
-      type: DELETE_EMPLOYEE_PROFILE
-    });
-
-    // And here we refreshing our employee profiles list.
-    const employees = await axios.get('http://localhost:5000/api/employees/');
-
-    dispatch({
-      type: GET_EMPLOYEE_PROFILES,
-      payload: employees.data.getAllEmployees,
-    });
-
-    console.log('deleteEmployee(): ', deletedEmployee.data.msg);
-  } catch (err) {
-    dispatch({
-      type: DELETE_EMPLOYEE_PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-
-    console.error('deleteEmployee(): ', err);
   };
 };
 
@@ -94,6 +67,11 @@ export const createEmployee = (props) => async dispatch => {
 
     console.log('createEmployee(): ', newEmployee.data.newEmployee);
 
+    dispatch({
+      type: CREATE_EMPLOYEE_PROFILE,
+      payload: newEmployee.data.newEmployee,
+    });
+
     // And here we refreshing our employee profiles list.
     const employees = await axios.get('http://localhost:5000/api/employees/');
 
@@ -111,10 +89,39 @@ export const createEmployee = (props) => async dispatch => {
     };
 
     dispatch({
-      type: GET_EMPLOYEE_PROFILES_ERROR,
+      type: CREATE_EMPLOYEE_PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
 
     console.error('createEmployee(): ', err);
+  };
+};
+
+// Delete selected employee's profile.
+export const deleteEmployee = (id) => async dispatch => {
+  try {
+    // Here we deleting employee's profile.
+    const deletedEmployee = await axios.delete(`http://localhost:5000/api/employees/${id}`);
+
+    dispatch({
+      type: DELETE_EMPLOYEE_PROFILE
+    });
+
+    // And here we refreshing our employee profiles list.
+    const employees = await axios.get('http://localhost:5000/api/employees/');
+
+    dispatch({
+      type: GET_EMPLOYEE_PROFILES,
+      payload: employees.data.getAllEmployees,
+    });
+
+    console.log('deleteEmployee(): ', deletedEmployee.data.msg);
+  } catch (err) {
+    dispatch({
+      type: DELETE_EMPLOYEE_PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+
+    console.error('deleteEmployee(): ', err);
   };
 };

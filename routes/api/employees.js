@@ -14,25 +14,29 @@ router.get('/employees/', authMdw, async (req, res) => {
     const getAllEmployees = await Employee.find();
 
     if (getAllEmployees.length === 0) {
-      // This part is intended to clean the 'photos' directory of unnecessary photos.
-      fs.readdir('public/photos', (err, files) => {
-        files.forEach((file) => {
-          if (file !== 'default.jpg') {
-            fs.unlink(`public/photos/${file}`, (err) => {
-              if (err) {
-                console.error(err);
-              };
-            });
-          };
-        });
-      });
+      // // This part is intended to clean the 'photos' directory of unnecessary photos.
+      // // Disabled for now because of BUG. When no employees exists in DB and we create new employee then here a sequence of actions:
+      // // 1. 'Multer' uploaded photo in public folder.
+      // // 2. This function runs, finds no employee in the DB, assumes that the photo from step 1 is not associated with any profile and deletes it.
+      // // 3. Profile displays without photo.
+      // fs.readdir('public/photos', (err, files) => {
+      //   files.forEach((file) => {
+      //     if (file !== 'default.jpg') {
+      //       fs.unlink(`public/photos/${file}`, (err) => {
+      //         if (err) {
+      //           console.error(err);
+      //         };
+      //       });
+      //     };
+      //   });
+      // });
 
       // And this message is shown to us when the "employees" collection in the DB is empty.
       console.log('\nMESSAGE: There are no files to display.');
       // return res.json({ msg: 'There are no files to display.' }); // response for "POSTMAN".
     };
 
-    // console.log('\nMESSAGE: Profiles of all employees: ', getAllEmployees);
+    console.log('\nMESSAGE: Profiles of all employees: ', getAllEmployees);
     res.json({ msg: 'Profiles of all employees: ', getAllEmployees });
   } catch (err) {
     console.error(err);

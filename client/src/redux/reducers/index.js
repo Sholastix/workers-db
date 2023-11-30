@@ -2,13 +2,14 @@ import { combineReducers } from 'redux';
 
 import alert from './alert';
 import auth from './auth';
-import { getAllEmployees, deleteEmployee } from './employees';
+import { getAllEmployees, deleteEmployee, createEmployee } from './employees';
 
 const rootReducer = combineReducers({
   alert,
   auth,
   getAllEmployees,
-  deleteEmployee
+  deleteEmployee,
+  createEmployee
 });
 
 export default rootReducer;
