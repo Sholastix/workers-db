@@ -7,6 +7,7 @@ import axios from 'axios';
 import cssStyles from './EmployeesEditForm.module.css';
 
 import { employeeGender } from '../../constants/employeeGender';
+import { updateEmployee } from '../../redux/actions/employees';
 
 const EmployeesEditForm = (props) => {
   const [photo, setPhoto] = useState('');
@@ -54,35 +55,14 @@ const EmployeesEditForm = (props) => {
     try {
       event.preventDefault();
 
-      // VARIANT 1.
-      const formData = new FormData();
-      formData.append('photo', photo);
-      formData.append('fullname', fullname);
-      formData.append('gender', gender);
-      formData.append('birthday', birthday);
-      formData.append('contacts', contacts);
-      formData.append('position', position);
-      formData.append('salary', salary);
-      formData.append('hired', hired);
-
-      const updatedEmployee = await axios.put(`http://localhost:5000/api/employees/${id}`, formData);
-
-      // // VARIANT 2.
-      // const updatedEmployee = await axios.putForm(`http://localhost:5000/api/employees/${id}`, {
-      //   photo: photo,
-      //   fullname: fullname,
-      //   gender: gender,
-      //   birthday: birthday,
-      //   contacts: contacts,
-      //   position: position,
-      //   salary: salary,
-      //   hired: hired
-      // });
+      props.updateEmployee(id, { photo, fullname, gender, birthday, contacts, position, salary, hired });
 
       // Redirect to 'EmployeesList' page.
-      navigate('/employees-list');
-
-      console.log('UPDATED EMPLOYEE: ', updatedEmployee);
+      if (fullname === '' || gender === '' || birthday === '' || contacts === '' || position === '' || salary === '' || hired === '') {
+        return;
+      } else {
+        navigate('/employees-list');
+      };
     } catch (err) {
       console.error(err);
     };
@@ -246,6 +226,8 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = {
+  updateEmployee
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeesEditForm);

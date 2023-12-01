@@ -6,7 +6,9 @@ import {
   DELETE_EMPLOYEE_PROFILE,
   DELETE_EMPLOYEE_PROFILE_ERROR,
   CREATE_EMPLOYEE_PROFILE,
-  CREATE_EMPLOYEE_PROFILE_ERROR
+  CREATE_EMPLOYEE_PROFILE_ERROR,
+  UPDATE_EMPLOYEE_PROFILE,
+  UPDATE_EMPLOYEE_PROFILE_ERROR
 } from './actionTypes';
 
 import { setAlert } from './alert';
@@ -39,7 +41,7 @@ export const getAllEmployees = () => async dispatch => {
 // Create selected employee's profile.
 export const createEmployee = (props) => async dispatch => {
   try {
-    // Here we creating or updating employee's profile.
+    // Here we creating employee's profile.
     // VARIANT 1.
     const formData = new FormData();
     formData.append('photo', props.photo);
@@ -65,12 +67,12 @@ export const createEmployee = (props) => async dispatch => {
     //   hired: props.hired
     // });
 
-    console.log('createEmployee(): ', newEmployee.data.newEmployee);
-
     dispatch({
       type: CREATE_EMPLOYEE_PROFILE,
       payload: newEmployee.data.newEmployee,
     });
+
+    console.log('createEmployee(): ', newEmployee.data.newEmployee);
 
     // And here we refreshing our employee profiles list.
     const employees = await axios.get('http://localhost:5000/api/employees/');
@@ -79,7 +81,6 @@ export const createEmployee = (props) => async dispatch => {
       type: GET_EMPLOYEE_PROFILES,
       payload: employees.data.getAllEmployees,
     });
-
   } catch (err) {
     const errors = err.response.data.errors;
     // console.log('ARRAY_OF_ERRORS: ', errors);
@@ -94,6 +95,65 @@ export const createEmployee = (props) => async dispatch => {
     });
 
     console.error('createEmployee(): ', err);
+  };
+};
+
+// Update selected employee's profile.
+export const updateEmployee = (id, props) => async dispatch => {
+  try {
+    // Here we updating employee's profile.
+    // VARIANT 1.
+    const formData = new FormData();
+    formData.append('photo', props.photo);
+    formData.append('fullname', props.fullname);
+    formData.append('gender', props.gender);
+    formData.append('birthday', props.birthday);
+    formData.append('contacts', props.contacts);
+    formData.append('position', props.position);
+    formData.append('salary', props.salary);
+    formData.append('hired', props.hired);
+
+    const updateEmployee = await axios.put(`http://localhost:5000/api/employees/${id}`, formData);
+
+    // // VARIANT 2.
+    // const updateEmployee = await axios.putForm(`http://localhost:5000/api/employees/${id}`, {
+    //   photo: props.photo,
+    //   fullname: props.fullname,
+    //   gender: props.gender,
+    //   birthday: props.birthday,
+    //   contacts: props.contacts,
+    //   position: props.position,
+    //   salary: props.salary,
+    //   hired: props.hired
+    // });
+
+    dispatch({
+      type: UPDATE_EMPLOYEE_PROFILE,
+      payload: updateEmployee.data.updateEmployee,
+    });
+
+    console.log('updateEmployee(): ', updateEmployee.data.updateEmployee);
+
+    // And here we refreshing our employee profiles list.
+    const employees = await axios.get('http://localhost:5000/api/employees/');
+
+    dispatch({
+      type: GET_EMPLOYEE_PROFILES,
+      payload: employees.data.getAllEmployees,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors.length > 0) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'failure')));
+    };
+
+    dispatch({
+      type: UPDATE_EMPLOYEE_PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+
+    console.error('updateEmployee(): ', err);
   };
 };
 
