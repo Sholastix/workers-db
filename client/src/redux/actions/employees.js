@@ -3,6 +3,8 @@ import axios from 'axios';
 import {
   GET_EMPLOYEE_PROFILES,
   GET_EMPLOYEE_PROFILES_ERROR,
+  GET_EMPLOYEE_PROFILE,
+  GET_EMPLOYEE_PROFILE_ERROR,
   DELETE_EMPLOYEE_PROFILE,
   DELETE_EMPLOYEE_PROFILE_ERROR,
   CREATE_EMPLOYEE_PROFILE,
@@ -35,6 +37,27 @@ export const getAllEmployees = () => async dispatch => {
     });
 
     console.error('getAllEmployees(): ', err.response.data);
+  };
+};
+
+// Get one employee profile.
+export const getOneEmployee = (id) => async dispatch => {
+  try {
+    const employee = await axios.get(`http://localhost:5000/api/employees/${id}`);
+
+    dispatch({
+      type: GET_EMPLOYEE_PROFILE,
+      payload: employee.data.getOneEmployee,
+    });
+
+    console.log('getOneEmployee():', employee.data.getOneEmployee);
+  } catch (err) {
+    dispatch({
+      type: GET_EMPLOYEE_PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+
+    console.error('getOneEmployee(): ', err.response.data);
   };
 };
 

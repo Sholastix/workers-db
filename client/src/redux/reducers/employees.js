@@ -1,6 +1,8 @@
-import { 
+import {
   GET_EMPLOYEE_PROFILES, 
-  GET_EMPLOYEE_PROFILES_ERROR, 
+  GET_EMPLOYEE_PROFILES_ERROR,
+  GET_EMPLOYEE_PROFILE,
+  GET_EMPLOYEE_PROFILE_ERROR,
   DELETE_EMPLOYEE_PROFILE, 
   DELETE_EMPLOYEE_PROFILE_ERROR,
   CREATE_EMPLOYEE_PROFILE,
@@ -26,6 +28,25 @@ export const getAllEmployees = (state = initialState, action) => {
         loading: false
       };
     case GET_EMPLOYEE_PROFILES_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false
+      };
+    default:
+      return state;
+  };
+};
+
+export const getOneEmployee = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_EMPLOYEE_PROFILE:
+      return {
+        ...state,
+        employee: action.payload,
+        loading: false
+      };
+    case GET_EMPLOYEE_PROFILE_ERROR:
       return {
         ...state,
         error: action.payload,

@@ -7,10 +7,10 @@ import axios from 'axios';
 import cssStyles from './EmployeesEditForm.module.css';
 
 import { employeeGender } from '../../constants/employeeGender';
-import { updateEmployee } from '../../redux/actions/employees';
+import { getOneEmployee, updateEmployee } from '../../redux/actions/employees';
 
 const EmployeesEditForm = (props) => {
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState();
   const [fullname, setFullname] = useState('');
   const [gender, setGender] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -25,6 +25,12 @@ const EmployeesEditForm = (props) => {
 
   // Here we get the ID of the current user from request parameters (basically from http request address) with help of hook 'useParams()'.
   const { id } = useParams();
+
+  // Get initial employee's profile data.
+  // VARIANT 1: without REDUX. It works without "A component is changing a controlled input to be uncontrolled" warning.
+  useEffect(() => {
+    getOneEmployee();
+  }, []);
 
   const getOneEmployee = async () => {
     try {
@@ -44,9 +50,23 @@ const EmployeesEditForm = (props) => {
     };
   };
 
-  useEffect(() => {
-    getOneEmployee();
-  }, []);
+  // // VARIANT 2: with REDUX.
+  // // That's kinda tricky, because we can't set the 'value' property for <input type='file'/> element programmatically, only by user's action, so we always will get a warning "A component is changing a controlled input to be uncontrolled" in console.
+  // // Maybe later we find some way to workaround that problem (trick with 'DataTransfer' and 'files' attribute or we can wrap 'input' inside another Component, which we can then use as controlled one).
+  // useEffect(() => {
+  //   props.getOneEmployee(id);
+  // }, []);
+
+  // useEffect(() => {
+  //   setPhoto(props.employee.photo);
+  //   setFullname(props.employee.fullname);
+  //   setGender(props.employee.gender);
+  //   setBirthday(props.employee.birthday);
+  //   setContacts(props.employee.contacts);
+  //   setPosition(props.employee.position);
+  //   setSalary(props.employee.salary);
+  //   setHired(props.employee.hired);
+  // }, [props.employee]);
 
   // Hook for redirect after form submitted.
   const navigate = useNavigate();
@@ -68,11 +88,10 @@ const EmployeesEditForm = (props) => {
     };
   };
 
-  // Here we add request and now can reset values not to empty fields but to initial profile's values.
+  // Reset form values to initial profile's values.
   const onReset = async () => {
     try {
       const oneEmployee = await axios.get(`http://localhost:5000/api/employees/${id}`);
-
       const data = oneEmployee.data.getOneEmployee;
 
       setPhoto(data.photo);
@@ -115,18 +134,6 @@ const EmployeesEditForm = (props) => {
           // required
           />
         </div>
-
-        {/* <div className={cssStyles.inputOuter}>
-          <input
-            className={cssStyles.inputInner}
-            type='text'
-            name='gender'
-            value={gender}
-            onChange={(event) => { setGender(event.target.value) }}
-            placeholder='Gender'
-          // required
-          />
-        </div> */}
 
         <div className={cssStyles.selectOuter}>
           <select
@@ -219,14 +226,16 @@ const EmployeesEditForm = (props) => {
 };
 
 EmployeesEditForm.propTypes = {
-  isAuthenticated: PropTypes.bool
+  getOneEmployee: PropTypes.func.isRequired,
+  updateEmployee: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  employee: state.getOneEmployee.employee
 });
 
 const mapDispatchToProps = {
+  getOneEmployee,
   updateEmployee
 };
 
