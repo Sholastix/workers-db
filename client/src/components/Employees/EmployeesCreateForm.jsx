@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,6 +11,7 @@ import { createEmployee } from '../../redux/actions/employees';
 const EmployeesCreateForm = (props) => {
   // Here we leave initial state for 'photo' 'undefined' cause we want to use default value for 'photo' from our 'Employee' model (and it will work only with 'undefined').
   const [photo, setPhoto] = useState();
+  const [previewPhoto, setPreviewPhoto] = useState();
   const [fullname, setFullname] = useState('');
   const [gender, setGender] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -23,7 +24,32 @@ const EmployeesCreateForm = (props) => {
   const [birthdayInputType, setBirthdayInputType] = useState('text');
   const [hiredInputType, setHiredInputType] = useState('text');
 
-  // Hook for redirect after form submitted.
+  // LOGIC FOR PHOTO PREVIEW.
+  // Creating a preview as a side effect whenever selected file is changed.
+  useEffect(() => {
+    if (!photo) {
+      setPreviewPhoto(undefined);
+      return;
+    };
+
+    const objectUrl = URL.createObjectURL(photo);
+    setPreviewPhoto(objectUrl);
+
+    // Freeing memory whenever this component is unmounted.
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [photo]);
+
+  // Event listener for file selection.
+  const onSelectFile = (event) => {
+    if (!event.target.files || event.target.files.length === 0) {
+      setPhoto(undefined);
+      return;
+    };
+
+    setPhoto(event.target.files[0]);
+  };
+
+  // Redirect after form submitted.
   const navigate = useNavigate();
 
   const onSubmit = async (event) => {
@@ -59,11 +85,18 @@ const EmployeesCreateForm = (props) => {
       <p className={cssStyles.title}>NEW PROFILE</p>
       <form className={cssStyles.form}>
         <div className={cssStyles.inputOuter}>
+          {photo
+            ?
+            <img src={previewPhoto} className={cssStyles.photo} />
+            :
+            <img className={cssStyles.photo} src={`http://localhost:5000/static/photos/default.jpg`} alt='DEFAULT PHOTO'></img>
+          }
+          <br />
           <input
             className={cssStyles.inputInnerPhoto}
             type='file'
             name='photo'
-            onChange={(event) => { setPhoto(event.target.files[0]) }}
+            onChange={onSelectFile}
           />
         </div>
 
