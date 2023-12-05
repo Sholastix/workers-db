@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 import { 
-  SIGNUP_SUCCESS, 
-  SIGNUP_FAILURE, 
-  USER_SIGNED_IN, 
-  AUTH_ERROR, 
+  AUTH_ERROR,
   SIGNIN_SUCCESS, 
   SIGNIN_FAILURE, 
-  SIGNOUT 
+  SIGNOUT,
+  SIGNUP_SUCCESS, 
+  SIGNUP_FAILURE, 
+  USER_SIGNED_IN 
 } from './actionTypes';
 
 import { setAlert } from './alert';
@@ -51,6 +51,8 @@ export const signup = (props) => async dispatch => {
       password: props.password
     });
 
+    // console.log({ 'SIGNUP_TOKEN: ': newUser.data.signedToken }); // get the token.
+
     dispatch({
       type: SIGNUP_SUCCESS,
       payload: newUser.data
@@ -59,12 +61,8 @@ export const signup = (props) => async dispatch => {
     // We set our general app in way that when new user finished his registration - he immediately received web-token.
     // We need to insert this token into the global header right now so that the user can get the data from the protected routes without additional manipulations (page reload, signin form etc.). 
     dispatch(isUserSigned());
-
-    // console.log({ 'NEW_USER_DATA: ': newUser.data }); // get user's data.
-    // console.log({ 'SIGNUP_TOKEN: ': newUser.data.signedToken }); // get the token.
   } catch (err) {
     const errors = err.response.data.errors;
-    // console.log('ARRAY_OF_ERRORS: ', errors);
 
     if (errors.length > 0) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'failure')));
@@ -86,15 +84,14 @@ export const signin = (props) => async dispatch => {
       password: props.password
     });
 
+    // console.log({ 'SIGNIN_TOKEN: ': user.data.signedToken }); // get the token.
+
     dispatch({
       type: SIGNIN_SUCCESS,
       payload: user.data
     });
 
     dispatch(isUserSigned());
-
-    // console.log({ 'USER_DATA: ': user.data }); // get user's data.
-    // console.log({ 'SIGNIN_TOKEN: ': user.data.signedToken }); // get the token.
   } catch (err) {
     const errors = err.response.data.errors;
 

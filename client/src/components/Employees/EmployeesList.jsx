@@ -25,8 +25,9 @@ const EmployeesList = (props) => {
       <header className={cssStyles.title}>
         <p>LIST OF EMPLOYEES</p>
       </header>
-      {
-        props.employeesList !== undefined && props.employeesList.length > 0
+      {props.loading === false
+        ?
+        (props.employeesList !== undefined && props.employeesList.length > 0
           ?
           <table className={cssStyles.table}>
             <thead className={cssStyles.tableHead}>
@@ -71,17 +72,19 @@ const EmployeesList = (props) => {
           :
           <div className={cssStyles.message}>
             <p>NO PROFILES TO DISPLAY</p>
-          </div>
+          </div>)
+        :
+        <p>LOADING...</p>
       }
     </div>
   );
 };
 
 EmployeesList.propTypes = {
+  deleteEmployee: PropTypes.func.isRequired,
   employeesList: PropTypes.array,
-  loading: PropTypes.bool,
   getAllEmployees: PropTypes.func.isRequired,
-  deleteEmployee: PropTypes.func.isRequired
+  loading: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
@@ -90,8 +93,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  getAllEmployees,
-  deleteEmployee
+  deleteEmployee,
+  getAllEmployees
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeesList);

@@ -1,14 +1,14 @@
 import axios from 'axios';
 
 import {
-  GET_EMPLOYEE_PROFILES,
-  GET_EMPLOYEE_PROFILES_ERROR,
-  GET_EMPLOYEE_PROFILE,
-  GET_EMPLOYEE_PROFILE_ERROR,
-  DELETE_EMPLOYEE_PROFILE,
-  DELETE_EMPLOYEE_PROFILE_ERROR,
   CREATE_EMPLOYEE_PROFILE,
   CREATE_EMPLOYEE_PROFILE_ERROR,
+  DELETE_EMPLOYEE_PROFILE,
+  DELETE_EMPLOYEE_PROFILE_ERROR,
+  GET_EMPLOYEE_PROFILE,
+  GET_EMPLOYEE_PROFILE_ERROR,
+  GET_EMPLOYEE_PROFILES,
+  GET_EMPLOYEE_PROFILES_ERROR,
   UPDATE_EMPLOYEE_PROFILE,
   UPDATE_EMPLOYEE_PROFILE_ERROR
 } from './actionTypes';
@@ -106,7 +106,6 @@ export const createEmployee = (props) => async dispatch => {
     });
   } catch (err) {
     const errors = err.response.data.errors;
-    // console.log('ARRAY_OF_ERRORS: ', errors);
 
     if (errors.length > 0) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'failure')));

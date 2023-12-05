@@ -1,11 +1,11 @@
-import { 
-  SIGNUP_SUCCESS, 
-  SIGNUP_FAILURE, 
-  USER_SIGNED_IN, 
-  AUTH_ERROR, 
-  SIGNIN_SUCCESS, 
-  SIGNIN_FAILURE, 
-  SIGNOUT 
+import {
+  AUTH_ERROR,
+  SIGNIN_SUCCESS,
+  SIGNIN_FAILURE,
+  SIGNOUT,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
+  USER_SIGNED_IN
 } from '../actions/actionTypes';
 
 // Initial state for reducer.
@@ -16,7 +16,6 @@ const initialState = {
   user: null
 };
 
-// Reducer. 
 // Object 'action' contains two properties: 'type' (mandatory), 'payload' (basically its a data).
 const auth = (state = initialState, action) => {
   switch (action.type) {
@@ -36,22 +35,16 @@ const auth = (state = initialState, action) => {
         isAuthenticated: true,
         loading: false,
       };
-    case SIGNUP_FAILURE:
-      return {
-        ...state,
-        token: null,
-        isAuthenticated: false,
-        loading: false,
-      };
     case AUTH_ERROR:
     case SIGNIN_FAILURE:
     case SIGNOUT:
+    case SIGNUP_FAILURE:
       localStorage.removeItem('token');
       return {
         ...state,
-        token: null,
         isAuthenticated: false,
         loading: false,
+        token: null
       };
     default:
       return state;

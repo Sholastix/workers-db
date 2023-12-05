@@ -8,7 +8,8 @@ const Alert = (props) => {
   if (props.alerts !== null && props.alerts.length > 0) {
     return (
       props.alerts.map((alert) => (
-        alert.alertType === 'failure' ?
+        alert.alertType === 'failure'
+          ?
           <div key={alert.id} className={cssStyles.failure}>
             {alert.msg}
           </div>
