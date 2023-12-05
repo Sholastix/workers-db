@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+// import axios from 'axios';
 
 import cssStyles from './EmployeesEditForm.module.css';
+
+import Spinner from '../Spinner/Spinner';
 
 import { employeeGender } from '../../constants/employeeGender';
 import { getOneEmployee, updateEmployee } from '../../redux/actions/employees';
@@ -135,7 +137,7 @@ const EmployeesEditForm = (props) => {
   return (
     <div id={cssStyles.container}>
       <p className={cssStyles.title}>UPDATE PROFILE</p>
-      {props.loading === false
+      {props.loading === true
         ?
         <form className={cssStyles.form}>
           <div className={cssStyles.inputOuter}>
@@ -249,7 +251,7 @@ const EmployeesEditForm = (props) => {
           </div>
         </form>
         :
-        <p>LOADING...</p>
+        <Spinner />
       }
     </div>
   );
