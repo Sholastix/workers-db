@@ -20,16 +20,12 @@ export const getAllEmployees = () => async dispatch => {
   try {
     const employees = await axios.get('http://localhost:5000/api/employees/');
 
-    if (employees.data.getAllEmployees.length > 0) {
-      dispatch({
-        type: GET_EMPLOYEE_PROFILES,
-        payload: employees.data.getAllEmployees,
-      });
+    dispatch({
+      type: GET_EMPLOYEE_PROFILES,
+      payload: employees.data.getAllEmployees,
+    });
 
-      console.log('getAllEmployees():', employees.data.getAllEmployees);
-    } else {
-      console.log('getAllEmployees(): NO PROFILES FOUND.');
-    };
+    console.log('getAllEmployees():', employees.data.getAllEmployees);
   } catch (err) {
     dispatch({
       type: GET_EMPLOYEE_PROFILES_ERROR,
