@@ -34,15 +34,23 @@ const EmployeesEditForm = (props) => {
   }, []);
 
   useEffect(() => {
-    setPhoto(props.employee.photo);
-    setFullname(props.employee.fullname);
-    setGender(props.employee.gender);
-    setBirthday(props.employee.birthday);
-    setContacts(props.employee.contacts);
-    setPosition(props.employee.position);
-    setSalary(props.employee.salary);
-    setHired(props.employee.hired);
+    setInitialValues();
   }, [props.employee]);
+
+  const setInitialValues = () => {
+    try {
+      setPhoto(props.employee.photo);
+      setFullname(props.employee.fullname);
+      setGender(props.employee.gender);
+      setBirthday(props.employee.birthday);
+      setContacts(props.employee.contacts);
+      setPosition(props.employee.position);
+      setSalary(props.employee.salary);
+      setHired(props.employee.hired);
+    } catch (err) {
+      console.error(err);
+    };
+  };
 
   // // Get initial employee's profile data.
   // // VARIANT 2: without REDUX. It works without "A component is changing a controlled input to be uncontrolled" warning.
