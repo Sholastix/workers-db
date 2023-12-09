@@ -48,7 +48,7 @@ const EmployeesList = (props) => {
                 {props.employeesList.map((employee) => (
                   <div key={employee._id}>
                     <button className={cssStyles.accordion} onClick={() => accordionHandler(employee._id)}>{employee.fullname}</button>
-                    <div className={employee._id === openId ? cssStyles.accordionPanelOpen : cssStyles.accordionPanel}>
+                    <div className={employee._id === openId ? cssStyles.accordionPanelOpen : cssStyles.accordionPanelClosed}>
                       <div className={cssStyles.accordionPanelOpenHeader}>
                         <div>
                           {
@@ -60,12 +60,12 @@ const EmployeesList = (props) => {
                           }
                         </div>
                         <div className={cssStyles.text}>
-                          <p>Gender: {employee.gender}</p>
-                          <p>Birthday: {employee.birthday.split('T')[0].split('-').reverse().join('-')}</p>
-                          <p>Position: {employee.position}</p>
-                          <p>Salary: {employee.salary}</p>
-                          <p>Hired: {employee.hired.split('T')[0].split('-').reverse().join('-')}</p>
-                          <p>Contacts: {employee.contacts}</p>
+                          <p>GENDER: {employee.gender}</p>
+                          <p>BIRTHDAY: {employee.birthday.split('T')[0].split('-').reverse().join('-')}</p>
+                          <p>POSITION: {employee.position}</p>
+                          <p>SALARY: {employee.salary}</p>
+                          <p>HIRED: {employee.hired.split('T')[0].split('-').reverse().join('-')}</p>
+                          <p>CONTACTS: {employee.contacts}</p>
                         </div>
                       </div>
                       <div className={cssStyles.accordionPanelOpenFooter}>
@@ -84,63 +84,6 @@ const EmployeesList = (props) => {
           :
           <Spinner />
       }
-
-      {/* OLD VARIANT OF TABLE */}
-      {/* {
-        props.loading === false
-          ?
-          (
-            props.employeesList !== undefined && props.employeesList.length > 0
-              ?
-              <table className={cssStyles.table}>
-                <thead className={cssStyles.tableHead}>
-                  <tr>
-                    <th>Photo</th>
-                    <th>Fullname</th>
-                    <th>Gender</th>
-                    <th>Birthday</th>
-                    <th>Position</th>
-                    <th>Contacts</th>
-                    <th>Salary</th>
-                    <th>Hired</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-
-                <tbody className={cssStyles.tableBody}>
-                  {props.employeesList.map((employee) => (
-                    <tr key={employee._id}>
-                      {employee.photo === 'undefined'
-                        ?
-                        <td><img src={`http://localhost:5000/static/photos/default.jpg`} className={cssStyles.photo} /></td>
-                        :
-                        <td><img src={`http://localhost:5000/static/photos/${employee.photo}`} className={cssStyles.photo} /></td>
-                      }
-                      <td>{employee.fullname}</td>
-                      <td>{employee.gender}</td>
-                      <td>{employee.birthday.split('T')[0].split('-').reverse().join('-')}</td>
-                      <td>{employee.position}</td>
-                      <td>{employee.contacts}</td>
-                      <td>{employee.salary}</td>
-                      <td>{employee.hired.split('T')[0].split('-').reverse().join('-')}</td>
-                      <td>
-                        <Link to={`/employees-edit-form/${employee._id}`}>Edit</Link>
-                        <button onClick={() => { navigate(`/employees-edit-form/${employee._id}`) }} className={cssStyles.button}>Edit</button>
-                        <button onClick={() => { props.deleteEmployee(employee._id) }} className={cssStyles.button}>Delete</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              :
-              <div className={cssStyles.message}>
-                <p>NO PROFILES TO DISPLAY</p>
-              </div>
-          )
-          :
-          <Spinner />
-      } */}
-
     </div>
   );
 };

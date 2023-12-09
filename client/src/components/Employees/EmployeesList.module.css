@@ -23,7 +23,7 @@
   box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.3);
 }
 
-.accordionPanel {
+.accordionPanelClosed {
   display: none;
 
   /* background-color: white;
