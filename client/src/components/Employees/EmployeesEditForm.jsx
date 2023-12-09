@@ -137,7 +137,7 @@ const EmployeesEditForm = (props) => {
   return (
     <div id={cssStyles.container}>
       <p className={cssStyles.title}>UPDATE PROFILE</p>
-      {props.loading === true
+      {props.loading === false
         ?
         <form className={cssStyles.form}>
           <div className={cssStyles.inputOuter}>

@@ -24,7 +24,8 @@ html {
   box-shadow: 0rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
   height: 78.6vh;
   margin: 4rem;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 2rem 1rem 1rem;
   width: 50vw;
   /* min-width: 33rem; */
