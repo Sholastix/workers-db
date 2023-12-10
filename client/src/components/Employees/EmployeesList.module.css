@@ -24,28 +24,26 @@
 }
 
 .accordionPanelClosed {
-  display: none;
-
-  /* background-color: white;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
   height: 0rem;
   overflow: hidden;
-  padding: 0rem 1.8rem;
-  transition: height 0.3s; */
+  transition: height 0.5s;
 }
 
 .accordionPanelOpen {
   background-color: white;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  
-  /* display: block; */
-  /* height: auto; */
+  height: 29rem;
+  overflow: hidden;
+  transition: height 0.5s;
 }
 
 .accordionPanelOpenHeader {
   display: flex;
-  margin-top: 1rem;
+  margin: 1rem;
 }
 
 .accordionPanelOpenFooter {
@@ -134,23 +132,3 @@
   margin: 0rem 5rem 3rem;
   text-align: center;
 }
-
-/* THIS STYLES FOR OLD VARIANT OF TABLE */
-/* .table {
-  background-color: white;
-}
-
-.tableHead {
-  font-size: 2rem;
-}
-
-.tableBody {
-  font-size: 1.6rem;
-  text-align: left;
-}
-
-table, th, td {
-  border: 0.1rem solid black;
-  border-collapse: collapse;
-  padding: 1rem;
-} */
