@@ -10,7 +10,11 @@ import Spinner from '../Spinner/Spinner';
 import { getAllEmployees, deleteEmployee } from '../../redux/actions/employees';
 
 const EmployeesList = (props) => {
-  const [openId, setOpenId] = useState(null);
+  // VARIANT 1: multiple accordions can be open at once.
+  const [arr, setArr] = useState([]);
+
+  // // VARIANT 2: only one accordion can be opened at once.
+  // const [openId, setOpenId] = useState(null);
 
   // Get all profiles of employees.
   useEffect(() => {
@@ -21,14 +25,28 @@ const EmployeesList = (props) => {
   // Here we using hook 'useNavigate with <button>, but as alternative we can just use without any hooks this: <Link to='/our-targeted-route'>Edit</Link> as we do with 'employee create form'.
   const navigate = useNavigate();
 
-  // Accordion handler.
+  // VARIANT 1 of accordion handler (multiple).
+  const newArr = [...arr];
+
   const accordionHandler = (id) => {
-    if (id !== openId) {
-      setOpenId(id);
+    if (arr.includes(id) === false) {
+      newArr.push(id);
+      setArr(newArr);
     } else {
-      setOpenId(null);
+      const index = newArr.indexOf(id);
+      newArr.splice(index, 1);
+      setArr(newArr);
     };
   };
+
+  // // VARIANT 2 of accordion handler (single).
+  // const accordionHandler = (id) => {
+  //   if (id !== openId) {
+  //     setOpenId(id);
+  //   } else {
+  //     setOpenId(null);
+  //   };
+  // };
 
   return (
     <div id={cssStyles.container}>
@@ -48,7 +66,10 @@ const EmployeesList = (props) => {
                 {props.employeesList.map((employee) => (
                   <div key={employee._id}>
                     <button className={cssStyles.accordion} onClick={() => accordionHandler(employee._id)}>{employee.fullname}</button>
-                    <div className={employee._id === openId ? cssStyles.accordionPanelOpen : cssStyles.accordionPanelClosed}>
+                    {/* VARIANT 1: multiple */}
+                    <div className={arr.includes(employee._id) ? cssStyles.accordionPanelOpen : cssStyles.accordionPanelClosed}>
+                    {/* VARIANT 2: single */}
+                    {/* <div className={employee._id === openId ? cssStyles.accordionPanelOpen : cssStyles.accordionPanelClosed}> */}
                       <div className={cssStyles.accordionPanelOpenHeader}>
                         <div>
                           {
