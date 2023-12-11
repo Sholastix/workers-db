@@ -81,12 +81,12 @@ const EmployeesList = (props) => {
                           }
                         </div>
                         <div className={cssStyles.text}>
-                          <p>GENDER: {employee.gender}</p>
-                          <p>BIRTHDAY: {employee.birthday.split('T')[0].split('-').reverse().join('-')}</p>
-                          <p>POSITION: {employee.position}</p>
-                          <p>SALARY: {employee.salary}</p>
-                          <p>HIRED: {employee.hired.split('T')[0].split('-').reverse().join('-')}</p>
-                          <p>CONTACTS: {employee.contacts}</p>
+                          <p>Gender:&nbsp;&nbsp;&nbsp;&nbsp;<strong>{employee.gender}</strong></p>
+                          <p>Birthday:&nbsp;&nbsp;<strong>{employee.birthday.split('T')[0].split('-').reverse().join('-')}</strong></p>
+                          <p>Position:&nbsp;&nbsp;&nbsp;<strong>{employee.position}</strong></p>
+                          <p>Salary:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{employee.salary}</strong></p>
+                          <p>Hired:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{employee.hired.split('T')[0].split('-').reverse().join('-')}</strong> </p>
+                          <p>Contacts:&nbsp;&nbsp;<strong>{employee.contacts}</strong></p>
                         </div>
                       </div>
                       <div className={cssStyles.accordionPanelOpenFooter}>
