@@ -10,6 +10,7 @@
   box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.3);
   color: black;
   cursor: pointer;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 1.8rem;
   margin: 1rem 0 0;
   outline: none;
@@ -73,6 +74,23 @@
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
 }
 
+.filter {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: 0.3rem;
+  border-color: transparent;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+}
+
+.filter:focus {
+  border-bottom: 0.2rem solid rgb(93, 109, 126);
+  outline: none;
+}
+
 .link {
   display: flex;
   justify-content: center;
@@ -124,7 +142,7 @@
   font-size: 1.6rem;
 }
 
-.text > p {
+.text>p {
   margin-bottom: 1rem;
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,6 +10,9 @@ import Spinner from '../Spinner/Spinner';
 import { getAllEmployees, deleteEmployee } from '../../redux/actions/employees';
 
 const EmployeesList = (props) => {
+  const [filter, setFilter] = useState('');
+  const [filteredInfo, setFilteredInfo] = useState([]);
+
   // VARIANT 1: multiple accordions can be open at once.
   const [arr, setArr] = useState([]);
 
@@ -20,6 +23,11 @@ const EmployeesList = (props) => {
   useEffect(() => {
     props.getAllEmployees();
   }, []);
+
+  // Employee profiles list filtering.
+  useEffect(() => {
+    filteredEmployees();
+  }, [filter]);
 
   // Redirect to targeted page. 
   // Here we using hook 'useNavigate with <button>, but as alternative we can just use without any hooks this: <Link to='/our-targeted-route'>Edit</Link> as we do with 'employee create form'.
@@ -48,6 +56,36 @@ const EmployeesList = (props) => {
   //   };
   // };
 
+  // EMPLOYEE PROFILES FILTERING.
+  // Handling changes in the filter input field.
+  const handleFilter = (event) => {
+    try {
+      // Changing filter input value from default to user's value.
+      const filterText = event.target.value;
+      filterText.length > 0 ? setFilter(filterText) : setFilter('');
+    } catch (error) {
+      console.error(error);
+    };
+  };
+
+  // Function that filtering employee profiles list accordingly to user's request.
+  const filteredEmployees = () => {
+    const filteredEmployeesList = [];
+    // Creating regular expression for dynamic input data from user.
+    const regExp = new RegExp(`${filter}`, 'gi');
+
+    props.employeesList.map((employee) => {
+      // Only profiles that match the user's request are displayed in UI.
+      employee.fullname.match(regExp) && filteredEmployeesList.push(employee);
+    });
+
+    setFilteredInfo(filteredEmployeesList);
+  };
+
+  // If we don't write anything in filter input, then UI will display full list of employees from DB.
+  let listOfProfiles;
+  filter.length > 0 ? listOfProfiles = filteredInfo : listOfProfiles = props.employeesList;
+
   return (
     <div id={cssStyles.container}>
       <div className={cssStyles.link}>
@@ -56,6 +94,13 @@ const EmployeesList = (props) => {
       <header className={cssStyles.title}>
         <p>LIST OF EMPLOYEES</p>
       </header>
+      <input
+        className={cssStyles.filter}
+        type='text'
+        name='filter'
+        onChange={handleFilter}
+        placeholder='Search employee by name...'
+      />
       {
         props.loading === false
           ?
@@ -63,7 +108,9 @@ const EmployeesList = (props) => {
             props.employeesList !== undefined && props.employeesList.length > 0
               ?
               <div>
-                {props.employeesList.map((employee) => (
+                {/* String below will do if we dont need filtering. */}
+                {/* {props.employeesList.map((employee) => ( */}
+                {listOfProfiles.map((employee) => (
                   <div key={employee._id}>
                     <button className={cssStyles.accordion} onClick={() => accordionHandler(employee._id)}>{employee.fullname}</button>
                     {/* VARIANT 1: multiple */}
