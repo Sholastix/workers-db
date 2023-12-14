@@ -23,9 +23,9 @@ export const isUserSigned = () => async dispatch => {
 
     const user = await axios.get('http://localhost:5000/api/auth');
 
-    // if(!user.data) {
-    //   throw new Error;
-    // };
+    if(!user.data) {
+      throw new Error('NO USER!');
+    };
 
     dispatch({
       type: USER_SIGNED_IN,

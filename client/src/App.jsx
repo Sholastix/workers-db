@@ -18,16 +18,17 @@ import Signup from './components/Signup/Signup';
 // Redux Setup
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
-import setAuthToken from './utils/setAuthToken';
 import { isUserSigned } from './redux/actions/auth';
 
-// If there is token in LocalStorage, then we put it in global header.
+// Check if user signed in when app starts first time.
 if (localStorage.token) {
-  setAuthToken();
+  // We use 'store.dispatch()' syntax here, because our App Component not connected to Redux store (we can connect it, but I want to leave it as it is for now).
+  store.dispatch(isUserSigned());
 };
 
 const App = () => {
   useEffect(() => {
+    // Check if user signed in every time when page reloaded.
     store.dispatch(isUserSigned());
   }, []);
 
