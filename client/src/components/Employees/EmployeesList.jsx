@@ -82,9 +82,22 @@ const EmployeesList = (props) => {
     setFilteredInfo(filteredEmployeesList);
   };
 
-  // If we don't write anything in filter input, then UI will display full list of employees from DB.
+  // Here we automatically sorting employee profiles list by fullname (from Aa to Zz).
+  const sortedEmployeesList = props.employeesList.sort((a, b) => {
+    if (a.fullname > b.fullname) {
+      return 1;
+    };
+
+    if (a.fullname < b.fullname) {
+      return -1;
+    };
+    // If fullnames equal.
+    return 0;
+  });
+
   let listOfProfiles;
-  filter.length > 0 ? listOfProfiles = filteredInfo : listOfProfiles = props.employeesList;
+  // If we don't write anything in filter input, then UI will display full list of employees from DB.
+  filter.length > 0 ? listOfProfiles = filteredInfo : listOfProfiles = sortedEmployeesList;
 
   return (
     <div id={cssStyles.container}>
@@ -115,8 +128,8 @@ const EmployeesList = (props) => {
                     <button className={cssStyles.accordion} onClick={() => accordionHandler(employee._id)}>{employee.fullname}</button>
                     {/* VARIANT 1: multiple */}
                     <div className={arr.includes(employee._id) ? cssStyles.accordionPanelOpen : cssStyles.accordionPanelClosed}>
-                    {/* VARIANT 2: single */}
-                    {/* <div className={employee._id === openId ? cssStyles.accordionPanelOpen : cssStyles.accordionPanelClosed}> */}
+                      {/* VARIANT 2: single */}
+                      {/* <div className={employee._id === openId ? cssStyles.accordionPanelOpen : cssStyles.accordionPanelClosed}> */}
                       <div className={cssStyles.accordionPanelOpenHeader}>
                         <div>
                           {
