@@ -13,6 +13,7 @@ import { getOneEmployee, updateEmployee } from '../../redux/actions/employees';
 
 const EmployeesEditForm = (props) => {
   const [photo, setPhoto] = useState();
+  const [previewPhoto, setPreviewPhoto] = useState();
   const [fullname, setFullname] = useState('');
   const [gender, setGender] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -36,8 +37,24 @@ const EmployeesEditForm = (props) => {
   }, []);
 
   useEffect(() => {
-    setInitialValues();
+    if (props.loading === false) {
+      setInitialValues();
+    };
   }, [props.employee]);
+
+  useEffect(() => {
+    console.log('PHOTO: ', photo);
+    console.log('PREVIEW_PHOTO: ', previewPhoto);
+
+    if (previewPhoto !== undefined) {
+      const objectUrl = URL.createObjectURL(photo);
+      console.log('OBJECT_URL: ', objectUrl);
+      setPreviewPhoto(objectUrl);
+
+      // Freeing memory whenever this component is unmounted.
+      return () => URL.revokeObjectURL(objectUrl);
+    };
+  }, [photo]);
 
   const setInitialValues = () => {
     try {
@@ -52,6 +69,12 @@ const EmployeesEditForm = (props) => {
     } catch (err) {
       console.error(err);
     };
+  };
+
+  // Event listener for file selection.
+  const onSelectFile = (event) => {
+    setPhoto(event.target.files[0]);
+    setPreviewPhoto(event.target.files[0]);
   };
 
   // // Get initial employee's profile data.
@@ -141,13 +164,18 @@ const EmployeesEditForm = (props) => {
         ?
         <form className={cssStyles.form}>
           <div className={cssStyles.inputOuter}>
-            <img className={cssStyles.photo} src={`http://localhost:5000/static/photos/${photo}`} alt='NEW PHOTO WILL APPEAR HERE AFTER YOU SUBMIT THE CHANGES!'></img>
+            {previewPhoto
+              ?
+              <img src={previewPhoto} className={cssStyles.photo} />
+              :
+              <img className={cssStyles.photo} src={`http://localhost:5000/static/photos/${photo}`} alt='PHOTO'></img>
+            }
             <br />
             <input
               className={cssStyles.inputInnerPhoto}
               type='file'
               name='photo'
-              onChange={(event) => { setPhoto(event.target.files[0]) }}
+              onChange={onSelectFile}
             // required
             />
           </div>
