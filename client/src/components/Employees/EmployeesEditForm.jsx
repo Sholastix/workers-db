@@ -43,16 +43,17 @@ const EmployeesEditForm = (props) => {
   }, [props.employee]);
 
   useEffect(() => {
-    console.log('PHOTO: ', photo);
-    console.log('PREVIEW_PHOTO: ', previewPhoto);
+    if (props.loading === false) {
+      // console.log('PHOTO: ', photo);
+      // console.log('PREVIEW_PHOTO: ', previewPhoto);
+      if (previewPhoto !== undefined) {
+        const objectUrl = URL.createObjectURL(photo);
+        // console.log('OBJECT_URL: ', objectUrl);
+        setPreviewPhoto(objectUrl);
 
-    if (previewPhoto !== undefined) {
-      const objectUrl = URL.createObjectURL(photo);
-      console.log('OBJECT_URL: ', objectUrl);
-      setPreviewPhoto(objectUrl);
-
-      // Freeing memory whenever this component is unmounted.
-      return () => URL.revokeObjectURL(objectUrl);
+        // Freeing memory whenever this component is unmounted.
+        return () => URL.revokeObjectURL(objectUrl);
+      };
     };
   }, [photo]);
 
@@ -73,6 +74,10 @@ const EmployeesEditForm = (props) => {
 
   // Event listener for file selection.
   const onSelectFile = (event) => {
+    if (!event.target.files || event.target.files.length === 0) {
+      return;
+    };
+
     setPhoto(event.target.files[0]);
     setPreviewPhoto(event.target.files[0]);
   };
