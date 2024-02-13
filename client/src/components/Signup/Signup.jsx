@@ -18,7 +18,7 @@ const Signup = (props) => {
     try {
       event.preventDefault();
 
-      const usernameCheck = /^[a-zA-Z0-9]{3,15}$/;
+      const usernameCheck = /^[a-zA-Z0-9_-]{3,15}$/;
       const emailCheck = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
       if (usernameCheck.test(username) === false) {
