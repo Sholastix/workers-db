@@ -18,9 +18,24 @@ const Signup = (props) => {
     try {
       event.preventDefault();
 
+      const usernameCheck = /^[a-zA-Z0-9]{3,15}$/;
+      const emailCheck = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+      if (usernameCheck.test(username) === false) {
+        return props.setAlert('Username is required and must be min 3 to max 15 characters of numbers, letters, hyphen and dash only!', 'failure');
+      };
+
+      if (emailCheck.test(email) === false) {
+        return props.setAlert('Please set the valid email!', 'failure');
+      };
+
+      if (password.length < 6 || password.length > 15) {
+        return props.setAlert('Password must be min 6 to max 15 characters!', 'failure');
+      };
+
       if (password !== confirmPassword) {
-        // From here we pass 'ERROR: Passwords don\'t match!' part as 'msg' argument and 'failure' part as 'alertType' argument in 'alert' action.
-        return props.setAlert('ERROR: Passwords don\'t match!', 'failure');
+        // From here we pass 'Passwords don\'t match!' part as 'msg' argument and 'failure' part as 'alertType' argument in 'alert' action.
+        return props.setAlert('Passwords don\'t match!', 'failure');
       };
 
       props.signup({ username, email, password });

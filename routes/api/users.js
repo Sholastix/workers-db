@@ -30,9 +30,12 @@ router.get('/users', authMdw, async (req, res) => {
 // @route: POST /api/users
 // @desc: Register new user.
 router.post('/users', [
-  check('username', 'Username is required and must be 3 or more characters!').notEmpty().isLength({ min: 3 }),
-  check('email', 'Please set the valid email!').isEmail(),
-  check('password', 'Password must be 6 or more characters!').isLength({ min: 6 })
+  check('username', 'Username is required and must be min 3 to max 15 characters of numbers, letters, hyphen and dash only!')
+    .matches(/^[a-zA-Z0-9]{3,15}$/),
+  check('email', 'Please set the valid email!')
+    .matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/),
+  check('password', 'Password must be min 6 to max 15 characters!')
+    .isLength({ min: 6, max: 15 })
 ], async (req, res) => {
   const result = validationResult(req);
 
