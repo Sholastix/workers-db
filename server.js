@@ -28,11 +28,11 @@ app.use('/api/', routes.authRoute);
 app.use('/api/', routes.employeesRoute);
 app.use('/api/', routes.usersRoute);
 
-const APP_PORT = process.env.APP_PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 // Server start.
-app.listen(APP_PORT, () => {
-  console.log(`Server started at port ${APP_PORT}.`);
+app.listen(PORT, () => {
+  console.log(`Server started at port ${PORT}.`);
 });
 
 // Database connection.
