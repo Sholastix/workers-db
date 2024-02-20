@@ -89,7 +89,7 @@ const EmployeesCreateForm = (props) => {
             ?
             <img src={previewPhoto} className={cssStyles.photo} />
             :
-            <img className={cssStyles.photo} src={`http://localhost:5000/static/photos/default.jpg`} alt='DEFAULT PHOTO'></img>
+            <img className={cssStyles.photo} src={`/static/photos/default.jpg`} alt='DEFAULT PHOTO'></img>
           }
           <br />
           <input

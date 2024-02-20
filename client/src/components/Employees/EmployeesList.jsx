@@ -135,9 +135,9 @@ const EmployeesList = (props) => {
                           {
                             employee.photo === 'undefined'
                               ?
-                              <img src={`http://localhost:5000/static/photos/default.jpg`} className={cssStyles.photo} alt={'PHOTO'} />
+                              <img src={`/static/photos/default.jpg`} className={cssStyles.photo} alt={'PHOTO'} />
                               :
-                              <img src={`http://localhost:5000/static/photos/${employee.photo}`} className={cssStyles.photo} alt={'PHOTO'} />
+                              <img src={`/static/photos/${employee.photo}`} className={cssStyles.photo} alt={'PHOTO'} />
                           }
                         </div>
                         <div className={cssStyles.text}>

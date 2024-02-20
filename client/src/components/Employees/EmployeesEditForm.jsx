@@ -90,7 +90,7 @@ const EmployeesEditForm = (props) => {
 
   // const getOneEmployee = async () => {
   //   try {
-  //     const oneEmployee = await axios.get(`http://localhost:5000/api/employees/${id}`);
+  //     const oneEmployee = await axios.get(`/api/employees/${id}`);
   //     const data = oneEmployee.data.getOneEmployee;
 
   //     setPhoto(data.photo);
@@ -146,7 +146,7 @@ const EmployeesEditForm = (props) => {
   // // VARIANT 2: without REDUX.
   // const onReset = async () => {
   //   try {
-  //     const oneEmployee = await axios.get(`http://localhost:5000/api/employees/${id}`);
+  //     const oneEmployee = await axios.get(`/api/employees/${id}`);
   //     const data = oneEmployee.data.getOneEmployee;
 
   //     setPhoto(data.photo);
@@ -173,7 +173,7 @@ const EmployeesEditForm = (props) => {
               ?
               <img src={previewPhoto} className={cssStyles.photo} />
               :
-              <img className={cssStyles.photo} src={`http://localhost:5000/static/photos/${photo}`} alt='PHOTO'></img>
+              <img className={cssStyles.photo} src={`/static/photos/${photo}`} alt='PHOTO'></img>
             }
             <br />
             <input

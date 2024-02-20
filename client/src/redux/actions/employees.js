@@ -18,7 +18,7 @@ import { setAlert } from './alert';
 // Get all employee profiles.
 export const getAllEmployees = () => async dispatch => {
   try {
-    const employees = await axios.get('http://localhost:5000/api/employees/');
+    const employees = await axios.get('/api/employees/');
 
     dispatch({
       type: GET_EMPLOYEE_PROFILES,
@@ -39,7 +39,7 @@ export const getAllEmployees = () => async dispatch => {
 // Get one employee profile.
 export const getOneEmployee = (id) => async dispatch => {
   try {
-    const employee = await axios.get(`http://localhost:5000/api/employees/${id}`);
+    const employee = await axios.get(`/api/employees/${id}`);
 
     dispatch({
       type: GET_EMPLOYEE_PROFILE,
@@ -72,10 +72,10 @@ export const createEmployee = (props) => async dispatch => {
     formData.append('salary', props.salary);
     formData.append('hired', props.hired);
 
-    const newEmployee = await axios.post('http://localhost:5000/api/employees', formData);
+    const newEmployee = await axios.post('/api/employees', formData);
 
     // // VARIANT 2.
-    // const newEmployee = await axios.postForm('http://localhost:5000/api/employees', {
+    // const newEmployee = await axios.postForm('/api/employees', {
     //   photo: props.photo,
     //   fullname: props.fullname,
     //   gender: props.gender,
@@ -94,7 +94,7 @@ export const createEmployee = (props) => async dispatch => {
     console.log('createEmployee(): ', newEmployee.data.newEmployee);
 
     // And here we refreshing our employee profiles list.
-    const employees = await axios.get('http://localhost:5000/api/employees/');
+    const employees = await axios.get('/api/employees/');
 
     dispatch({
       type: GET_EMPLOYEE_PROFILES,
@@ -131,10 +131,10 @@ export const updateEmployee = (id, props) => async dispatch => {
     formData.append('salary', props.salary);
     formData.append('hired', props.hired);
 
-    const updateEmployee = await axios.put(`http://localhost:5000/api/employees/${id}`, formData);
+    const updateEmployee = await axios.put(`/api/employees/${id}`, formData);
 
     // // VARIANT 2.
-    // const updateEmployee = await axios.putForm(`http://localhost:5000/api/employees/${id}`, {
+    // const updateEmployee = await axios.putForm(`/api/employees/${id}`, {
     //   photo: props.photo,
     //   fullname: props.fullname,
     //   gender: props.gender,
@@ -153,7 +153,7 @@ export const updateEmployee = (id, props) => async dispatch => {
     console.log('updateEmployee(): ', updateEmployee.data.updateEmployee);
 
     // And here we refreshing our employee profiles list.
-    const employees = await axios.get('http://localhost:5000/api/employees/');
+    const employees = await axios.get('/api/employees/');
 
     dispatch({
       type: GET_EMPLOYEE_PROFILES,
@@ -179,14 +179,14 @@ export const updateEmployee = (id, props) => async dispatch => {
 export const deleteEmployee = (id) => async dispatch => {
   try {
     // Here we deleting employee's profile.
-    const deletedEmployee = await axios.delete(`http://localhost:5000/api/employees/${id}`);
+    const deletedEmployee = await axios.delete(`/api/employees/${id}`);
 
     dispatch({
       type: DELETE_EMPLOYEE_PROFILE
     });
 
     // And here we refreshing our employee profiles list.
-    const employees = await axios.get('http://localhost:5000/api/employees/');
+    const employees = await axios.get('/api/employees/');
 
     dispatch({
       type: GET_EMPLOYEE_PROFILES,

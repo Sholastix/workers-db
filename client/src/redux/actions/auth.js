@@ -21,7 +21,7 @@ export const isUserSigned = () => async dispatch => {
       setAuthToken();
     };
 
-    const user = await axios.get('http://localhost:5000/api/auth');
+    const user = await axios.get('/api/auth');
 
     if(!user.data) {
       throw new Error('NO USER!');
@@ -45,7 +45,7 @@ export const isUserSigned = () => async dispatch => {
 // Signup of the new user.
 export const signup = (props) => async dispatch => {
   try {
-    const newUser = await axios.post('http://localhost:5000/api/users', {
+    const newUser = await axios.post('/api/users', {
       username: props.username,
       email: props.email,
       password: props.password
@@ -79,7 +79,7 @@ export const signup = (props) => async dispatch => {
 // Signin of the existed user.
 export const signin = (props) => async dispatch => {
   try {
-    const user = await axios.post('http://localhost:5000/api/auth', {
+    const user = await axios.post('/api/auth', {
       email: props.email,
       password: props.password
     });
