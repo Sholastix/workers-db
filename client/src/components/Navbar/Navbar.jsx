@@ -15,7 +15,7 @@ const Navbar = (props) => {
         <li>Employees</li>
       </Link>
       <Link className={cssStyles.navRefs} to='#'>
-        <li onClick={props.signout}>SignOut</li>
+        <li onClick={props.signout}>{props.user !== null && props.user.username} (signout)</li>
       </Link>
     </Fragment>
   );
@@ -40,7 +40,10 @@ const Navbar = (props) => {
           <Link className={cssStyles.navRefs} to='/'>
             <li>Homepage</li>
           </Link>
-          {!props.loading && (<Fragment>{props.isAuthenticated ? userLinks : guestLinks}</Fragment>)}
+          {
+            props.loading === false && (
+              <Fragment>{props.isAuthenticated ? userLinks : guestLinks}</Fragment>
+            )}
         </ul>
       </nav>
 
@@ -52,12 +55,14 @@ const Navbar = (props) => {
 Navbar.propTypes = {
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool,
-  signout: PropTypes.func.isRequired
+  signout: PropTypes.func.isRequired,
+  user: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  loading: state.auth.loading
+  loading: state.auth.loading,
+  user: state.auth.user
 });
 
 const mapDispatchToProps = {
