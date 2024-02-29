@@ -75,30 +75,18 @@ router.post('/employees/', authMdw, upload.single('photo'), [
       return res.status(400).json({ errors: [{ msg: 'Profile for this employee already in DB.' }] });
     };
 
-    // Create new employee's profile with photo.
-    // VARIANT 1. 
-    // This will work if we set default value for 'photo' property in 'Employee' schema. 
-    // Default in mongoose schema works only if the value of the corresponding property is strictly 'undefined', so in 'VARIANT 2' default from schema will be ignored.
+    // Here we setting default value for 'photo' manually in case we don't have employees photo yet, but profile must be created right now.
+    const defaultPhoto = 'default.jpg';
+    // Here we declare variable for actual employee's photo.
+    let employeePhoto;
+    // And here we simply checking if app's user downloaded employees photo or not.
     if (req.file === undefined) {
-      // Presume that we set default in schema, so now we can omit 'photo' property because it will be added in our 'Employee' object automatically.
-      newEmployee = await Employee.create(req.body);
+      employeePhoto = defaultPhoto;
     } else {
-      newEmployee = await Employee.create({ ...req.body, photo: req.file.filename });
+      employeePhoto = req.file.filename;
     };
 
-    // // VARIANT 2.
-    // // Here we setting default value for 'photo' manually in case we don't have employees photo (and in 'Employee' model we don't set any defaults), but profile must be created right now.
-    // const defaultPhoto = 'default.jpg';
-    // // Here we declare variable for actual employee's photo.
-    // let employeePhoto;
-    // // And here we simply checking if app's user downloaded employees photo or not.
-    // if (req.file === undefined) {
-    //   employeePhoto = defaultPhoto;
-    // } else {
-    //   employeePhoto = req.file.filename;
-    // };
-
-    // newEmployee = await Employee.create({ ...req.body, photo: employeePhoto });
+    newEmployee = await Employee.create({ ...req.body, photo: employeePhoto });
 
     console.log(`\nMESSAGE: Profile '${newEmployee.fullname}' created successfully!`, newEmployee);
     res.status(201).json({ msg: `Profile '${newEmployee.fullname}' created successfully!`, newEmployee });
