@@ -40,3 +40,36 @@
 p {
   cursor: default;
 }
+
+.dropdownInactive {
+  display: none;
+}
+
+.dropdownActive {
+  align-items: center;
+  background-color: rgb(93, 109, 126);
+  border-radius: 0.3rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+  display: flex;
+  height: fit-content;
+  justify-content: center;
+  margin: 14rem -32rem 0 0;
+  padding: 1.5rem 2rem;
+  position: absolute;
+  width: fit-content;
+}
+
+.dropdownItem {
+  color: white;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.dropdownItem:hover {
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+  border-bottom: 0.2rem solid gold;
+}
+
+ul {
+  list-style: none;
+}
