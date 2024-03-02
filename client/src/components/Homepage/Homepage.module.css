@@ -16,3 +16,7 @@
   padding: 0rem 5rem;
   text-align: center;
 }
+
+.description {
+  text-align: justify;
+}

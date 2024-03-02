@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, Fragment } from 'react'
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, NavLink as p } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
@@ -13,13 +13,13 @@ const Navbar = (props) => {
   // State od dropsown menu.
   const [active, setActive] = useState(false);
 
-  const menuRef = useRef();
+  const dropdownRef = useRef();
 
   useEffect(() => {
     // Close dropdown menu by mouse button clicking on everywhere on the window.
     const dropdownHandler = (event) => {
       try {
-        if (menuRef.current !== undefined && menuRef.current !== null && !menuRef.current.contains(event.target)) {
+        if (dropdownRef.current !== undefined && dropdownRef.current !== null && !dropdownRef.current.contains(event.target)) {
           setActive(false);
         };
       } catch (err) {
@@ -34,14 +34,14 @@ const Navbar = (props) => {
   const userLinks = (
     <Fragment>
       <Link className={cssStyles.navRefs} to='/employees-list'>Employees</Link>
-      <Link ref={menuRef} className={cssStyles.navRefs} onClick={() => { setActive(!active) }} to='#'>
+      <Link ref={dropdownRef} className={cssStyles.navRefs} onClick={() => { setActive(!active) }} to='#'>
         {props.user !== null && props.user.username} <FontAwesomeIcon icon={active === true ? faCaretUp : faCaretDown} size='xs' />
+        <div className={active === true ? cssStyles.dropdownActive : cssStyles.dropdownInactive} >
+          <ul>
+            <li onClick={props.signout}><p className={cssStyles.dropdownItem} to='/#'>SignOut</p></li>
+          </ul>
+        </div>
       </Link>
-      <div className={active === true ? cssStyles.dropdownActive : cssStyles.dropdownInactive} >
-        <ul>
-          <li onClick={props.signout}><Link className={cssStyles.dropdownItem} to='/#'>SignOut</Link></li>
-        </ul>
-      </div>
     </Fragment>
   );
 

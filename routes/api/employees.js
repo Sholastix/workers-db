@@ -75,6 +75,7 @@ router.post('/employees/', authMdw, upload.single('photo'), [
       return res.status(400).json({ errors: [{ msg: 'Profile for this employee already in DB.' }] });
     };
 
+    // Create new employee's profile with photoю
     // Here we setting default value for 'photo' manually in case we don't have employees photo yet, but profile must be created right now.
     const defaultPhoto = 'default.jpg';
     // Here we declare variable for actual employee's photo.

@@ -44,11 +44,8 @@ const EmployeesEditForm = (props) => {
 
   useEffect(() => {
     if (props.loading === false) {
-      // console.log('PHOTO: ', photo);
-      // console.log('PREVIEW_PHOTO: ', previewPhoto);
       if (previewPhoto !== undefined) {
         const objectUrl = URL.createObjectURL(photo);
-        // console.log('OBJECT_URL: ', objectUrl);
         setPreviewPhoto(objectUrl);
 
         // Freeing memory whenever this component is unmounted.
@@ -83,7 +80,7 @@ const EmployeesEditForm = (props) => {
   };
 
   // // Get initial employee's profile data.
-  // // VARIANT 2: without REDUX. It works without "A component is changing a controlled input to be uncontrolled" warning.
+  // // VARIANT 2: without REDUX.
   // useEffect(() => {
   //   getOneEmployee();
   // }, []);
@@ -130,7 +127,7 @@ const EmployeesEditForm = (props) => {
   // VARIANT 1: with REDUX.
   const onReset = async () => {
     try {
-      setPhoto(props.employee.photo);
+      // setPhoto(props.employee.photo);
       setFullname(props.employee.fullname);
       setGender(props.employee.gender);
       setBirthday(props.employee.birthday);
