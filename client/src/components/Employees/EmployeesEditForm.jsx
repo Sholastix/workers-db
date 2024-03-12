@@ -127,7 +127,8 @@ const EmployeesEditForm = (props) => {
   // VARIANT 1: with REDUX.
   const onReset = async () => {
     try {
-      // setPhoto(props.employee.photo);
+      setPhoto(props.employee.photo);
+      setPreviewPhoto();
       setFullname(props.employee.fullname);
       setGender(props.employee.gender);
       setBirthday(props.employee.birthday);
